@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# PGRFlyCapture and OpenCV, both compiled with Intel's Compiler,
+# do not play nice with each other...
+KMP_DUPLICATE_LIB_OK=TRUE
+export $KMP_DUPLICATE_LIB_OK
+
+# If your video driver does not support OpenGL well,
+# try to remove this line...
+OPTIONS=-Dsun.java2d.opengl=True
+
+java -server -version
+if [ $? -eq 0 ]
+then
+java -server $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
+else
+echo "WARNING: Server JVM not available. Executing with default JVM..."
+java $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
+fi
