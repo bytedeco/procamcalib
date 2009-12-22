@@ -55,13 +55,13 @@ Source Code
 ===========
 I make the source code available at the URL below. It is divided into three parts:
 - A version of ARToolKitPlus 2.1.1 with exported C functions added to DLL.cpp
-- JavaCV containing wrappers for OpenCV, ARToolKitPlus, libdc1394 2.x, PGR FlyCapture, and more!
-- ProCamCalib that implements a user-friendly calibration interface based on JavaCV
+- JavaCV, which contains wrappers for OpenCV, ARToolKitPlus, libdc1394 2.x, PGR FlyCapture, FFmpeg, and more!
+- ProCamCalib, which implements a user-friendly calibration interface based on JavaCV
 
 In addition to the software above, to modify and build the source code you will need:
 - Whatever native tools needed to build ARToolKitPlus
-- NetBeans 6.7  http://www.netbeans.org/downloads/
-- Java Native Access 3.2.2  https://jna.dev.java.net/
+- NetBeans 6.8  http://www.netbeans.org/downloads/
+- Java Native Access 3.2.4  https://jna.dev.java.net/
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
 
@@ -75,6 +75,10 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 Changes
 =======
+December 22, 2009
+-----------------
+- Sync with new JavaCV, no functional changes to ProCamCalib itself
+
 November 24, 2009
 -----------------
 - Fixed some crashy crashy behavior
