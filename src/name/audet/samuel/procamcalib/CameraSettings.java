@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Samuel Audet
+ * Copyright (C) 2009,2010 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -20,6 +20,7 @@
 package name.audet.samuel.procamcalib;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyVetoException;
 import java.beans.beancontext.BeanContextSupport;
 import java.util.Arrays;
 import name.audet.samuel.javacv.CameraDevice;
@@ -46,7 +47,7 @@ public class CameraSettings extends BeanContextSupport {
     public int getQuantity() {
         return size();
     }
-    public void setQuantity(int quantity) {
+    public void setQuantity(int quantity) throws PropertyVetoException {
         quantity = Math.max(1, quantity);
         Object[] a = toArray();
         int i = a.length;

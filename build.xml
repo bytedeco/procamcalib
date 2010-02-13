@@ -14,7 +14,14 @@
         <format property="TIMESTAMP" pattern="yyyyMMddhhmm" timezone=""/>
     </tstamp>
     <manifest file="manifest.mf">
-        <attribute name="Time-Stamp" value="${TIMESTAMP}"/>
+        <section name="name/audet/samuel/procamcalib/">
+            <attribute name="Implementation-Title" value="ProCamCalib"/>
+            <attribute name="Implementation-Vendor" value="Samuel Audet"/>
+            <attribute name="Implementation-Version" value="${TIMESTAMP}"/>
+            <attribute name="Specification-Title" value="ProCamCalib"/>
+            <attribute name="Specification-Vendor" value="Samuel Audet"/>
+            <attribute name="Specification-Version" value="${TIMESTAMP}"/>
+        </section>
     </manifest>
     <target name="-post-jar">
         <delete file="${dist.dir}/README.TXT" />

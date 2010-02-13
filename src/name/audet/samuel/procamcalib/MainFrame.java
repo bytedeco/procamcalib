@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Samuel Audet 
+ * Copyright (C) 2009,2010 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -33,6 +33,7 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyEditor;
+import java.beans.PropertyVetoException;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -43,8 +44,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.net.JarURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Handler;
@@ -89,6 +88,7 @@ import org.openide.util.Lookup;
 import static name.audet.samuel.javacv.jna.cxcore.*;
 import static name.audet.samuel.javacv.jna.cv.*;
 import static name.audet.samuel.javacv.jna.highgui.*;
+import name.audet.samuel.javacv.jna.*;
 
 /**
  *
@@ -310,7 +310,7 @@ public class MainFrame extends javax.swing.JFrame implements
         }
     }
 
-    void buildSettingsView() throws IntrospectionException {
+    void buildSettingsView() throws IntrospectionException, PropertyVetoException {
         HashMap<String, Class<? extends PropertyEditor>> editors =
                 new HashMap<String, Class<? extends PropertyEditor>>();
         editors.put("frameGrabber", FrameGrabberPropertyEditor.class);
@@ -372,7 +372,7 @@ public class MainFrame extends javax.swing.JFrame implements
         manager.setRootContext(root);
     }
 
-    void loadSettings(File file) throws IOException, IntrospectionException {
+    void loadSettings(File file) throws IOException, IntrospectionException, PropertyVetoException {
         if (file == null) {
             cameraSettings = null;
             projectorSettings = null;
@@ -456,7 +456,7 @@ public class MainFrame extends javax.swing.JFrame implements
         calibrationExamineButton = new javax.swing.JButton();
         calibrationLoadButton = new javax.swing.JButton();
         calibrationSaveButton = new javax.swing.JButton();
-        patternsPanel = new javax.swing.JPanel();
+        markerPatternsPanel = new javax.swing.JPanel();
         boardPatternLabel = new javax.swing.JLabel();
         projectorPatternLabel = new javax.swing.JLabel();
         saveAsBoardPatternButton = new javax.swing.JButton();
@@ -592,8 +592,8 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(calibrationSaveButton);
 
-        patternsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Patterns"));
-        patternsPanel.setLayout(new java.awt.GridBagLayout());
+        markerPatternsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("MarkerPatterns"));
+        markerPatternsPanel.setLayout(new java.awt.GridBagLayout());
 
         boardPatternLabel.setText("Board");
         boardPatternLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -602,7 +602,7 @@ public class MainFrame extends javax.swing.JFrame implements
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.5;
-        patternsPanel.add(boardPatternLabel, gridBagConstraints);
+        markerPatternsPanel.add(boardPatternLabel, gridBagConstraints);
 
         projectorPatternLabel.setText("Projector");
         projectorPatternLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -611,7 +611,7 @@ public class MainFrame extends javax.swing.JFrame implements
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.weightx = 0.5;
-        patternsPanel.add(projectorPatternLabel, gridBagConstraints);
+        markerPatternsPanel.add(projectorPatternLabel, gridBagConstraints);
 
         saveAsBoardPatternButton.setMnemonic('S');
         saveAsBoardPatternButton.setText("Save As...");
@@ -625,7 +625,7 @@ public class MainFrame extends javax.swing.JFrame implements
         gridBagConstraints.gridy = 1;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
-        patternsPanel.add(saveAsBoardPatternButton, gridBagConstraints);
+        markerPatternsPanel.add(saveAsBoardPatternButton, gridBagConstraints);
 
         statusLabel.setText("Status");
         statusLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 5, 5));
@@ -765,16 +765,16 @@ public class MainFrame extends javax.swing.JFrame implements
             .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
             .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-            .addComponent(patternsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(markerPatternsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(patternsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(markerPatternsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusLabel))
         );
@@ -1121,12 +1121,16 @@ public class MainFrame extends javax.swing.JFrame implements
     }//GEN-LAST:event_readmeMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        String timestamp = "unknown";
-        try {
-            URL u = MainFrame.class.getClassLoader().getResource("name/audet/samuel/procamcalib");
-            JarURLConnection c = (JarURLConnection)u.openConnection();
-            timestamp = c.getManifest().getMainAttributes().getValue("Time-Stamp");
-        } catch (Exception e) { }
+        String timestamp = MainFrame.class.getPackage().getImplementationVersion();
+        if (timestamp == null) {
+            timestamp = "unknown";
+        }
+//        String timestamp = "unknown";
+//        try {
+//            URL u = MainFrame.class.getClassLoader().getResource("name/audet/samuel/procamcalib");
+//            JarURLConnection c = (JarURLConnection)u.openConnection();
+//            timestamp = c.getManifest().getMainAttributes().getValue("Time-Stamp");
+//        } catch (Exception e) { }
 
         JTextPane textPane = new JTextPane();
 	textPane.setEditable(false);
@@ -1134,7 +1138,7 @@ public class MainFrame extends javax.swing.JFrame implements
         textPane.setText(
                 "<font face=sans-serif><strong><font size=+2>ProCamCalib</font></strong><br>" +
                 "build timestamp " + timestamp + "<br>" +
-                "Copyright (C) 2009 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
+                "Copyright (C) 2009,2010 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
                 "Web site: <a href=\"http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/\">http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/</a><br>" +
                 "<br>" +
                 "Licensed under the GNU General Public License version 2 (GPLv2).<br>" +
@@ -1207,6 +1211,13 @@ public class MainFrame extends javax.swing.JFrame implements
         calibrationSaveMenuItemActionPerformed(evt);
     }//GEN-LAST:event_calibrationSaveButtonActionPerformed
 
+    private static boolean is10or11 = true;
+    static {
+        try {
+            is10or11 = highgui.v20.libname == null;
+        } catch (Throwable t) { }
+    }
+
     private void saveAsBoardPatternButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsBoardPatternButtonActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setSelectedFile(new File("board.png"));
@@ -1222,7 +1233,8 @@ public class MainFrame extends javax.swing.JFrame implements
                 }
             }
             IplImage image = boardPlane.getImage();
-            if (cvSaveImage(file.getAbsolutePath(), image) == 0) {
+            if ((is10or11 ? highgui.v10or11.cvSaveImage(file.getAbsolutePath(), image) :
+                            highgui.v20    .cvSaveImage(file.getAbsolutePath(), image)) == 0) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE,
                         "Could not save board pattern into \"" + file + "\"");
             }
@@ -1307,10 +1319,10 @@ public class MainFrame extends javax.swing.JFrame implements
     private javax.swing.JButton calibrationStopButton;
     private javax.swing.JMenuItem calibrationStopMenuItem;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JPanel markerPatternsPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JSeparator menuSeparator1;
     private javax.swing.JSeparator menuSeparator2;
-    private javax.swing.JPanel patternsPanel;
     private javax.swing.JLabel projectorPatternLabel;
     private name.audet.samuel.procamcalib.FixedPropertySheetView propertySheetView;
     private javax.swing.JMenuItem readmeMenuItem;

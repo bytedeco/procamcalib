@@ -170,7 +170,7 @@
           <Component id="toolBar" alignment="0" pref="500" max="32767" attributes="0"/>
           <Component id="splitPane" alignment="1" pref="500" max="32767" attributes="0"/>
           <Component id="statusLabel" alignment="0" pref="500" max="32767" attributes="0"/>
-          <Component id="patternsPanel" alignment="1" pref="500" max="32767" attributes="0"/>
+          <Component id="markerPatternsPanel" alignment="1" pref="500" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -180,7 +180,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="splitPane" pref="274" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="patternsPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="markerPatternsPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -348,11 +348,11 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="patternsPanel">
+    <Container class="javax.swing.JPanel" name="markerPatternsPanel">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Patterns"/>
+            <TitledBorder title="MarkerPatterns"/>
           </Border>
         </Property>
       </Properties>

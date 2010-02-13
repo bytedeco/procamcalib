@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Samuel Audet
+ * Copyright (C) 2009,2010 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -314,6 +314,12 @@ public class CalibrationWorker extends SwingWorker {
             assert (grabbedImages.length == cameraDevices.length);
             final int curProj = currentProjector;
 
+            for (int i = 0; i < grabbedImages.length; i++) {
+                if (grabbedImages[i] == null) {
+                    throw new Exception("Image grabbed from " + cameraDevices[i].getSettings().getName() + " is null, unexcepted end of stream?");
+                }
+            }
+
 //            for (int i = 0; i < grabbedImages.length && !isCancelled(); i++) {
             Parallel.loop(0, grabbedImages.length, new Looper() {
             public void loop(int from, int to, int looperID) {
@@ -460,6 +466,12 @@ public class CalibrationWorker extends SwingWorker {
             final IplImage[] grabbedImages = frameGrabberArray.grab();
             final int curProj = currentProjector;
             assert (grabbedImages.length == cameraDevices.length);
+
+            for (int i = 0; i < grabbedImages.length; i++) {
+                if (grabbedImages[i] == null) {
+                    throw new Exception("Image grabbed from " + cameraDevices[i].getSettings().getName() + " is null, unexcepted end of stream?");
+                }
+            }
 
             //for (int i = 0; i < grabbedImages.length; i++) {
             Parallel.loop(0, grabbedImages.length, new Looper() {
