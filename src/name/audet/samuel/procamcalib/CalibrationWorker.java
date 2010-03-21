@@ -30,6 +30,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 import name.audet.samuel.javacv.CameraDevice;
+import name.audet.samuel.javacv.CameraSettings;
 import name.audet.samuel.javacv.CanvasFrame;
 import name.audet.samuel.javacv.ColorCalibrator;
 import name.audet.samuel.javacv.FrameGrabber;
@@ -44,6 +45,7 @@ import name.audet.samuel.javacv.ProCamColorCalibrator;
 import name.audet.samuel.javacv.ProCamGeometricCalibrator;
 import name.audet.samuel.javacv.ProjectiveDevice;
 import name.audet.samuel.javacv.ProjectorDevice;
+import name.audet.samuel.javacv.ProjectorSettings;
 
 import static name.audet.samuel.javacv.jna.cxcore.*;
 import static name.audet.samuel.javacv.jna.cv.*;
@@ -138,7 +140,7 @@ public class CalibrationWorker extends SwingWorker {
             } else {
                 cameraDevices[i].setSettings(cs[i]);
             }
-            if (cameraSettings.getWindowScale() > 0) {
+            if (cameraSettings.getMonitorWindowsScale() > 0) {
                 cameraCanvasFrames[i] = new CanvasFrame(false, cs[i].getName());
             }
         }
@@ -161,15 +163,15 @@ public class CalibrationWorker extends SwingWorker {
             projectorCanvasFrames[i].showColor(Color.BLACK);
             Dimension dim = projectorCanvasFrames[i].getSize();
             projectorPlanes[i] = new MarkedPlane(dim.width, dim.height, markers[1], true,
-                    cvScalarAll(ps[0].getBrightnessForeground()*255),
-                    cvScalarAll(ps[0].getBrightnessBackground()*255), 4);
+                    cvScalarAll(((ProjectorDevice.CalibrationSettings)ps[0]).getBrightnessForeground()*255),
+                    cvScalarAll(((ProjectorDevice.CalibrationSettings)ps[0]).getBrightnessBackground()*255), 4);
         }
     }
 
     // synchronized with done()...
     @Override protected synchronized Object doInBackground() throws Exception {
         try {
-            final double scale = cameraSettings.getWindowScale();
+            final double scale = cameraSettings.getMonitorWindowsScale();
             // access frame grabbers from _this_ thread *ONLY*...
             for (int i = 0; i < cameraDevices.length; i++) {
                 frameGrabbers[i] = cameraDevices[i].createFrameGrabber();
@@ -229,10 +231,11 @@ public class CalibrationWorker extends SwingWorker {
                 }
                 calibrateColor(frameGrabberArray);
             }
-        } catch (Throwable ex) {
+        } catch (Throwable t) {
             if (!isCancelled()) {
+                while (t.getCause() != null) { t = t.getCause(); }
                 Logger.getLogger(CalibrationWorker.class.getName()).log(Level.SEVERE,
-                        "Could not perform calibration", ex);
+                        "Could not perform calibration", t);
                 cancel(false);
             }
         }
@@ -304,7 +307,8 @@ public class CalibrationWorker extends SwingWorker {
                 projectorCanvasFrames[currentProjector].showImage(
                         proCamGeometricCalibrators[currentProjector].getProjectorImage().
                         // gamma correction
-                        getBufferedImage(1.0/projectorDevices[currentProjector].getSettings().getGamma()));
+                        getBufferedImage(1.0/projectorDevices[currentProjector].
+                        getSettings().getResponseGamma()));
                 projectorCanvasFrames[currentProjector].waitLatency();
             }
 
@@ -325,7 +329,7 @@ public class CalibrationWorker extends SwingWorker {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
                 // gamma "uncorrection", linearization
-                double gamma = cameraDevices[i].getSettings().getGamma();
+                double gamma = cameraDevices[i].getSettings().getResponseGamma();
                 if (gamma != 1.0) {
                     grabbedImages[i].applyGamma(gamma);
                 }
@@ -360,7 +364,7 @@ public class CalibrationWorker extends SwingWorker {
                 }
                 // show camera images with detected markers drawn
                 if (cameraCanvasFrames[i] != null) {
-                    cameraCanvasFrames[i].showImage(colorImages[i], cameraSettings.getWindowScale());
+                    cameraCanvasFrames[i].showImage(colorImages[i], cameraSettings.getMonitorWindowsScale());
                     //cameraCanvasFrames[i].showImage(geometricCalibrators[i].getMarkerDetector().getBinarized());
                 }
             }}});
@@ -500,7 +504,7 @@ public class CalibrationWorker extends SwingWorker {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
                         cvNot(mask, mask);
                         cvSet(undist, cvScalarAll(undist.getMaxIntensity()), mask);
-                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getWindowScale());
+                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getMonitorWindowsScale());
                     }
 
                     // add the extracted color
@@ -522,7 +526,7 @@ public class CalibrationWorker extends SwingWorker {
                 for (int i = 0; i < cameraCanvasFrames.length; i++) {
                     if (cameraCanvasFrames[i] != null) {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
-                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getWindowScale());
+                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getMonitorWindowsScale());
                     }
                 }
             }
@@ -533,7 +537,7 @@ public class CalibrationWorker extends SwingWorker {
             Color[] referenceColors = new Color[totalColorCount*projectorDevices.length],
                              colors = new Color[totalColorCount*projectorDevices.length];
             int k = 0;
-            double gamma = cameraDevices[0].getSettings().getGamma();
+            double gamma = cameraDevices[0].getSettings().getResponseGamma();
             // calibrate all projectors with first camera
             for (int j = 0; j < projectorDevices.length; j++) {
                 for (Color c : proCamColorCalibrators[0][j].getCameraColors()) {
@@ -558,7 +562,7 @@ public class CalibrationWorker extends SwingWorker {
 
     }
 
-    public void readParameters(File file) {
+    public void readParameters(File file) throws Exception {
         String f = file.getAbsolutePath();
         cameraDevices    = CameraDevice   .read(f);
         projectorDevices = ProjectorDevice.read(f);

@@ -33,6 +33,7 @@ import java.beans.IntrospectionException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyEditor;
+import java.beans.PropertyEditorManager;
 import java.beans.PropertyVetoException;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -45,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -52,6 +54,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.swing.ActionMap;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
@@ -69,13 +72,7 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.DefaultEditorKit;
-import name.audet.samuel.javacv.CameraDevice;
-import name.audet.samuel.javacv.FrameGrabber;
-import name.audet.samuel.javacv.JavaCvErrorCallback;
-import name.audet.samuel.javacv.MarkedPlane;
-import name.audet.samuel.javacv.Marker;
-import name.audet.samuel.javacv.MarkerDetector;
-import name.audet.samuel.javacv.ProjectorDevice;
+import org.netbeans.beaninfo.editors.StringArrayEditor;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
 import org.openide.explorer.propertysheet.PropertySheetView;
@@ -84,6 +81,15 @@ import org.openide.nodes.BeanNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Lookup;
+import name.audet.samuel.javacv.CameraDevice;
+import name.audet.samuel.javacv.CameraSettings;
+import name.audet.samuel.javacv.FrameGrabber;
+import name.audet.samuel.javacv.JavaCvErrorCallback;
+import name.audet.samuel.javacv.MarkedPlane;
+import name.audet.samuel.javacv.Marker;
+import name.audet.samuel.javacv.MarkerDetector;
+import name.audet.samuel.javacv.ProjectorDevice;
+import name.audet.samuel.javacv.ProjectorSettings;
 
 import static name.audet.samuel.javacv.jna.cxcore.*;
 import static name.audet.samuel.javacv.jna.cv.*;
@@ -94,9 +100,11 @@ import name.audet.samuel.javacv.jna.*;
  *
  * @author Samuel Audet
  *
- * Libraries needed from NetBeans' directory:
+ * Libraries needed from the directory of NetBeans:
  *   boot.jar
  *   core.jar
+ *   org-netbeans-core.jar
+ *   org-netbeans-swing-plaf.jar
  *   org-openide-actions.jar
  *   org-openide-awt.jar
  *   org-openide-dialogs.jar
@@ -105,7 +113,6 @@ import name.audet.samuel.javacv.jna.*;
  *   org-openide-modules.jar
  *   org-openide-nodes.jar
  *   org-openide-util.jar
- *   org-netbeans-swing-plaf.jar
  */
 public class MainFrame extends javax.swing.JFrame implements
         ExplorerManager.Provider, Lookup.Provider, PropertyChangeListener {
@@ -209,7 +216,7 @@ public class MainFrame extends javax.swing.JFrame implements
     MarkerDetector.Settings markerDetectorSettings = null;
     CalibrationWorker.GeometricSettings geometricCalibratorSettings = null;
     CalibrationWorker.ColorSettings colorCalibratorSettings = null;
-    final File DEFAULT_SETTINGS_FILE = new File("settings.xml");
+    final File DEFAULT_SETTINGS_FILE = new File("settings.pcc");
     final File DEFAULT_CALIBRATION_FILE = new File("calibration.yaml");
     File settingsFile = null, calibrationFile = null;
 
@@ -276,10 +283,11 @@ public class MainFrame extends javax.swing.JFrame implements
             return;
         }
 
-        double margin = Math.max(0.0, (markerSettings.getSpacing()-markerSettings.getSize())/2);
-        markers = Marker.createArray(markerSettings, margin, margin);
-        double width = (markerSettings.getColumns()-1)*markerSettings.getSpacing() + markerSettings.getSize() + 2*margin;
-        double height = (markerSettings.getRows()-1)*markerSettings.getSpacing() + markerSettings.getSize() + 2*margin;
+        double marginX = Math.max(0.0, (markerSettings.getSpacingX()-markerSettings.getSizeX())/2);
+        double marginY = Math.max(0.0, (markerSettings.getSpacingY()-markerSettings.getSizeY())/2);
+        markers = Marker.createArray(markerSettings, marginX, marginY);
+        double width = (markerSettings.getColumns()-1)*markerSettings.getSpacingX() + markerSettings.getSizeX() + 2*marginX;
+        double height = (markerSettings.getRows()-1)*markerSettings.getSpacingY() + markerSettings.getSizeY() + 2*marginY;
         boardPlane = new MarkedPlane((int)Math.ceil(width), (int)Math.ceil(height), markers[0], 1);
         IplImage image = boardPlane.getImage();
 
@@ -297,8 +305,8 @@ public class MainFrame extends javax.swing.JFrame implements
             int h = ps[i].getImageHeight();
             if (w > 0 && h > 0) {
                 MarkedPlane proj = new MarkedPlane(w, h, markers[1], true,
-                        cvScalarAll(ps[i].getBrightnessForeground()*255),
-                        cvScalarAll(ps[i].getBrightnessBackground()*255), 4);
+                        cvScalarAll(((ProjectorDevice.CalibrationSettings)ps[i]).getBrightnessForeground()*255),
+                        cvScalarAll(((ProjectorDevice.CalibrationSettings)ps[i]).getBrightnessBackground()*255), 4);
                 image = proj.getImage();
                 smallImage = IplImage.create(image.width*iconHeight/image.height, iconHeight, IPL_DEPTH_8U, 1);
                 cvResize(image, smallImage, CV_INTER_AREA);
@@ -313,16 +321,19 @@ public class MainFrame extends javax.swing.JFrame implements
     void buildSettingsView() throws IntrospectionException, PropertyVetoException {
         HashMap<String, Class<? extends PropertyEditor>> editors =
                 new HashMap<String, Class<? extends PropertyEditor>>();
-        editors.put("frameGrabber", FrameGrabberPropertyEditor.class);
+        editors.put("frameGrabber", FrameGrabber.PropertyEditor.class);
 
         // hide settings we do not need from the user...
         editors.put("triggerMode", null);
         editors.put("colorMode", null);
         editors.put("timeout", null);
         editors.put("numBuffers", null);
+        editors.put("deviceFilename", null);
+        editors.put("nominalDistance", null);
 
         if (cameraSettings == null) {
             cameraSettings = new CameraSettings();
+            cameraSettings.setFrameGrabber(FrameGrabber.getDefault());
             cameraSettings.setQuantity(1);
         }
         cameraSettings.addPropertyChangeListener(this);
@@ -342,26 +353,26 @@ public class MainFrame extends javax.swing.JFrame implements
         }
         markerSettings.addPropertyChangeListener(this);
         BeanNode markerNode = new CleanBeanNode<Marker.ArraySettings>
-                (markerSettings, "MarkerPatterns");
+                (markerSettings, null, "MarkerPatterns");
 
         if (markerDetectorSettings == null) {
             markerDetectorSettings = new MarkerDetector.Settings();
         }
         BeanNode detectorNode = new CleanBeanNode<MarkerDetector.Settings>
-                (markerDetectorSettings, "MarkerDetector");
+                (markerDetectorSettings, null, "MarkerDetector");
 
         if (geometricCalibratorSettings == null) {
             geometricCalibratorSettings = new CalibrationWorker.GeometricSettings();
         }
         BeanNode geometricCalibratorNode = new CleanBeanNode<CalibrationWorker.GeometricSettings>
-                (geometricCalibratorSettings, "GeometricCalibrator");
+                (geometricCalibratorSettings, null, "GeometricCalibrator");
 
         if (colorCalibratorSettings == null) {
             colorCalibratorSettings = new CalibrationWorker.ColorSettings();
         }
         colorCalibratorSettings.addPropertyChangeListener(this);
         BeanNode colorCalibratorNode = new CleanBeanNode<CalibrationWorker.ColorSettings>
-                (colorCalibratorSettings, "ColorCalibrator");
+                (colorCalibratorSettings, null, "ColorCalibrator");
 
         Children children = new Children.Array();
         children.add(new Node[] { cameraNode, projectorNode, markerNode, detectorNode, 
@@ -443,9 +454,10 @@ public class MainFrame extends javax.swing.JFrame implements
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        fixForPropertySheetView = new name.audet.samuel.procamcalib.MainFrame.FixForPropertySheetView();
         splitPane = new javax.swing.JSplitPane();
         beanTreeView = new org.openide.explorer.view.BeanTreeView();
-        propertySheetView = new name.audet.samuel.procamcalib.FixedPropertySheetView();
+        propertySheetView = new org.openide.explorer.propertysheet.PropertySheetView();
         toolBar = new javax.swing.JToolBar();
         settingsLoadDefaultsButton = new javax.swing.JButton();
         settingsLoadButton = new javax.swing.JButton();
@@ -1287,6 +1299,14 @@ public class MainFrame extends javax.swing.JFrame implements
                     // "Ocean Look" would be javax.swing.plaf.metal.MetalLookAndFeel
                     org.netbeans.swing.plaf.Startup.run(Class.forName(lafClassName), 0, null);
 
+                    // Add property editors from NetBeans
+                    String[] searchPath = PropertyEditorManager.getEditorSearchPath();
+                    searchPath = Arrays.copyOf(searchPath, searchPath.length+1);
+                    searchPath[searchPath.length-1] = "org.netbeans.beaninfo.editors";
+                    PropertyEditorManager.setEditorSearchPath(searchPath);
+                    PropertyEditorManager.registerEditor(String[].class, StringArrayEditor.class);
+//                    PropertyEditorManager.registerEditor(double[].class, DoubleArrayEditor.class);
+
                     //Make sure we have nice window decorations.
                     JFrame.setDefaultLookAndFeelDecorated(true);
                     JDialog.setDefaultLookAndFeelDecorated(true);
@@ -1318,13 +1338,14 @@ public class MainFrame extends javax.swing.JFrame implements
     private javax.swing.JMenuItem calibrationStartMenuItem;
     private javax.swing.JButton calibrationStopButton;
     private javax.swing.JMenuItem calibrationStopMenuItem;
+    private name.audet.samuel.procamcalib.MainFrame.FixForPropertySheetView fixForPropertySheetView;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JPanel markerPatternsPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JSeparator menuSeparator1;
     private javax.swing.JSeparator menuSeparator2;
     private javax.swing.JLabel projectorPatternLabel;
-    private name.audet.samuel.procamcalib.FixedPropertySheetView propertySheetView;
+    private org.openide.explorer.propertysheet.PropertySheetView propertySheetView;
     private javax.swing.JMenuItem readmeMenuItem;
     private javax.swing.JButton saveAsBoardPatternButton;
     private javax.swing.JButton settingsLoadButton;
@@ -1340,5 +1361,17 @@ public class MainFrame extends javax.swing.JFrame implements
     private javax.swing.JToolBar toolBar;
     private javax.swing.JToolBar.Separator toolBarSeparator1;
     // End of variables declaration//GEN-END:variables
+
+    public static class FixForPropertySheetView {
+        static {
+            Icon i = null;
+            try {
+                i = UIManager.getIcon("Tree.gtk_collapsedIcon");
+            } catch (Exception ex) { }
+            if (i == null) {
+                UIManager.put("Tree.gtk_collapsedIcon", UIManager.getIcon("Tree.collapsedIcon"));
+            }
+        }
+    }
 
 }

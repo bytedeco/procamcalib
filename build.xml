@@ -26,11 +26,11 @@
     <target name="-post-jar">
         <delete file="${dist.dir}/README.TXT" />
         <copy file="procamcalib-nativelook" todir="${dist.dir}"/>
-	<copy file="procamcalib-oceanlook" todir="${dist.dir}"/>
-	<chmod perm="+x" file="${dist.dir}/procamcalib-nativelook"/>
-	<chmod perm="+x" file="${dist.dir}/procamcalib-oceanlook"/>
+        <copy file="procamcalib-oceanlook" todir="${dist.dir}"/>
+        <chmod perm="+x" file="${dist.dir}/procamcalib-nativelook"/>
+        <chmod perm="+x" file="${dist.dir}/procamcalib-oceanlook"/>
         <copy file="procamcalib-nativelook.cmd" todir="${dist.dir}"/>
-	<copy file="procamcalib-oceanlook.cmd" todir="${dist.dir}"/>
+        <copy file="procamcalib-oceanlook.cmd" todir="${dist.dir}"/>
         <copy file="LICENSE.txt" todir="${dist.dir}"/>
         <copy file="README.txt" todir="${dist.dir}"/>
     </target>

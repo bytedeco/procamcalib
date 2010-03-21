@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Samuel Audet
+ * Copyright (C) 2009,2010 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -41,7 +41,7 @@ public class CleanBeanNode<T> extends BeanNode<T> {
         super(o, o instanceof BeanContext ? new BeanChildren((BeanContext)o,
                 new BeanChildren.Factory() {
                     public Node createNode(Object bean) throws IntrospectionException {
-                        return new CleanBeanNode<Object>(bean, editors);
+                        return new CleanBeanNode<Object>(bean, editors, null);
                     }
                 }) : null);
 
@@ -67,18 +67,18 @@ public class CleanBeanNode<T> extends BeanNode<T> {
         }
         if (displayName != null) {
             setDisplayName(displayName);
+            setSynchronizeName(false);
+            renameable = false;
         }
     }
-    public CleanBeanNode(T o, String displayName) throws IntrospectionException {
-        this(o, null, displayName);
-    }
-    public CleanBeanNode(T o, HashMap<String, Class<? extends PropertyEditor>> editors)
-            throws IntrospectionException {
-        this(o, editors, null);
-    }
+
+    boolean renameable = true;
 
     @Override public boolean canCopy() {
         return false;
+    }
+    @Override public boolean canRename() {
+        return renameable;
     }
     @Override public Action[] getActions(boolean context) {
         return null;
