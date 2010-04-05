@@ -80,6 +80,9 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===April 5, 2010===
+ * Some bugs fixed for FFmpeg
+
 ===March 21, 2010===
  * Added to camera settings a `deviceFile` field that can bring up a file dialog
  * Added `triggerFlushSize` to indicate the number of buffers to flush for cheap camera that keep old images in memory indefinitely

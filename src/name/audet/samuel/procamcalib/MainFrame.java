@@ -46,7 +46,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -94,7 +93,6 @@ import name.audet.samuel.javacv.ProjectorSettings;
 import static name.audet.samuel.javacv.jna.cxcore.*;
 import static name.audet.samuel.javacv.jna.cv.*;
 import static name.audet.samuel.javacv.jna.highgui.*;
-import name.audet.samuel.javacv.jna.*;
 
 /**
  *
@@ -1223,13 +1221,6 @@ public class MainFrame extends javax.swing.JFrame implements
         calibrationSaveMenuItemActionPerformed(evt);
     }//GEN-LAST:event_calibrationSaveButtonActionPerformed
 
-    private static boolean is10or11 = true;
-    static {
-        try {
-            is10or11 = highgui.v20.libname == null;
-        } catch (Throwable t) { }
-    }
-
     private void saveAsBoardPatternButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsBoardPatternButtonActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.setSelectedFile(new File("board.png"));
@@ -1245,8 +1236,7 @@ public class MainFrame extends javax.swing.JFrame implements
                 }
             }
             IplImage image = boardPlane.getImage();
-            if ((is10or11 ? highgui.v10or11.cvSaveImage(file.getAbsolutePath(), image) :
-                            highgui.v20    .cvSaveImage(file.getAbsolutePath(), image)) == 0) {
+            if (cvSaveImage(file.getAbsolutePath(), image) == 0) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE,
                         "Could not save board pattern into \"" + file + "\"");
             }
@@ -1301,9 +1291,10 @@ public class MainFrame extends javax.swing.JFrame implements
 
                     // Add property editors from NetBeans
                     String[] searchPath = PropertyEditorManager.getEditorSearchPath();
-                    searchPath = Arrays.copyOf(searchPath, searchPath.length+1);
-                    searchPath[searchPath.length-1] = "org.netbeans.beaninfo.editors";
-                    PropertyEditorManager.setEditorSearchPath(searchPath);
+                    String[] newSearchPath = new String[searchPath.length+1];
+                    newSearchPath[0] = "org.netbeans.beaninfo.editors";
+                    System.arraycopy(searchPath, 0, newSearchPath, 1, searchPath.length);
+                    PropertyEditorManager.setEditorSearchPath(newSearchPath);
                     PropertyEditorManager.registerEditor(String[].class, StringArrayEditor.class);
 //                    PropertyEditorManager.registerEditor(double[].class, DoubleArrayEditor.class);
 

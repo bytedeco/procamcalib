@@ -141,7 +141,7 @@ public class CalibrationWorker extends SwingWorker {
                 cameraDevices[i].setSettings(cs[i]);
             }
             if (cameraSettings.getMonitorWindowsScale() > 0) {
-                cameraCanvasFrames[i] = new CanvasFrame(false, cs[i].getName());
+                cameraCanvasFrames[i] = new CanvasFrame(cs[i].getName());
             }
         }
 
@@ -180,7 +180,7 @@ public class CalibrationWorker extends SwingWorker {
                     frameGrabbers[i].setTriggerMode(true);
                 }
                 if (geometricCalibratorSettings.enabled) {
-                    frameGrabbers[i].setColorMode(ColorMode.GRAYSCALE);
+                    frameGrabbers[i].setColorMode(ColorMode.GRAY);
                 } else if (colorCalibratorSettings.enabled) {
                     frameGrabbers[i].setColorMode(ColorMode.BGR);
                 }
@@ -213,9 +213,9 @@ public class CalibrationWorker extends SwingWorker {
             FrameGrabber.Array frameGrabberArray = frameGrabbers[0].createArray(frameGrabbers);
             if (geometricCalibratorSettings.enabled && !isCancelled()) {
                 for (FrameGrabber f : frameGrabbers) {
-                    if (f.getColorMode() != ColorMode.GRAYSCALE) {
+                    if (f.getColorMode() != ColorMode.GRAY) {
                         f.stop();
-                        f.setColorMode(ColorMode.GRAYSCALE);
+                        f.setColorMode(ColorMode.GRAY);
                         f.start();
                     }
                 }
