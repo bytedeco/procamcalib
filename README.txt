@@ -17,17 +17,17 @@ Please install the following before running ProCamCalib:
   * Sun JDK 6  http://java.sun.com/javase/downloads/  or
   * IBM JDK 6  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE 6 for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 1.1pre1 or 2.0  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 1.1pre1, 2.0, or 2.1  http://sourceforge.net/projects/opencvlibrary/files/
 
 *IMPORTANT NOTES*: 
- * Be aware that ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
- * The precompiled binaries of OpenCV 2.0 for Windows are incompatible with Sun JDK 6. For the casual Windows user, I recommend OpenCV 1.1pre1 even though OpenCV 2.0 executes faster. To overcome this problem if you prefer to use OpenCV 2.0, you may either recompile OpenCV without SSE instructions or recompile it with SSE instructions, but using Visual Studio or Intel C++ Compiler. Also, if you are running a 64-bit version of Windows, please consider running ProCamCalib in 64-bit mode as SSE calling conventions are standard on that architecture. A workaround might also be included in a future version of JNA.
+ * ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
+ * The precompiled binaries of OpenCV 2.0 for Windows are incompatible with Sun JDK 6. Please use the ones of OpenCV 2.1.
 
 Additionnally, for IIDC/DCAM cameras only:
  * libdc1394 2.1.2 (Linux and Mac OS X) http://sourceforge.net/projects/libdc1394/files/
  * PGR FlyCapture 1 or 2 (Windows only) http://www.ptgrey.com/products/pgrflycapture/
 
-Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.5:
+Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.5 or more recent:
  * Source code  http://ffmpeg.org/download.html
  * Precompiled Windows DLLs  http://ffmpeg.arrozcru.org/autobuilds/
 
@@ -80,6 +80,9 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===April 8, 2010===
+ * Added support for OpenCV 2.1
+
 ===April 5, 2010===
  * Some bugs fixed for FFmpeg
 

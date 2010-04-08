@@ -255,18 +255,22 @@ public class MainFrame extends javax.swing.JFrame implements
 
     boolean ignoreNextUpdate = false;
     void updatePatterns(PropertyChangeEvent evt) {
-        ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
-        if (evt != null) {
-            Object o = evt.getSource();
-            if (o != projectorSettings && o != markerSettings &&
-                    (ps.length == 0 || o != ps[0])) {
-                return;
-            }
-        }
-
         if (ignoreNextUpdate) {
             ignoreNextUpdate = false;
             return;
+        }
+
+        ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
+        if (evt != null) {
+            Object o = evt.getSource();
+            if (o == projectorSettings && evt.getPropertyName().equals("quantity") &&
+                    (Integer)evt.getOldValue() > 0 && (Integer)evt.getNewValue() == 0) {
+                colorCalibratorSettings.setEnabled(false);
+                markerSettings.setCheckered(false);
+            } else if (o != projectorSettings && o != markerSettings &&
+                    (ps.length == 0 || o != ps[0])) {
+                return;
+            }
         }
 
         if (ps.length > 0 && !markerSettings.isCheckered()) {
