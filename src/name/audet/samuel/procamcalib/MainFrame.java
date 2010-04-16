@@ -29,6 +29,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.beans.IntrospectionException;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -82,6 +83,7 @@ import org.openide.nodes.Node;
 import org.openide.util.Lookup;
 import name.audet.samuel.javacv.CameraDevice;
 import name.audet.samuel.javacv.CameraSettings;
+import name.audet.samuel.javacv.CanvasFrame;
 import name.audet.samuel.javacv.FrameGrabber;
 import name.audet.samuel.javacv.JavaCvErrorCallback;
 import name.audet.samuel.javacv.MarkedPlane;
@@ -297,8 +299,9 @@ public class MainFrame extends javax.swing.JFrame implements
         IplImage smallImage = IplImage.create(image.width*iconHeight/image.height, iconHeight, IPL_DEPTH_8U, 1);
         cvResize(image, smallImage, CV_INTER_AREA);
         boardPatternLabel.setText("Board (" + boardPlane.getWidth() + " x " + boardPlane.getHeight() + ")");
-        boardPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage()));
-
+        boardPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage(
+                smallImage.getBufferedImageType() == BufferedImage.TYPE_CUSTOM ? 1.0 :
+                1.0/CanvasFrame.getGamma(boardPatternLabel.getGraphicsConfiguration().getDevice()))));
         projectorPatternLabel.setText("No Projector");
         projectorPatternLabel.setIcon(null);
         projectorPatternLabel.setEnabled(false);
@@ -313,7 +316,9 @@ public class MainFrame extends javax.swing.JFrame implements
                 smallImage = IplImage.create(image.width*iconHeight/image.height, iconHeight, IPL_DEPTH_8U, 1);
                 cvResize(image, smallImage, CV_INTER_AREA);
                 projectorPatternLabel.setText(ps[i].getName() + " (" + proj.getWidth() + " x " + proj.getHeight() + ")");
-                projectorPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage()));
+                projectorPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage(
+                        smallImage.getBufferedImageType() == BufferedImage.TYPE_CUSTOM ? 1.0 :
+                        1.0/CanvasFrame.getGamma(projectorPatternLabel.getGraphicsConfiguration().getDevice()))));
                 projectorPatternLabel.setEnabled(true);
                 break;
             }

@@ -87,7 +87,7 @@ public class CalibrationWorker extends SwingWorker {
             return enabled;
         }
         public void setEnabled(boolean enabled) {
-            pcs.firePropertyChange("enabled", this.enabled, this.enabled = enabled);
+            firePropertyChange("enabled", this.enabled, this.enabled = enabled);
         }
 
         public boolean isUseMarkerCenters() {
@@ -120,7 +120,7 @@ public class CalibrationWorker extends SwingWorker {
             return enabled;
         }
         public void setEnabled(boolean enabled) {
-            pcs.firePropertyChange("enabled", this.enabled, this.enabled = enabled);
+            firePropertyChange("enabled", this.enabled, this.enabled = enabled);
         }
     }
 
@@ -197,12 +197,14 @@ public class CalibrationWorker extends SwingWorker {
                 //final IplImage image = IplImage.create(640, 480, IPL_DEPTH_8U, 1);
                 final CanvasFrame c = cameraCanvasFrames[i];
                 final String name = cameraDevices[i].getSettings().getName();
+                final double gamma = frameGrabbers[i].getGamma();
                 EventQueue.invokeLater(new Runnable() {
                     public void run() {
                         c.setCanvasSize((int)Math.round(image.width *scale),
                                         (int)Math.round(image.height*scale));
                         c.setTitle(name + " (" + image.width + " x " + image.height + "  " +
-                                   (image.depth&~IPL_DEPTH_SIGN) + " bpp) - ProCamCalib");
+                                   (image.depth&~IPL_DEPTH_SIGN) + " bpp  gamma = " +
+                                   gamma + ") - ProCamCalib");
                     }
                 });
             }
@@ -276,7 +278,7 @@ public class CalibrationWorker extends SwingWorker {
         }
     }
 
-    private void calibrateGeometry(FrameGrabber.Array frameGrabberArray) throws Exception {
+    private void calibrateGeometry(final FrameGrabber.Array frameGrabberArray) throws Exception {
         // create camera calibrators...
         geometricCalibrators = new GeometricCalibrator[cameraDevices.length];
         proCamGeometricCalibrators = new ProCamGeometricCalibrator[projectorDevices.length];
@@ -305,10 +307,7 @@ public class CalibrationWorker extends SwingWorker {
             // display projector pattern
             if (currentProjector < projectorCanvasFrames.length) {
                 projectorCanvasFrames[currentProjector].showImage(
-                        proCamGeometricCalibrators[currentProjector].getProjectorImage().
-                        // gamma correction
-                        getBufferedImage(1.0/projectorDevices[currentProjector].
-                        getSettings().getResponseGamma()));
+                        proCamGeometricCalibrators[currentProjector].getProjectorImage());
                 projectorCanvasFrames[currentProjector].waitLatency();
             }
 
@@ -329,7 +328,7 @@ public class CalibrationWorker extends SwingWorker {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
                 // gamma "uncorrection", linearization
-                double gamma = cameraDevices[i].getSettings().getResponseGamma();
+                double gamma = frameGrabberArray.getFrameGrabbers()[i].getGamma();
                 if (gamma != 1.0) {
                     grabbedImages[i].applyGamma(gamma);
                 }
@@ -537,7 +536,7 @@ public class CalibrationWorker extends SwingWorker {
             Color[] referenceColors = new Color[totalColorCount*projectorDevices.length],
                              colors = new Color[totalColorCount*projectorDevices.length];
             int k = 0;
-            double gamma = cameraDevices[0].getSettings().getResponseGamma();
+            double gamma = frameGrabberArray.getFrameGrabbers()[0].getGamma();
             // calibrate all projectors with first camera
             for (int j = 0; j < projectorDevices.length; j++) {
                 for (Color c : proCamColorCalibrators[0][j].getCameraColors()) {

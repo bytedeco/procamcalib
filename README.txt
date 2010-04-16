@@ -80,6 +80,11 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===April 16, 2010===
+ * Modified a few things to get better default behavior of gamma correction
+ * Camera setting `triggerFlushSize` now defaults to 5 (only affects `OpenCVFrameGrabber` and `FFmpegFrameGrabber`)
+ * Fixed missing updates when changing some settings
+
 ===April 8, 2010===
  * Added support for OpenCV 2.1
 
