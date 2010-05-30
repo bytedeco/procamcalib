@@ -244,6 +244,14 @@ public class MainFrame extends javax.swing.JFrame implements
     public void propertyChange(PropertyChangeEvent evt) {
         updatePatterns(evt);
 
+        if (evt.getSource() == cameraSettings &&
+                evt.getPropertyName().equals("frameGrabber")) {
+            CameraDevice.Settings[] cs = cameraSettings.toTypedArray();
+            for (CameraDevice.Settings s : cs) {
+                s.setFrameGrabber(cameraSettings.getFrameGrabber());
+            }
+        }
+
         ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
         if (ps.length <= 0 && colorCalibratorSettings.isEnabled()) {
             JOptionPane.showMessageDialog(this,

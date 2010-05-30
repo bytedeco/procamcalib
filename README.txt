@@ -9,7 +9,7 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 
 ==Required Software==
-The binary distribution contains 32-bit and 64-bit x86 versions of ARToolKitPlus for both Linux and Windows. (If anyone compiles ARToolKitPlus under Mac OS X or other platforms, please send me the binary and I will include it.) I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 1.6 exists. Still, additional software is required.
+The binary distribution contains 32-bit and 64-bit x86 versions of ARToolKitPlus for both Linux and Windows. (If anyone compiles ARToolKitPlus under Mac OS X or another platform, please send me the binary and I will include it.) I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 1.6 exists. Still, additional software is required.
 
 Please install the following before running ProCamCalib:
  * An implementation of Java SE 6
@@ -23,9 +23,9 @@ Please install the following before running ProCamCalib:
  * ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
  * The precompiled binaries of OpenCV 2.0 for Windows are incompatible with Sun JDK 6. Please use the ones of OpenCV 2.1.
 
-Additionnally, for IIDC/DCAM cameras only:
- * libdc1394 2.1.2 (Linux and Mac OS X) http://sourceforge.net/projects/libdc1394/files/
- * PGR FlyCapture 1 or 2 (Windows only) http://www.ptgrey.com/products/pgrflycapture/
+Additionally, for IIDC/DCAM cameras only:
+ * libdc1394 2.1.2 (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
+ * PGR FlyCapture 1 or 2 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
 
 Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.5 or more recent:
  * Source code  http://ffmpeg.org/download.html
@@ -37,7 +37,7 @@ Under Linux, Mac OS X, and other Unix variants, execute either `procamcalib-nati
 
 After launch, the user interface that appears allows the user to change the number of cameras and projectors to calibrate. There are also a lot of settings, although the defaults should be good enough for the usual cases. I do not detail them here, but most of them should be clear to people familiar with my Procams 2009 paper based on previous work by Fiala, Zhang, and many others as part of OpenCV. Here are the relevant references:
 
-Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. In Proceedings of the 2009 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR '09) - Workshops (Procams 2009). IEEE Computer Society, June 2009. http://www.ok.ctrl.titech.ac.jp/~saudet/publications/procams2009.pdf
+Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. The 22nd IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2009) - Workshops (Procams 2009). IEEE Computer Society, June 2009. http://www.ok.ctrl.titech.ac.jp/~saudet/publications/procams2009.pdf
 
 Gary Bradski and Adrian Kaehler. Learning OpenCV: Computer Vision with the OpenCV Library. O'Reilly, 2008. http://oreilly.com/catalog/9780596516130/
 
@@ -50,7 +50,7 @@ Once you have modified all the desired settings, since the application may crash
 
 Before going any further, you will need to print out the board pattern. Export the image file by clicking on the "Save As..." button at the bottom of the main window, and print out the resulting file (written in PNG, BMP, PGM, or any other format supported by OpenCV, depending on the extension you provided to the filename).
 
-After pasting the pattern on a flat calibration board, you may start the calibration process via the "Calibration" menu. However, before starting calibration, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range makes the calibration process much easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. 
+After pasting the pattern on a flat calibration board, you may start the calibration process via the "Calibration" menu. However, before starting calibration, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. 
 
 Be aware that color calibration is enabled by default. After geometric calibration, color calibration will automatically start  and display an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
 
@@ -68,7 +68,7 @@ I make all the source code available at the URL below. It is divided into three 
 In addition to the software above, to modify and build the source code you will need:
  * Whatever native tools needed to build ARToolKitPlus
  * NetBeans 6.8  http://www.netbeans.org/downloads/
- * Java Native Access 3.2.4  https://jna.dev.java.net/
+ * Java Native Access 3.2.5  http://jna.dev.java.net/
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
 
@@ -80,6 +80,10 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===May 30, 2010===
+ * Fixed loading problem with the `frameGrabber` setting
+ * Fixed speed setting problem with the `FlyCaptureFrameGrabber`
+
 ===April 16, 2010===
  * Modified a few things to get better default behavior of gamma correction
  * Camera setting `triggerFlushSize` now defaults to 5 (only affects `OpenCVFrameGrabber` and `FFmpegFrameGrabber`)
@@ -98,7 +102,7 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
  * Fixed distortion problem with color calibration when running with OpenCV 1.1pre1
 
 ===February 13, 2010===
- * Added FFmpegFrameGrabber to capture images using FFmpeg 0.5
+ * Added `FFmpegFrameGrabber` to capture images using FFmpeg 0.5
  * Fixed corruption of distortion coefficients that could occur
 
 ===December 22, 2009===
@@ -107,7 +111,7 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 ===November 24, 2009===
  * Fixed some crashy crashy behavior
  * Added R2 correlation coefficient for color calibration as indicator of good accuracy
- * "useMarkerCenters" now uses the actual physical center of each marker instead of the centroid
+ * `useMarkerCenters` now uses the actual physical center of each marker instead of the centroid
 
 ===October 19, 2009===
  * Added color calibration
@@ -121,7 +125,7 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
  * Added a stack dump on OpenCV error for easier debugging
 
 ===August 26, 2009===
- * Added "gamma" settings for Cameras and Projectors
+ * Added `gamma` settings for Cameras and Projectors
 
 ===August 19, 2009===
  * Sync with new source of javacv and procamcalib
