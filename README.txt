@@ -27,7 +27,7 @@ Additionally, for IIDC/DCAM cameras only:
  * libdc1394 2.1.2 (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
  * PGR FlyCapture 1 or 2 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
 
-Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.5 or more recent:
+Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.6 or more recent:
  * Source code  http://ffmpeg.org/download.html
  * Precompiled Windows DLLs  http://ffmpeg.arrozcru.org/autobuilds/
 
@@ -52,7 +52,7 @@ Before going any further, you will need to print out the board pattern. Export t
 
 After pasting the pattern on a flat calibration board, you may start the calibration process via the "Calibration" menu. However, before starting calibration, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. 
 
-Be aware that color calibration is enabled by default. After geometric calibration, color calibration will automatically start  and display an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
+Be aware that color calibration is enabled by default. After geometric calibration, color calibration will automatically start and display an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
 
 After a successful calibration session, the application holds in memory the "calibration data". You may examine and save this data via the "Calibration" menu. The program uses OpenCV to output a file in the YAML or XML format. This information can easily be parsed back in any of your programs by using the CvFileStorage facilities of OpenCV.
 
@@ -80,6 +80,9 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===July 30, 2010===
+ * Fixed crash that would occur in `CanvasFrame` for some video drivers
+
 ===May 30, 2010===
  * Fixed loading problem with the `frameGrabber` setting
  * Fixed speed setting problem with the `FlyCaptureFrameGrabber`
