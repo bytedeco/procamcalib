@@ -67,8 +67,8 @@ I make all the source code available at the URL below. It is divided into three 
 
 In addition to the software above, to modify and build the source code you will need:
  * Whatever native tools needed to build ARToolKitPlus
- * NetBeans 6.8  http://www.netbeans.org/downloads/
- * Java Native Access 3.2.5  http://jna.dev.java.net/
+ * NetBeans 6.9  http://netbeans.org/downloads/
+ * Java Native Access 3.2.7  http://jna.dev.java.net/
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
 
@@ -80,6 +80,13 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===November 4, 2010===
+ * Renamed the package namespace to `com.googlecode.javacv.procamcalib`, which makes more sense now that JavaCV has been well anchored at Google Code for more than a year, piggybacking on the unique and easy-to-remember domain name, but this means you will need to manually edit any old XML `settings.pcc` files and rename the namespace of the classes inside
+ * `CanvasFrame` now redraws its `Canvas` after the user resizes the `Frame`
+ * Added check to `DC1394FrameGrabber` so that a "Failed to initialize libdc1394" does not crash the JVM
+ * `FrameGrabber` now selects the default grabber a bit better
+ * Included Mac OS X 10.6.4 binaries for ARToolKitPlus compiled by Christian Parsons
+
 ===July 30, 2010===
  * Fixed crash that would occur in `CanvasFrame` for some video drivers
 
