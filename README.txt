@@ -9,23 +9,22 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 
 ==Required Software==
-The binary distribution contains 32-bit and 64-bit x86 versions of ARToolKitPlus for both Linux and Windows. (If anyone compiles ARToolKitPlus under Mac OS X or another platform, please send me the binary and I will include it.) I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 1.6 exists. Still, additional software is required.
+I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 1.6 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required.
 
 Please install the following before running ProCamCalib:
  * An implementation of Java SE 6
   * OpenJDK 6  http://openjdk.java.net/install/  or
-  * Sun JDK 6  http://java.sun.com/javase/downloads/  or
+  * Sun JDK 6  http://www.oracle.com/technetwork/java/javase/downloads/  or
   * IBM JDK 6  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE 6 for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 1.1pre1, 2.0, or 2.1  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 2.2  http://sourceforge.net/projects/opencvlibrary/files/
 
-*IMPORTANT NOTES*: 
+*IMPORTANT NOTE*: 
  * ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
- * The precompiled binaries of OpenCV 2.0 for Windows are incompatible with Sun JDK 6. Please use the ones of OpenCV 2.1.
 
 Additionally, for IIDC/DCAM cameras only:
- * libdc1394 2.1.2 (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
- * PGR FlyCapture 1 or 2 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
+ * libdc1394 2.1.x (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
+ * PGR FlyCapture 1.7~2.1 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
 
 Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.6 or more recent:
  * Source code  http://ffmpeg.org/download.html
@@ -60,15 +59,12 @@ Feel free to contact me if you have any questions or find any problems with the 
 
 
 ==Source Code==
-I make all the source code available at the URL below. It is divided into three parts:
- * A version of ARToolKitPlus 2.1.1 with exported C functions added to DLL.cpp
- * JavaCV, which contains wrappers for OpenCV, ARToolKitPlus, libdc1394 2.x, PGR FlyCapture, FFmpeg, and more!
- * ProCamCalib, which implements a user-friendly calibration interface based on JavaCV
-
-In addition to the software above, to modify and build the source code you will need:
- * Whatever native tools needed to build ARToolKitPlus
+I make all the source code available on my site at http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/ . You will also need the following to modify and build the application:
+ * A C/C++ compiler
+ * JavaCPP http://code.google.com/p/javacpp/
+ * JavaCV  http://code.google.com/p/javacv/
+ * ARToolKitPlus 2.1.1t  http://code.google.com/p/javacv/downloads/list
  * NetBeans 6.9  http://netbeans.org/downloads/
- * Java Native Access 3.2.7  http://jna.dev.java.net/
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
 
@@ -80,6 +76,9 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===February 18, 2011===
+ * Upgraded to the latest version of JavaCV based on JavaCPP instead of JNA, featuring better performance
+
 ===November 4, 2010===
  * Renamed the package namespace to `com.googlecode.javacv.procamcalib`, which makes more sense now that JavaCV has been well anchored at Google Code for more than a year, piggybacking on the unique and easy-to-remember domain name, but this means you will need to manually edit any old XML `settings.pcc` files and rename the namespace of the classes inside
  * `CanvasFrame` now redraws its `Canvas` after the user resizes the `Frame`
@@ -146,8 +145,9 @@ Initial release
 
 
 ----
-Copyright (C) 2009,2010 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
+Copyright (C) 2009,2010,2011 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
 Web site: http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/
 
 Licensed under the GNU General Public License version 2 (GPLv2).
 Please refer to LICENSE.txt or http://www.gnu.org/licenses/ for details.
+

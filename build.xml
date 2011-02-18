@@ -33,6 +33,9 @@
         <copy file="procamcalib-oceanlook.cmd" todir="${dist.dir}"/>
         <copy file="LICENSE.txt" todir="${dist.dir}"/>
         <copy file="README.txt" todir="${dist.dir}"/>
+        <copy todir="${dist.dir}/lib/">
+            <fileset dir="${project.javacv}/dist/" includes="javacv-*.jar"/>
+        </copy>
     </target>
 
     <!--

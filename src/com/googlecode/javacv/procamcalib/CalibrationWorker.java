@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009,2010 Samuel Audet
+ * Copyright (C) 2009,2010,2011 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -47,8 +47,8 @@ import com.googlecode.javacv.ProjectiveDevice;
 import com.googlecode.javacv.ProjectorDevice;
 import com.googlecode.javacv.ProjectorSettings;
 
-import static com.googlecode.javacv.jna.cxcore.*;
-import static com.googlecode.javacv.jna.cv.*;
+import static com.googlecode.javacv.cpp.opencv_core.*;
+import static com.googlecode.javacv.cpp.opencv_imgproc.*;
 
 /**
  *
@@ -200,10 +200,11 @@ public class CalibrationWorker extends SwingWorker {
                 final double gamma = frameGrabbers[i].getGamma();
                 EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        c.setCanvasSize((int)Math.round(image.width *scale),
-                                        (int)Math.round(image.height*scale));
-                        c.setTitle(name + " (" + image.width + " x " + image.height + "  " +
-                                   (image.depth&~IPL_DEPTH_SIGN) + " bpp  gamma = " +
+                        int width = image.width(), height = image.height();
+                        c.setCanvasSize((int)Math.round(width *scale),
+                                        (int)Math.round(height*scale));
+                        c.setTitle(name + " (" + width + " x " + height + "  " +
+                                   (image.depth()&~IPL_DEPTH_SIGN) + " bpp  gamma = " +
                                    gamma + ") - ProCamCalib");
                     }
                 });
@@ -335,9 +336,9 @@ public class CalibrationWorker extends SwingWorker {
 
                 // convert camera image to color so we can draw in color
                 if (colorImages[i] == null) {
-                    colorImages[i] = IplImage.create(grabbedImages[i].width, grabbedImages[i].height, IPL_DEPTH_8U, 3);
+                    colorImages[i] = IplImage.create(grabbedImages[i].width(), grabbedImages[i].height(), IPL_DEPTH_8U, 3);
                 }
-                switch (grabbedImages[i].depth&~IPL_DEPTH_SIGN) {
+                switch (grabbedImages[i].depth()&~IPL_DEPTH_SIGN) {
                     case 8:
                         cvCvtColor(grabbedImages[i], colorImages[i], CV_GRAY2RGB);
                         break;
@@ -502,7 +503,7 @@ public class CalibrationWorker extends SwingWorker {
                         IplImage mask = proCamColorCalibrators[i][currentProjector].getMaskImage();
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
                         cvNot(mask, mask);
-                        cvSet(undist, cvScalarAll(undist.getMaxIntensity()), mask);
+                        cvSet(undist, cvScalarAll(undist.highValue()), mask);
                         cameraCanvasFrames[i].showImage(undist, cameraSettings.getMonitorWindowsScale());
                     }
 
