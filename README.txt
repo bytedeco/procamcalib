@@ -76,6 +76,10 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===April 7, 2011===
+ * Added a `format` property to camera settings, mostly useful for `FFmpegFrameGrabber`, where interesting values include "dv1394", "mjpeg", "video4linux2", "vfwcap", and "x11grab"
+ * Added hack to make sure the temporarily extracted library files get properly deleted under Windows
+
 ===February 19, 2011===
  * Upgraded to the latest version of JavaCV based on JavaCPP instead of JNA, featuring better performance
  * Tried to fix image format conversion inside `FlyCaptureFrameGrabber`, but this is going to require more careful debugging

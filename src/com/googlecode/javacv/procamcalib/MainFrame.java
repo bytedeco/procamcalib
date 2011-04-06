@@ -138,8 +138,57 @@ public class MainFrame extends javax.swing.JFrame implements
 
         settingsFile = args.length > 0 ? new File(args[0]) : null;
         try {
-            Logger.getLogger("").addHandler(globalLoggingHandler);
-            cvRedirectError(cvErrorCallback, null, null);
+            Logger.getLogger("").addHandler(new Handler() {
+                {
+                    setFormatter(new SimpleFormatter());
+                }
+                @Override public void publish(final LogRecord record) {
+                    final String title;
+                    final int messageType;
+                    if (record.getLevel().equals(Level.SEVERE)) {
+                        title = "SEVERE Logging Message";
+                        messageType = JOptionPane.ERROR_MESSAGE;
+                    } else if (record.getLevel().equals(Level.WARNING)) {
+                        title = "WARNING Logging Message";
+                        messageType = JOptionPane.WARNING_MESSAGE;
+                    } else if (record.getLevel().equals(Level.INFO)) {
+                        title = "INFO Logging Message";
+                        messageType = JOptionPane.INFORMATION_MESSAGE;
+                    } else {
+                        title = "Tracing Logging Message";
+                        messageType = JOptionPane.PLAIN_MESSAGE;
+                    }
+                    String[] messageLines = getFormatter().format(record).split("\r\n|\r|\n");
+                    StringBuilder messageBuilder = new StringBuilder();
+                    for (int i = 0; i < Math.min(5, messageLines.length); i++) {
+                        messageBuilder.append(messageLines[i] + '\n');
+                    }
+                    if (messageLines.length > 5) {
+                        messageBuilder.append("...");
+                    }
+                    final String message = messageBuilder.toString();
+
+                    EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            JOptionPane.showMessageDialog(MainFrame.this,
+                                    message, title, messageType);
+                        }
+                    });
+                }
+                @Override public void flush() { }
+                @Override public void close() throws SecurityException { }
+            });
+
+            cvRedirectError(new JavaCvErrorCallback(true, MainFrame.this) {
+                @Override public int call(int status, String func_name, String err_msg,
+                        String file_name, int line, Pointer userdata) {
+                    super.call(status, func_name, err_msg, file_name, line, userdata);
+                    if (calibrationWorker != null) {
+                        calibrationWorker.cancel(false);
+                    }
+                    return 0; // please don't terminate
+                }
+            }, null, null);
 
             initComponents();
             loadSettings(settingsFile);
@@ -147,64 +196,12 @@ public class MainFrame extends javax.swing.JFrame implements
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE,
                     "Could not load settings from \"" + settingsFile + "\"", ex);
             loadSettings(null);
-        } catch (UnsatisfiedLinkError e) {
+        } catch (LinkageError e) {
             throw new Exception(e);
         }
 
         beanTreeView.requestFocusInWindow();
     }
-
-    Handler globalLoggingHandler = new Handler() {
-        {
-            setFormatter(new SimpleFormatter());
-        }
-        @Override public void publish(final LogRecord record) {
-            final String title;
-            final int messageType;
-            if (record.getLevel().equals(Level.SEVERE)) {
-                title = "SEVERE Logging Message";
-                messageType = JOptionPane.ERROR_MESSAGE;
-            } else if (record.getLevel().equals(Level.WARNING)) {
-                title = "WARNING Logging Message";
-                messageType = JOptionPane.WARNING_MESSAGE;
-            } else if (record.getLevel().equals(Level.INFO)) {
-                title = "INFO Logging Message";
-                messageType = JOptionPane.INFORMATION_MESSAGE;
-            } else {
-                title = "Tracing Logging Message";
-                messageType = JOptionPane.PLAIN_MESSAGE;
-            }
-            String[] messageLines = getFormatter().format(record).split("\r\n|\r|\n");
-            StringBuilder messageBuilder = new StringBuilder();
-            for (int i = 0; i < Math.min(5, messageLines.length); i++) {
-                messageBuilder.append(messageLines[i] + '\n');
-            }
-            if (messageLines.length > 5) {
-                messageBuilder.append("...");
-            }
-            final String message = messageBuilder.toString();
-
-            EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    JOptionPane.showMessageDialog(MainFrame.this,
-                            message, title, messageType);
-                }
-            });
-        }
-        @Override public void flush() { }
-        @Override public void close() throws SecurityException { }
-    };
-
-    JavaCvErrorCallback cvErrorCallback = new JavaCvErrorCallback(true, this) {
-        @Override public int call(int status, String func_name, String err_msg,
-                String file_name, int line, Pointer userdata) {
-            super.call(status, func_name, err_msg, file_name, line, userdata);
-            if (calibrationWorker != null) {
-                calibrationWorker.cancel(false);
-            }
-            return 0; // please don't terminate
-        }
-    };
 
     Marker[][] markers = null;
     MarkedPlane boardPlane = null;
@@ -244,13 +241,13 @@ public class MainFrame extends javax.swing.JFrame implements
 
         if (evt.getSource() == cameraSettings &&
                 evt.getPropertyName().equals("frameGrabber")) {
-            CameraDevice.Settings[] cs = cameraSettings.toTypedArray();
+            CameraDevice.Settings[] cs = cameraSettings.toArray();
             for (CameraDevice.Settings s : cs) {
                 s.setFrameGrabber(cameraSettings.getFrameGrabber());
             }
         }
 
-        ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
+        ProjectorDevice.Settings[] ps = projectorSettings.toArray();
         if (ps.length <= 0 && colorCalibratorSettings.isEnabled()) {
             JOptionPane.showMessageDialog(this,
                     "Color calibration requires a projector.",
@@ -268,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame implements
             return;
         }
 
-        ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
+        ProjectorDevice.Settings[] ps = projectorSettings.toArray();
         if (evt != null) {
             Object o = evt.getSource();
             if (o == projectorSettings && evt.getPropertyName().equals("quantity") &&

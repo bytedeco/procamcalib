@@ -126,7 +126,7 @@ public class CalibrationWorker extends SwingWorker {
 
     public void init() throws Exception {
         // create arrays and canvas frames on the Event Dispatcher Thread...
-        CameraDevice.Settings[] cs = cameraSettings.toTypedArray();
+        CameraDevice.Settings[] cs = cameraSettings.toArray();
         if (cameraDevices == null) {
             cameraDevices = new CameraDevice[cs.length];
         } else {
@@ -145,7 +145,7 @@ public class CalibrationWorker extends SwingWorker {
             }
         }
 
-        ProjectorDevice.Settings[] ps = projectorSettings.toTypedArray();
+        ProjectorDevice.Settings[] ps = projectorSettings.toArray();
         if (projectorDevices == null) {
             projectorDevices = new ProjectorDevice[ps.length];
         } else {
