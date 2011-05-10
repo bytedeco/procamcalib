@@ -5,9 +5,12 @@
 KMP_DUPLICATE_LIB_OK=TRUE
 export $KMP_DUPLICATE_LIB_OK
 
-# If your video driver does not support OpenGL well,
-# try to remove this line...
-OPTIONS=-Dsun.java2d.opengl=True
+# Required option for full-screen support under Mac OS X
+OPTIONS=-Dapple.awt.fullscreencapturealldisplays=false
+
+# Not all video drivers support OpenGL well, so we let it disabled
+# by default, but you can try to enable it here to get lower latency.
+#OPTIONS="-Dapple.awt.fullscreencapturealldisplays=false -Dsun.java2d.opengl=True"
 
 java -server -version
 if [ $? -eq 0 ]

@@ -26,9 +26,10 @@ Additionally, for IIDC/DCAM cameras only:
  * libdc1394 2.1.x (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
  * PGR FlyCapture 1.7~2.1 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
 
-Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.6 or more recent:
+Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.6.x:
  * Source code  http://ffmpeg.org/download.html
- * Precompiled Windows DLLs  http://ffmpeg.arrozcru.org/autobuilds/
+ * Precompiled for Windows x86     http://hawkeye.arrozcru.org/builds/win32/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
+ * Precompiled for Windows x86-64  http://hawkeye.arrozcru.org/builds/win64/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
 
 
 ==Usage==
@@ -76,6 +77,15 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===May 11, 2011===
+ * Changed `Marker.getCenter()` back to the centroid, because it has better noise averaging properties and gives in practice more accurate results than the actual center
+ * Added hack to `OpenCVFrameGrabber.start()` to wait for `cvRetrieveFrame()` to return something else than `null` under Mac OS X
+ * Added to the scripts `-Dapple.awt.fullscreencapturealldisplays=false` Java option required for full-screen support under Mac OS X 
+ * Removed from the scripts the default `-Dsun.java2d.opengl=True` Java option, because since NVIDIA Release 260 family of drivers, most video drivers under Linux do not have good OpenGL support anymore
+ * `FFmpegFrameGrabber` now works properly on Windows with newer binaries
+ * New `VideoInputFrameGrabber` to capture using DirectShow, useful under Windows 7 where OpenCV and FFmpeg can fail to capture using Video for Windows
+ * `GeometricCalibrator` now reports the maximum errors in addition to the average (RMS) errors
+
 ===April 7, 2011===
  * Added a `format` property to camera settings, mostly useful for `FFmpegFrameGrabber`, where interesting values include "dv1394", "mjpeg", "video4linux2", "vfwcap", and "x11grab"
  * Added hack to make sure the temporarily extracted library files get properly deleted under Windows
