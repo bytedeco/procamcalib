@@ -9,7 +9,7 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 
 ==Required Software==
-I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 1.6 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required.
+I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 6 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required.
 
 Please install the following before running ProCamCalib:
  * An implementation of Java SE 6
@@ -17,27 +17,25 @@ Please install the following before running ProCamCalib:
   * Sun JDK 6  http://www.oracle.com/technetwork/java/javase/downloads/  or
   * IBM JDK 6  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE 6 for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 2.2  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 2.2.0  http://sourceforge.net/projects/opencvlibrary/files/
 
-*IMPORTANT NOTE*: 
- * ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
+And please make sure your Java and OpenCV have the same bitness: *32-bit and 64-bit modules do not mix under any circumstances*. Further, ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
 
-Additionally, for IIDC/DCAM cameras only:
+Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, or other cameras supported via FFmpeg:
  * libdc1394 2.1.x (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
  * PGR FlyCapture 1.7~2.1 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
-
-Further, camera input via FFmpeg is also supported, but needs FFmpeg 0.6.x:
- * Source code  http://ffmpeg.org/download.html
- * Precompiled for Windows x86     http://hawkeye.arrozcru.org/builds/win32/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
- * Precompiled for Windows x86-64  http://hawkeye.arrozcru.org/builds/win64/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
+ * OpenKinect  http://openkinect.org/
+ * FFmpeg 0.6.x  http://ffmpeg.org/download.html
+  * Precompiled for Windows x86     http://hawkeye.arrozcru.org/builds/win32/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
+  * Precompiled for Windows x86-64  http://hawkeye.arrozcru.org/builds/win64/shared/ (last build compatible with FFmpeg 0.6: 18-Apr-2011)
 
 
 ==Usage==
-Under Linux, Mac OS X, and other Unix variants, execute either `procamcalib-nativelook` or `procamcalib-oceanlook`, according to the theme you like best. ("Ocean" being Java's original look and feel.) The equivalent files under Windows are `procamcalib-nativelook.cmd` and `procamcalib-oceanlook.cmd`.
+Under Linux, Mac OS X, and other Unix variants, execute either `procamcalib-nativelook` or `procamcalib-oceanlook`, according to the theme that works best on your system. ("Ocean" being Java's original look and feel.) The equivalent files under Windows are `procamcalib-nativelook.cmd` and `procamcalib-oceanlook.cmd`.
 
 After launch, the user interface that appears allows the user to change the number of cameras and projectors to calibrate. There are also a lot of settings, although the defaults should be good enough for the usual cases. I do not detail them here, but most of them should be clear to people familiar with my Procams 2009 paper based on previous work by Fiala, Zhang, and many others as part of OpenCV. Here are the relevant references:
 
-Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. The 22nd IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2009) - Workshops (Procams 2009). IEEE Computer Society, June 2009. http://www.ok.ctrl.titech.ac.jp/~saudet/publications/procams2009.pdf
+Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. The 22nd IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2009) - Workshops (Procams 2009), pages 47--54. IEEE Computer Society, June 2009. http://www.ok.ctrl.titech.ac.jp/~saudet/publications/procams2009.pdf
 
 Gary Bradski and Adrian Kaehler. Learning OpenCV: Computer Vision with the OpenCV Library. O'Reilly, 2008. http://oreilly.com/catalog/9780596516130/
 
@@ -50,9 +48,9 @@ Once you have modified all the desired settings, since the application may crash
 
 Before going any further, you will need to print out the board pattern. Export the image file by clicking on the "Save As..." button at the bottom of the main window, and print out the resulting file (written in PNG, BMP, PGM, or any other format supported by OpenCV, depending on the extension you provided to the filename).
 
-After pasting the pattern on a flat calibration board, you may start the calibration process via the "Calibration" menu. However, before starting calibration, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. 
+After pasting the pattern on a flat calibration board, you may start the calibration process via the "Calibration" menu. However, before starting, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. Also, please note that ProCamCalib may fail to detect markers properly if they are not clear or big enough. Please adjust properly the focus, exposure, resolution, etc. of your projectors and cameras.
 
-Be aware that color calibration is enabled by default. After geometric calibration, color calibration will automatically start and display an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
+Be aware that color calibration is enabled by default. After geometric calibration has completed, color calibration will start and display automatically an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
 
 After a successful calibration session, the application holds in memory the "calibration data". You may examine and save this data via the "Calibration" menu. The program uses OpenCV to output a file in the YAML or XML format. This information can easily be parsed back in any of your programs by using the CvFileStorage facilities of OpenCV.
 
@@ -77,6 +75,10 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===June 10, 2011===
+ * New `OpenKinectFrameGrabber` to capture from Microsoft's Kinect stereo camera using OpenKinect
+ * The Unix scripts now check for a 64-bit JVM in priority
+
 ===May 11, 2011===
  * Changed `Marker.getCenter()` back to the centroid, because it has better noise averaging properties and gives in practice more accurate results than the actual center
  * Added hack to `OpenCVFrameGrabber.start()` to wait for `cvRetrieveFrame()` to return something else than `null` under Mac OS X

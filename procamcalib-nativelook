@@ -12,11 +12,11 @@ OPTIONS=-Dapple.awt.fullscreencapturealldisplays=false
 # by default, but you can try to enable it here to get lower latency.
 #OPTIONS="-Dapple.awt.fullscreencapturealldisplays=false -Dsun.java2d.opengl=True"
 
-java -server -version
+java -d64 -server -version
 if [ $? -eq 0 ]
 then
-java -server $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
+java -d64 -server $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
 else
-echo "WARNING: Server JVM not available. Executing with default JVM..."
+echo "WARNING: 64-bit server JVM not available. Executing with default JVM..."
 java $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
 fi
