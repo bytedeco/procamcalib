@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009,2010,2011 Samuel Audet
+ * Copyright (C) 2009,2010,2011,2012 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -1159,7 +1159,7 @@ public class MainFrame extends javax.swing.JFrame implements
         textPane.setText(
                 "<font face=sans-serif><strong><font size=+2>ProCamCalib</font></strong><br>" +
                 "build timestamp " + timestamp + "<br>" +
-                "Copyright (C) 2009,2010,2011 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
+                "Copyright (C) 2009-2012 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
                 "Web site: <a href=\"http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/\">http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/</a><br>" +
                 "<br>" +
                 "Licensed under the GNU General Public License version 2 (GPLv2).<br>" +

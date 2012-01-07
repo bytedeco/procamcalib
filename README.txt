@@ -9,7 +9,7 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 
 ==Required Software==
-I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 6 or 7 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required.
+I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 6 or 7 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required. (For answers to problems frequently encountered with OpenCV on the Windows platform, please refer to [http://code.google.com/p/javacv/wiki/Windows7AndOpenCV  Common issues with OpenCV under Windows 7].)
 
 Please install the following before running ProCamCalib:
  * An implementation of Java SE 6 or 7
@@ -19,16 +19,17 @@ Please install the following before running ProCamCalib:
   * Java SE for Mac OS X  http://developer.apple.com/java/  etc.
  * OpenCV 2.3.1  http://sourceforge.net/projects/opencvlibrary/files/
 
-And please make sure your Java and OpenCV have the same bitness: *32-bit and 64-bit modules do not mix under any circumstances*. Further, ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one. (For answers to problems frequently encountered with OpenCV on the Windows platform, please refer to [http://code.google.com/p/javacv/wiki/Windows7AndOpenCV  Common issues with OpenCV under Windows 7].)
+And please make sure your Java and OpenCV have the same bitness: *32-bit and 64-bit modules do not mix under any circumstances*. Further, ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
 
-Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, or other cameras supported via FFmpeg:
+Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, the PS3 Eye, or other cameras supported via FFmpeg:
  * libdc1394 2.1.x (Linux and Mac OS X)  http://sourceforge.net/projects/libdc1394/files/
- * PGR FlyCapture 1.7~2.1 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
+ * PGR FlyCapture 1.7~2.2 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
  * OpenKinect  http://openkinect.org/
+ * CL Eye Platform SDK  http://codelaboratories.com/downloads/
  * FFmpeg 0.6.x or 0.7.x  http://ffmpeg.org/download.html
-  * Precompiled for Windows (last compatible build: 18-Apr-2011)
-   * http://hawkeye.arrozcru.org/builds/win32/shared/
-   * http://hawkeye.arrozcru.org/builds/win64/shared/
+  * Precompiled for Windows  http://ffmpeg.zeranoe.com/builds/  Known compatible builds:
+   * http://ffmpeg.zeranoe.com/builds/win32/shared/ffmpeg-0.7.1-win32-shared.7z
+   * http://ffmpeg.zeranoe.com/builds/win64/shared/ffmpeg-0.7.1-win64-shared.7z
 
 
 ==Usage==
@@ -76,6 +77,10 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===January 8, 2012===
+ * Should now have an easier time automatically finding OpenCV libraries inside standard directories such as `/usr/local/lib/`, `/opt/local/lib/`, and `C:\opencv\`, even when they are not part of the system configuration or PATH
+ * New `PS3EyeFrameGrabber` from Jiri Masa can now grab images using the SDK from Code Laboratories
+
 ===October 1, 2011===
  * Fixed `DC1394FrameGrabber` and `FlyCaptureFrameGrabber` to behave as expected with all Bayer/Raw/Mono/RGB/YUV cameras modes (within the limits of libdc1394 and PGR FlyCapture)
 
@@ -174,7 +179,7 @@ Initial release
 
 
 ----
-Copyright (C) 2009,2010,2011 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
+Copyright (C) 2009-2012 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
 Web site: http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/
 
 Licensed under the GNU General Public License version 2 (GPLv2).

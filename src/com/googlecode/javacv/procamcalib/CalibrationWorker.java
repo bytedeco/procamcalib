@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009,2010,2011 Samuel Audet
+ * Copyright (C) 2009,2010,2011,2012 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -34,7 +34,7 @@ import com.googlecode.javacv.CameraSettings;
 import com.googlecode.javacv.CanvasFrame;
 import com.googlecode.javacv.ColorCalibrator;
 import com.googlecode.javacv.FrameGrabber;
-import com.googlecode.javacv.FrameGrabber.ColorMode;
+import com.googlecode.javacv.FrameGrabber.ImageMode;
 import com.googlecode.javacv.GeometricCalibrator;
 import com.googlecode.javacv.MarkedPlane;
 import com.googlecode.javacv.Marker;
@@ -180,9 +180,9 @@ public class CalibrationWorker extends SwingWorker {
                     frameGrabbers[i].setTriggerMode(true);
                 }
                 if (geometricCalibratorSettings.enabled) {
-                    frameGrabbers[i].setColorMode(ColorMode.GRAY);
+                    frameGrabbers[i].setImageMode(ImageMode.GRAY);
                 } else if (colorCalibratorSettings.enabled) {
-                    frameGrabbers[i].setColorMode(ColorMode.BGR);
+                    frameGrabbers[i].setImageMode(ImageMode.COLOR);
                 }
                 frameGrabbers[i].start();
 
@@ -216,9 +216,9 @@ public class CalibrationWorker extends SwingWorker {
             FrameGrabber.Array frameGrabberArray = frameGrabbers[0].createArray(frameGrabbers);
             if (geometricCalibratorSettings.enabled && !isCancelled()) {
                 for (FrameGrabber f : frameGrabbers) {
-                    if (f.getColorMode() != ColorMode.GRAY) {
+                    if (f.getImageMode() != ImageMode.GRAY) {
                         f.stop();
-                        f.setColorMode(ColorMode.GRAY);
+                        f.setImageMode(ImageMode.GRAY);
                         f.start();
                     }
                 }
@@ -226,9 +226,9 @@ public class CalibrationWorker extends SwingWorker {
             }
             if (colorCalibratorSettings.enabled && !isCancelled()) {
                 for (FrameGrabber f : frameGrabbers) {
-                    if (f.getColorMode() != ColorMode.BGR) {
+                    if (f.getImageMode() != ImageMode.COLOR) {
                         f.stop();
-                        f.setColorMode(ColorMode.BGR);
+                        f.setImageMode(ImageMode.COLOR);
                         f.start();
                     }
                 }
