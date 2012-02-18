@@ -54,7 +54,7 @@ After pasting the pattern on a flat calibration board, and making sure that the 
 
 Be aware that color calibration is enabled by default. After geometric calibration has completed, color calibration will start and display automatically an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
 
-After a successful calibration session, the application holds in memory the "calibration data". You may examine and save this data via the "Calibration" menu. The program uses OpenCV to output a file in the YAML or XML format. This information can easily be parsed back in any of your programs by using the CvFileStorage facilities of OpenCV.
+After a successful calibration session, the application holds in memory the "calibration data". You may examine and save this data via the "Calibration" menu. All length values are expressed in pixel units, including the sizes and spacings of the "MarkerPatterns". The program uses OpenCV to output a file in the YAML or XML format. This information can easily be parsed back in any of your programs by using the CvFileStorage facilities of OpenCV.
 
 Feel free to contact me if you have any questions or find any problems with the software! I am sure it is far from perfect...
 
@@ -77,6 +77,9 @@ I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Instit
 
 
 ==Changes==
+===February 18, 2012===
+ * Renamed some `Settings` properties here and there to correct typos and reflect better their meanings
+
 ===January 8, 2012===
  * Should now have an easier time automatically finding OpenCV libraries inside standard directories such as `/usr/local/lib/`, `/opt/local/lib/`, and `C:\opencv\`, even when they are not part of the system configuration or PATH
  * New `PS3EyeFrameGrabber` from Jiri Masa can now grab images using the SDK from Code Laboratories

@@ -40,7 +40,6 @@ import com.googlecode.javacv.MarkedPlane;
 import com.googlecode.javacv.Marker;
 import com.googlecode.javacv.MarkerDetector;
 import com.googlecode.javacv.Parallel;
-import com.googlecode.javacv.Parallel.Looper;
 import com.googlecode.javacv.ProCamColorCalibrator;
 import com.googlecode.javacv.ProCamGeometricCalibrator;
 import com.googlecode.javacv.ProjectiveDevice;
@@ -81,7 +80,7 @@ public class CalibrationWorker extends SwingWorker {
         boolean enabled = true;
         boolean useMarkerCenters = true;
         int imagesInTotal = 10;
-        long timeIntervalMin = 2000;
+        long shotTimeInterval = 2000;
 
         public boolean isEnabled() {
             return enabled;
@@ -105,11 +104,11 @@ public class CalibrationWorker extends SwingWorker {
             this.imagesInTotal = imagesInTotal;
         }
 
-        public long getTimeIntervalMin() {
-            return timeIntervalMin;
+        public long getShotTimeInterval() {
+            return shotTimeInterval;
         }
-        public void setTimeIntervalMin(long timeIntervalMin) {
-            this.timeIntervalMin = timeIntervalMin;
+        public void setShotTimeInterval(long shotTimeInterval) {
+            this.shotTimeInterval = shotTimeInterval;
         }
     }
 
@@ -142,6 +141,7 @@ public class CalibrationWorker extends SwingWorker {
             }
             if (cameraSettings.getMonitorWindowsScale() > 0) {
                 cameraCanvasFrames[i] = new CanvasFrame(cs[i].getName());
+                cameraCanvasFrames[i].setCanvasScale(cameraSettings.getMonitorWindowsScale());
             }
         }
 
@@ -325,7 +325,7 @@ public class CalibrationWorker extends SwingWorker {
             }
 
 //            for (int i = 0; i < grabbedImages.length && !isCancelled(); i++) {
-            Parallel.loop(0, grabbedImages.length, new Looper() {
+            Parallel.loop(0, grabbedImages.length, new Parallel.Looper() {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
                 // gamma "uncorrection", linearization
@@ -364,7 +364,7 @@ public class CalibrationWorker extends SwingWorker {
                 }
                 // show camera images with detected markers drawn
                 if (cameraCanvasFrames[i] != null) {
-                    cameraCanvasFrames[i].showImage(colorImages[i], cameraSettings.getMonitorWindowsScale());
+                    cameraCanvasFrames[i].showImage(colorImages[i]);
                     //cameraCanvasFrames[i].showImage(geometricCalibrators[i].getMarkerDetector().getBinarized());
                 }
             }}});
@@ -381,7 +381,7 @@ public class CalibrationWorker extends SwingWorker {
             // if we have waited long enough, and all calibrators want to add
             // the markers, then add them
             long time = System.currentTimeMillis();
-            if (!missing && time-lastAddedTime > geometricCalibratorSettings.timeIntervalMin) {
+            if (!missing && time-lastAddedTime > geometricCalibratorSettings.shotTimeInterval) {
                 lastAddedTime = time;
                 for (int i = 0; i < cameraCanvasFrames.length; i++) {
                     // the calibrators have decided to save these markers, make a little flash effect
@@ -478,7 +478,7 @@ public class CalibrationWorker extends SwingWorker {
             }
 
             //for (int i = 0; i < grabbedImages.length; i++) {
-            Parallel.loop(0, grabbedImages.length, new Looper() {
+            Parallel.loop(0, grabbedImages.length, new Parallel.Looper() {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
                 hasDetectedMarkers[i] = proCamColorCalibrators[i][curProj].processCameraImage(grabbedImages[i]);
@@ -504,7 +504,7 @@ public class CalibrationWorker extends SwingWorker {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
                         cvNot(mask, mask);
                         cvSet(undist, cvScalarAll(undist.highValue()), mask);
-                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getMonitorWindowsScale());
+                        cameraCanvasFrames[i].showImage(undist);
                     }
 
                     // add the extracted color
@@ -526,7 +526,7 @@ public class CalibrationWorker extends SwingWorker {
                 for (int i = 0; i < cameraCanvasFrames.length; i++) {
                     if (cameraCanvasFrames[i] != null) {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
-                        cameraCanvasFrames[i].showImage(undist, cameraSettings.getMonitorWindowsScale());
+                        cameraCanvasFrames[i].showImage(undist);
                     }
                 }
             }

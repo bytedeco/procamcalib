@@ -179,7 +179,7 @@ public class MainFrame extends javax.swing.JFrame implements
                 @Override public void close() throws SecurityException { }
             });
 
-            cvRedirectError(new JavaCvErrorCallback(true, MainFrame.this) {
+            cvRedirectError(new JavaCvErrorCallback() {
                 @Override public int call(int status, String func_name, String err_msg,
                         String file_name, int line, Pointer userdata) {
                     super.call(status, func_name, err_msg, file_name, line, userdata);
@@ -335,11 +335,11 @@ public class MainFrame extends javax.swing.JFrame implements
 
         // hide settings we do not need from the user...
         editors.put("triggerMode", null);
-        editors.put("colorMode", null);
+        editors.put("imageMode", null);
         editors.put("timeout", null);
-        editors.put("numBuffers", null);
         editors.put("deviceFilename", null);
-        editors.put("nominalDistance", null);
+        editors.put("useOpenGL", null);
+//        editors.put("nominalDistance", null);
 
         if (cameraSettings == null) {
             cameraSettings = new CameraSettings();
