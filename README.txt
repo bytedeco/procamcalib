@@ -73,10 +73,13 @@ Please keep me informed of any updates or fixes you make to the code so that I m
 
 
 ==Acknowledgments==
-I am currently an active member of the Okutomi & Tanaka Laboratory, Tokyo Institute of Technology, supported by a scholarship from the Ministry of Education, Culture, Sports, Science and Technology (MEXT) of the Japanese Government.
+This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute of Technology, where I was supported by a generous scholarship from the Ministry of Education, Culture, Sports, Science and Technology (MEXT) of the Japanese Government. I extend my gratitude further to all who have reported bugs, donated code, or made suggestions for improvements!
 
 
 ==Changes==
+===March 29, 2012===
+ * Renamed a few more `Settings` properties to reflect better their meanings
+
 ===February 18, 2012===
  * Renamed some `Settings` properties here and there to correct typos and reflect better their meanings
 
