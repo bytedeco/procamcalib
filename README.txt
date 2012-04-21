@@ -65,7 +65,8 @@ I make all the source code available on my site at http://www.ok.ctrl.titech.ac.
  * JavaCPP http://code.google.com/p/javacpp/
  * JavaCV  http://code.google.com/p/javacv/
  * ARToolKitPlus 2.1.1t  http://code.google.com/p/javacv/downloads/list
- * NetBeans 6.9  http://netbeans.org/downloads/
+ * NetBeans 6.9  http://netbeans.org/downloads/  or
+ * Maven 2 or 3  http://maven.apache.org/download.html
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
 
@@ -73,13 +74,12 @@ Please keep me informed of any updates or fixes you make to the code so that I m
 
 
 ==Acknowledgments==
-This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute of Technology, where I was supported by a generous scholarship from the Ministry of Education, Culture, Sports, Science and Technology (MEXT) of the Japanese Government. I extend my gratitude further to all who have reported bugs, donated code, or made suggestions for improvements!
+This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute of Technology, where I was supported for my doctoral research project by a generous scholarship from the Ministry of Education, Culture, Sports, Science and Technology (MEXT) of the Japanese Government. I extend my gratitude further to all who have reported bugs, donated code, or made suggestions for improvements!
 
 
 ==Changes==
 ===April xx, 2012===
  * Added `pom.xml` and assembly files for Maven support and changed the directory structure of the source code to match Maven's standard directory layout
-
 
 ===March 29, 2012===
  * Renamed a few more `Settings` properties to reflect better their meanings

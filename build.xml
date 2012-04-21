@@ -23,6 +23,37 @@
             <attribute name="Specification-Version" value="${TIMESTAMP}"/>
         </section>
     </manifest>
+    <target name="-init-macrodef-copylibs">
+        <macrodef name="copylibs" uri="http://www.netbeans.org/ns/j2se-project/3">
+            <element name="customize" optional="true"/>
+            <sequential>
+                <property location="${build.classes.dir}" name="build.classes.dir.resolved"/>
+                <pathconvert property="run.classpath.without.build.classes.dir">
+                    <path path="${run.classpath}"/>
+                    <map from="${build.classes.dir.resolved}" to=""/>
+                </pathconvert>
+                <pathconvert pathsep=" " property="jar.classpath">
+                    <path path="${run.classpath.without.build.classes.dir}"/>
+                    <chainedmapper>
+                        <flattenmapper/>
+                        <globmapper from="*" to="*"/>
+                    </chainedmapper>
+                </pathconvert>
+                <taskdef classname="org.netbeans.modules.java.j2seproject.copylibstask.CopyLibs" classpath="${libs.CopyLibs.classpath}" name="copylibs"/>
+                <copylibs compress="${jar.compress}" index="${jar.index}" jarfile="${dist.jar}" manifest="${manifest.file}" runtimeclasspath="${run.classpath.without.build.classes.dir}">
+                    <fileset dir="${build.classes.dir}"/>
+                    <manifest>
+                        <attribute name="Class-Path" value="${jar.classpath}"/>
+                        <customize/>
+                    </manifest>
+                </copylibs>
+                <move todir="${dist.dir}/modules/">
+                    <fileset dir="${dist.dir}/lib/" includes="*"/>
+                </move>
+                <delete dir="${dist.dir}/lib/"/>
+            </sequential>
+        </macrodef>
+    </target>
     <target name="-post-jar">
         <delete file="${dist.dir}/README.TXT" />
         <copy file="procamcalib-nativelook" todir="${dist.dir}"/>
@@ -33,9 +64,10 @@
         <copy file="procamcalib-oceanlook.cmd" todir="${dist.dir}"/>
         <copy file="LICENSE.txt" todir="${dist.dir}"/>
         <copy file="README.txt" todir="${dist.dir}"/>
-        <copy todir="${dist.dir}/lib/">
+        <copy todir="${dist.dir}/modules/">
             <fileset dir="${project.javacv}/dist/" includes="javacv-*.jar"/>
         </copy>
+        <move file="${dist.dir}/procamcalib.jar" todir="${dist.dir}/modules/"/>
     </target>
 
     <!--

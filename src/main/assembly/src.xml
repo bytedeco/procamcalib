@@ -18,9 +18,12 @@
       <includes>
         <include>procamcalib-nativelook.cmd</include>
         <include>procamcalib-oceanlook.cmd</include>
-        <include>LICENSE.txt</include>
-        <include>README.txt</include>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
         <include>pom.xml</include>
+        <include>build.xml</include>
+        <include>nbproject/*</include>
       </includes>
       <useDefaultExcludes>true</useDefaultExcludes>
     </fileSet>

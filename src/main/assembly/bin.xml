@@ -4,6 +4,7 @@
   <formats>
     <format>zip</format>
   </formats>
+  <baseDirectory>${project.artifactId}-bin</baseDirectory>
   <fileSets>
     <fileSet>
       <directory>${project.basedir}</directory>
@@ -20,13 +21,14 @@
       <includes>
         <include>procamcalib-nativelook.cmd</include>
         <include>procamcalib-oceanlook.cmd</include>
-        <include>LICENSE.txt</include>
-        <include>README.txt</include>
+        <include>README*</include>
+        <include>LICENSE*</include>
+        <include>NOTICE*</include>
       </includes>
     </fileSet>
     <fileSet>
       <directory>${project.build.directory}</directory>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory>/modules/</outputDirectory>
       <includes>
         <include>*.jar</include>
       </includes>

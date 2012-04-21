@@ -15,8 +15,8 @@ OPTIONS=-Dapple.awt.fullscreencapturealldisplays=false
 java -d64 -server -version
 if [ $? -eq 0 ]
 then
-java -d64 -server $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
+java -d64 -server $OPTIONS -jar "`dirname "$0"`/modules/procamcalib.jar" "$@"
 else
 echo "WARNING: 64-bit server JVM not available. Executing with default JVM..."
-java $OPTIONS -jar "`dirname "$0"`/procamcalib.jar" "$@"
+java $OPTIONS -jar "`dirname "$0"`/modules/procamcalib.jar" "$@"
 fi
