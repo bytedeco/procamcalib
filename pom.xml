@@ -34,6 +34,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.googlecode.javacpp</groupId>
+      <artifactId>javacpp</artifactId>
+      <version>0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
       <version>0.1-SNAPSHOT</version>
@@ -142,6 +147,7 @@
             <configuration>
               <outputDirectory>${project.build.directory}</outputDirectory>
               <stripVersion>true</stripVersion>
+              <excludeTransitive>true</excludeTransitive>
             </configuration>
           </execution>
         </executions>
