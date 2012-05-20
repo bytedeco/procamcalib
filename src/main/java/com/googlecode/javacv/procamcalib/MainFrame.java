@@ -1112,7 +1112,7 @@ public class MainFrame extends javax.swing.JFrame implements
 
             String text = "";
             BufferedReader r = new BufferedReader(new FileReader(
-                    myDirectory + File.separator + "README.txt"));
+                    myDirectory + File.separator + "../README.txt"));
             String line;
             while ((line = r.readLine()) != null) {
                 text += line + '\n';
