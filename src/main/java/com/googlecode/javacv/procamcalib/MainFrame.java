@@ -1142,23 +1142,15 @@ public class MainFrame extends javax.swing.JFrame implements
     }//GEN-LAST:event_readmeMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
-        String timestamp = MainFrame.class.getPackage().getImplementationVersion();
-        if (timestamp == null) {
-            timestamp = "unknown";
+        String version = MainFrame.class.getPackage().getImplementationVersion();
+        if (version == null) {
+            version = "unknown";
         }
-//        String timestamp = "unknown";
-//        try {
-//            URL u = MainFrame.class.getClassLoader().getResource("com/googlecode/javacv/procamcalib");
-//            JarURLConnection c = (JarURLConnection)u.openConnection();
-//            timestamp = c.getManifest().getMainAttributes().getValue("Time-Stamp");
-//        } catch (Exception e) { }
-
         JTextPane textPane = new JTextPane();
-	textPane.setEditable(false);
+        textPane.setEditable(false);
         textPane.setContentType("text/html");
         textPane.setText(
-                "<font face=sans-serif><strong><font size=+2>ProCamCalib</font></strong><br>" +
-                "build timestamp " + timestamp + "<br>" +
+                "<font face=sans-serif><strong><font size=+2>ProCamCalib</font></strong> version " + version + "<br>" +
                 "Copyright (C) 2009-2012 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
                 "Web site: <a href=\"http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/\">http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/</a><br>" +
                 "<br>" +

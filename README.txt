@@ -9,7 +9,7 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 
 ==Required Software==
-I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 6 or 7 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required. (For answers to problems frequently encountered with OpenCV on the Windows platform, please refer to [http://code.google.com/p/javacv/wiki/Windows7AndOpenCV  Common issues with OpenCV under Windows 7].)
+I wrote ProCamCalib itself in Java and its binary should run on any platform where an implementation of Java SE 6 or 7 exists. The binary distribution also contains natively compiled code for Linux, Mac OS X, and Windows, needed by JavaCV. Still, additional software is required. (For answers to problems frequently encountered with OpenCV on the Windows platform, please refer to [http://code.google.com/p/javacv/wiki/Windows7AndOpenCV Common issues with OpenCV under Windows 7].)
 
 Please install the following before running ProCamCalib:
  * An implementation of Java SE 6 or 7
@@ -78,6 +78,9 @@ This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute o
 
 
 ==Changes==
+===May 27, 2012 version 0.1===
+ * Started using version numbers, friendly to tools like Maven, and placing packages in a sort of [http://maven2.javacv.googlecode.com/git/ Maven repository]
+
 ===May 12, 2012===
  * Upgraded support to OpenCV 2.4.0
  * Added `pom.xml` and assembly files for Maven support and changed the directory structure of the source code to match Maven's standard directory layout

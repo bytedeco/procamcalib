@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.javacv</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <packaging>jar</packaging>
 
   <name>ProCamCalib</name>
@@ -36,17 +36,17 @@
     <dependency>
       <groupId>com.googlecode.javacpp</groupId>
       <artifactId>javacpp</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.1</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.1</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.1</version>
       <classifier>${platform.name}</classifier>
     </dependency>
     <dependency>
@@ -118,6 +118,16 @@
 
   <repositories>
     <repository>
+      <id>javacpp</id>
+      <name>JavaCPP</name>
+      <url>http://maven2.javacpp.googlecode.com/git/</url>
+    </repository>
+    <repository>
+      <id>javacv</id>
+      <name>JavaCV</name>
+      <url>http://maven2.javacv.googlecode.com/git/</url>
+    </repository>
+    <repository>
       <id>netbeans</id>
       <name>NetBeans</name>
       <url>http://bits.netbeans.org/maven2/</url>
@@ -168,10 +178,10 @@
               <Name>com/googlecode/javacv/procamcalib/</Name>
               <Implementation-Title>${project.name}</Implementation-Title>
               <Implementation-Vendor>Samuel Audet</Implementation-Vendor>
-              <Implementation-Version>${maven.build.timestamp}</Implementation-Version>
+              <Implementation-Version>${project.version}</Implementation-Version>
               <Specification-Title>${project.name}</Specification-Title>
               <Specification-Vendor>Samuel Audet</Specification-Vendor>
-              <Specification-Version>${maven.build.timestamp}</Specification-Version>
+              <Specification-Version>${project.version}</Specification-Version>
             </manifestEntries>
           </archive>
         </configuration>
