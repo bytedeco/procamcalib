@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.javacv</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
   <packaging>jar</packaging>
 
   <name>ProCamCalib</name>
@@ -36,17 +36,17 @@
     <dependency>
       <groupId>com.googlecode.javacpp</groupId>
       <artifactId>javacpp</artifactId>
-      <version>0.2</version>
+      <version>0.3</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.2</version>
+      <version>0.3</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.2</version>
+      <version>0.3</version>
       <classifier>${platform.name}</classifier>
     </dependency>
     <dependency>
@@ -184,6 +184,14 @@
               <Specification-Version>${project.version}</Specification-Version>
             </manifestEntries>
           </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <createChecksum>true</createChecksum>
         </configuration>
       </plugin>
       <plugin>
