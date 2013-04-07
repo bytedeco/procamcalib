@@ -17,7 +17,7 @@ Please install the following before running ProCamCalib:
   * Sun JDK  http://www.oracle.com/technetwork/java/javase/downloads/  or
   * IBM JDK  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 2.4.4  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 2.4.5  http://sourceforge.net/projects/opencvlibrary/files/
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -28,7 +28,7 @@ Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, the PS3 E
  * PGR FlyCapture 1.7~2.3 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
  * OpenKinect  http://openkinect.org/
  * CL Eye Platform SDK  http://codelaboratories.com/downloads/
- * FFmpeg 1.1.x  http://ffmpeg.org/download.html
+ * FFmpeg 1.2.x  http://ffmpeg.org/download.html
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -79,6 +79,9 @@ This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute o
 
 
 ==Changes==
+===April 7, 2013 version 0.5===
+ * Upgraded support to OpenCV 2.4.5 and FFmpeg 1.2
+
 ===March 3, 2013 version 0.4===
  * Upgraded support to OpenCV 2.4.4 and FFmpeg 1.1
 
