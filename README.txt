@@ -17,7 +17,7 @@ Please install the following before running ProCamCalib:
   * Sun JDK  http://www.oracle.com/technetwork/java/javase/downloads/  or
   * IBM JDK  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 2.4.5  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 2.4.6.x  http://sourceforge.net/projects/opencvlibrary/files/
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -25,10 +25,10 @@ And please make sure your Java and OpenCV have the same bitness: *32-bit and 64-
 
 Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, the PS3 Eye, or other cameras supported via FFmpeg:
  * libdc1394 2.1.x or 2.2.x  http://sourceforge.net/projects/libdc1394/files/
- * PGR FlyCapture 1.7~2.3 (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
+ * PGR FlyCapture 1.7 or newer (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
  * OpenKinect  http://openkinect.org/
  * CL Eye Platform SDK  http://codelaboratories.com/downloads/
- * FFmpeg 1.2.x  http://ffmpeg.org/download.html
+ * FFmpeg 2.0.x  http://ffmpeg.org/download.html
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -65,8 +65,8 @@ I make all the source code available on my site at http://www.ok.ctrl.titech.ac.
  * A C/C++ compiler
  * JavaCPP http://code.google.com/p/javacpp/
  * JavaCV  http://code.google.com/p/javacv/
- * ARToolKitPlus 2.1.1t  http://code.google.com/p/javacv/downloads/list
- * NetBeans 6.9  http://netbeans.org/downloads/  or
+ * ARToolKitPlus 2.3.0  https://launchpad.net/artoolkitplus
+ * NetBeans 7.3.1  http://netbeans.org/downloads/  or
  * Maven 2 or 3  http://maven.apache.org/download.html
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)
@@ -79,6 +79,13 @@ This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute o
 
 
 ==Changes==
+
+===September 15, 2013 version 0.6===
+ * Upgraded support to OpenCV 2.4.6.x and FFmpeg 2.0.x
+ * Upgraded to NetBeans 7.3.1
+ * Upgraded to ARToolKitPlus 2.3.0 (issue #234)
+ * Fixed drawing issues with `MarkerDetector.draw()`
+
 ===April 7, 2013 version 0.5===
  * Upgraded support to OpenCV 2.4.5 and FFmpeg 1.2
 

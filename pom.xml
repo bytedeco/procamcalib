@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.googlecode.javacv</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>0.5</version>
+  <version>0.6</version>
   <packaging>jar</packaging>
 
   <name>ProCamCalib</name>
@@ -36,83 +36,83 @@
     <dependency>
       <groupId>com.googlecode.javacpp</groupId>
       <artifactId>javacpp</artifactId>
-      <version>0.5</version>
+      <version>0.6</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.5</version>
+      <version>0.6</version>
     </dependency>
     <dependency>
       <groupId>com.googlecode.javacv</groupId>
       <artifactId>javacv</artifactId>
-      <version>0.5</version>
+      <version>0.6</version>
       <classifier>${platform.name}</classifier>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-bootstrap</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core-startup</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-netbeans-swing-plaf</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-actions</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-awt</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-dialogs</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-explorer</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-filesystems</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-modules</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-nodes</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util-lookup</artifactId>
-      <version>RELEASE69</version>
+      <version>RELEASE731</version>
     </dependency>
   </dependencies>
 
