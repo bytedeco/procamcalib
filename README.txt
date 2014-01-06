@@ -17,7 +17,7 @@ Please install the following before running ProCamCalib:
   * Sun JDK  http://www.oracle.com/technetwork/java/javase/downloads/  or
   * IBM JDK  http://www.ibm.com/developerworks/java/jdk/  or
   * Java SE for Mac OS X  http://developer.apple.com/java/  etc.
- * OpenCV 2.4.6.x  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 2.4.8  http://sourceforge.net/projects/opencvlibrary/files/
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -28,7 +28,7 @@ Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, the PS3 E
  * PGR FlyCapture 1.7 or newer (Windows only)  http://www.ptgrey.com/products/pgrflycapture/
  * OpenKinect  http://openkinect.org/
  * CL Eye Platform SDK  http://codelaboratories.com/downloads/
- * FFmpeg 2.0.x  http://ffmpeg.org/download.html
+ * FFmpeg 2.1.x  http://ffmpeg.org/download.html
   * Precompiled and prepackaged CPPJARs for Linux, Mac OS X, and Windows:
     * http://code.google.com/p/javacv/downloads/list
 
@@ -79,6 +79,10 @@ This project was conceived at the Okutomi & Tanaka Laboratory, Tokyo Institute o
 
 
 ==Changes==
+
+===January 6, 2014 version 0.7===
+ * Upgraded support to OpenCV 2.4.8 and FFmpeg 2.1.x
+ * `VideoInputFrameGrabber` now uses 640x480 as default image size to prevent "videoInput.getPixels() Error: Could not get pixels."
 
 ===September 15, 2013 version 0.6===
  * Upgraded support to OpenCV 2.4.6.x and FFmpeg 2.0.x
@@ -213,7 +217,7 @@ Initial release
 
 
 ----
-Copyright (C) 2009-2013 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
+Copyright (C) 2009-2014 Samuel Audet <saudet@ok.ctrl.titech.ac.jp>
 Web site: http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/
 
 Licensed under the GNU General Public License version 2 (GPLv2).
