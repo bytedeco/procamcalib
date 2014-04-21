@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.googlecode.javacv</groupId>
+  <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>0.7</version>
+  <version>0.8-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>ProCamCalib</name>
@@ -26,107 +26,191 @@
     </developer>
   </developers>
 
+  <scm>
+    <url>https://github.com/bytedeco/javacv</url>
+    <connection>scm:git:git://github.com/bytedeco/javacv.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/bytedeco/javacv.git</developerConnection>
+  </scm>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>sonatype-nexus-staging</id>
+      <name>Sonatype Nexus Staging</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyyMMddhhmm</maven.build.timestamp.format>
-    <platform.name>${os.name}-${os.arch}</platform.name>
+    <platform>${os.name}-${os.arch}</platform>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>com.googlecode.javacpp</groupId>
+      <groupId>org.bytedeco</groupId>
       <artifactId>javacpp</artifactId>
-      <version>0.7</version>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>opencv</artifactId>
+      <version>2.4.8-${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.javacv</groupId>
-      <artifactId>javacv</artifactId>
-      <version>0.7</version>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>ffmpeg</artifactId>
+      <version>2.2.1-${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.javacv</groupId>
-      <artifactId>javacv</artifactId>
-      <version>0.7</version>
-      <classifier>${platform.name}</classifier>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>flycapture</artifactId>
+      <version>1.7.17-${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>libdc1394</artifactId>
+      <version>2.2.2-${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>libfreenect</artifactId>
+      <version>0.4-${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>videoinput</artifactId>
+      <version>0.200-${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>artoolkitplus</artifactId>
+      <version>2.3.0-${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>opencv</artifactId>
+      <version>2.4.8-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>ffmpeg</artifactId>
+      <version>2.2.1-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>flycapture</artifactId>
+      <version>1.7.17-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>libdc1394</artifactId>
+      <version>2.2.2-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>libfreenect</artifactId>
+      <version>0.4-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>videoinput</artifactId>
+      <version>0.200-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.bytedeco.javacpp-presets</groupId>
+      <artifactId>artoolkitplus</artifactId>
+      <version>2.3.0-${project.version}</version>
+      <classifier>${platform}</classifier>
+    </dependency>
+
+    <dependency>
+      <groupId>org.bytedeco</groupId>
+      <artifactId>javacv</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-bootstrap</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core-startup</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-netbeans-swing-plaf</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-actions</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-awt</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-dialogs</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-explorer</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-filesystems</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-modules</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-nodes</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util-lookup</artifactId>
-      <version>RELEASE731</version>
+      <version>RELEASE80</version>
     </dependency>
   </dependencies>
 
   <repositories>
-    <repository>
-      <id>javacpp</id>
-      <name>JavaCPP</name>
-      <url>http://maven2.javacpp.googlecode.com/git/</url>
-    </repository>
-    <repository>
-      <id>javacv</id>
-      <name>JavaCV</name>
-      <url>http://maven2.javacv.googlecode.com/git/</url>
-    </repository>
     <repository>
       <id>netbeans</id>
       <name>NetBeans</name>
@@ -169,13 +253,13 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.googlecode.javacv.procamcalib.MainFrame</mainClass>
+              <mainClass>org.bytedeco.procamcalib.MainFrame</mainClass>
               <addClasspath>true</addClasspath>
             </manifest>
             <manifestEntries>
               <!-- <addClasspath/> is broken: http://jira.codehaus.org/browse/MJAR-61 -->
               <Class-Path>javacpp.jar javacv.jar org-netbeans-bootstrap.jar org-netbeans-core-startup.jar org-netbeans-core.jar org-netbeans-swing-plaf.jar org-openide-actions.jar org-openide-awt.jar org-openide-dialogs.jar org-openide-explorer.jar org-openide-filesystems.jar org-openide-modules.jar org-openide-nodes.jar org-openide-util.jar org-openide-util-lookup.jar</Class-Path>
-              <Name>com/googlecode/javacv/procamcalib/</Name>
+              <Name>org/bytedeco/procamcalib/</Name>
               <Implementation-Title>${project.name}</Implementation-Title>
               <Implementation-Vendor>Samuel Audet</Implementation-Vendor>
               <Implementation-Version>${project.version}</Implementation-Version>

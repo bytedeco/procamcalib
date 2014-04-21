@@ -21,6 +21,7 @@
       <includes>
         <include>procamcalib-nativelook.cmd</include>
         <include>procamcalib-oceanlook.cmd</include>
+        <include>CHANGELOG*</include>
         <include>README*</include>
         <include>LICENSE*</include>
         <include>NOTICE*</include>

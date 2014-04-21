@@ -17,24 +17,8 @@
  * along with ProCamCalib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.googlecode.javacv.procamcalib;
+package org.bytedeco.procamcalib;
 
-import com.googlecode.javacv.CameraDevice;
-import com.googlecode.javacv.CameraSettings;
-import com.googlecode.javacv.CanvasFrame;
-import com.googlecode.javacv.ColorCalibrator;
-import com.googlecode.javacv.FrameGrabber;
-import com.googlecode.javacv.FrameGrabber.ImageMode;
-import com.googlecode.javacv.GeometricCalibrator;
-import com.googlecode.javacv.MarkedPlane;
-import com.googlecode.javacv.Marker;
-import com.googlecode.javacv.MarkerDetector;
-import com.googlecode.javacv.Parallel;
-import com.googlecode.javacv.ProCamColorCalibrator;
-import com.googlecode.javacv.ProCamGeometricCalibrator;
-import com.googlecode.javacv.ProjectiveDevice;
-import com.googlecode.javacv.ProjectorDevice;
-import com.googlecode.javacv.ProjectorSettings;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -45,9 +29,25 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
+import org.bytedeco.javacv.CameraDevice;
+import org.bytedeco.javacv.CameraSettings;
+import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.ColorCalibrator;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.FrameGrabber.ImageMode;
+import org.bytedeco.javacv.GeometricCalibrator;
+import org.bytedeco.javacv.MarkedPlane;
+import org.bytedeco.javacv.Marker;
+import org.bytedeco.javacv.MarkerDetector;
+import org.bytedeco.javacv.Parallel;
+import org.bytedeco.javacv.ProCamColorCalibrator;
+import org.bytedeco.javacv.ProCamGeometricCalibrator;
+import org.bytedeco.javacv.ProjectiveDevice;
+import org.bytedeco.javacv.ProjectorDevice;
+import org.bytedeco.javacv.ProjectorSettings;
 
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
 
 /**
  *

@@ -17,7 +17,7 @@
  * along with ProCamCalib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.googlecode.javacv.procamcalib;
+package org.bytedeco.procamcalib;
 
 import java.beans.IntrospectionException;
 import java.beans.PropertyEditor;

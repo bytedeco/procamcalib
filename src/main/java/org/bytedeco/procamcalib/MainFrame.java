@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009,2010,2011,2012 Samuel Audet
+ * Copyright (C) 2009,2010,2011,2012,2013,2014 Samuel Audet
  *
  * This file is part of ProCamCalib.
  *
@@ -17,19 +17,8 @@
  * along with ProCamCalib.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.googlecode.javacv.procamcalib;
+package org.bytedeco.procamcalib;
 
-import com.googlecode.javacpp.Pointer;
-import com.googlecode.javacv.CameraDevice;
-import com.googlecode.javacv.CameraSettings;
-import com.googlecode.javacv.CanvasFrame;
-import com.googlecode.javacv.FrameGrabber;
-import com.googlecode.javacv.JavaCvErrorCallback;
-import com.googlecode.javacv.MarkedPlane;
-import com.googlecode.javacv.Marker;
-import com.googlecode.javacv.MarkerDetector;
-import com.googlecode.javacv.ProjectorDevice;
-import com.googlecode.javacv.ProjectorSettings;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dialog.ModalityType;
@@ -79,6 +68,18 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkEvent.EventType;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.DefaultEditorKit;
+import org.bytedeco.javacpp.BytePointer;
+import org.bytedeco.javacpp.Pointer;
+import org.bytedeco.javacv.CameraDevice;
+import org.bytedeco.javacv.CameraSettings;
+import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.JavaCvErrorCallback;
+import org.bytedeco.javacv.MarkedPlane;
+import org.bytedeco.javacv.Marker;
+import org.bytedeco.javacv.MarkerDetector;
+import org.bytedeco.javacv.ProjectorDevice;
+import org.bytedeco.javacv.ProjectorSettings;
 import org.netbeans.beaninfo.editors.StringArrayEditor;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
@@ -89,9 +90,9 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.Lookup;
 
-import static com.googlecode.javacv.cpp.opencv_core.*;
-import static com.googlecode.javacv.cpp.opencv_highgui.*;
-import static com.googlecode.javacv.cpp.opencv_imgproc.*;
+import static org.bytedeco.javacpp.opencv_core.*;
+import static org.bytedeco.javacpp.opencv_highgui.*;
+import static org.bytedeco.javacpp.opencv_imgproc.*;
 
 /**
  *
@@ -180,8 +181,8 @@ public class MainFrame extends javax.swing.JFrame implements
             });
 
             cvRedirectError(new JavaCvErrorCallback() {
-                @Override public int call(int status, String func_name, String err_msg,
-                        String file_name, int line, Pointer userdata) {
+                @Override public int call(int status, BytePointer func_name, BytePointer err_msg,
+                        BytePointer file_name, int line, Pointer userdata) {
                     super.call(status, func_name, err_msg, file_name, line, userdata);
                     if (calibrationWorker != null) {
                         calibrationWorker.cancel(false);
@@ -521,7 +522,7 @@ public class MainFrame extends javax.swing.JFrame implements
         toolBar.setFloatable(false);
         toolBar.setRollover(true);
 
-        settingsLoadDefaultsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/cleanCurrentProject.gif"))); // NOI18N
+        settingsLoadDefaultsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/cleanCurrentProject.gif"))); // NOI18N
         settingsLoadDefaultsButton.setToolTipText("Load Defaults");
         settingsLoadDefaultsButton.setFocusable(false);
         settingsLoadDefaultsButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -533,7 +534,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(settingsLoadDefaultsButton);
 
-        settingsLoadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/openProject.png"))); // NOI18N
+        settingsLoadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/openProject.png"))); // NOI18N
         settingsLoadButton.setToolTipText("Load Settings");
         settingsLoadButton.setFocusable(false);
         settingsLoadButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -545,7 +546,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(settingsLoadButton);
 
-        settingsSaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/save.png"))); // NOI18N
+        settingsSaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/save.png"))); // NOI18N
         settingsSaveButton.setToolTipText("Save Settings");
         settingsSaveButton.setFocusable(false);
         settingsSaveButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -558,7 +559,7 @@ public class MainFrame extends javax.swing.JFrame implements
         toolBar.add(settingsSaveButton);
         toolBar.add(toolBarSeparator1);
 
-        calibrationStartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/runProject.png"))); // NOI18N
+        calibrationStartButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/runProject.png"))); // NOI18N
         calibrationStartButton.setToolTipText("Start Calibration");
         calibrationStartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -567,7 +568,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(calibrationStartButton);
 
-        calibrationStopButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/stop.png"))); // NOI18N
+        calibrationStopButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/stop.png"))); // NOI18N
         calibrationStopButton.setToolTipText("Stop Calibration");
         calibrationStopButton.setEnabled(false);
         calibrationStopButton.addActionListener(new java.awt.event.ActionListener() {
@@ -577,7 +578,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(calibrationStopButton);
 
-        calibrationExamineButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/findusages.png"))); // NOI18N
+        calibrationExamineButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/findusages.png"))); // NOI18N
         calibrationExamineButton.setToolTipText("Examine Calibration");
         calibrationExamineButton.setFocusable(false);
         calibrationExamineButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -589,7 +590,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(calibrationExamineButton);
 
-        calibrationLoadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/openFile.png"))); // NOI18N
+        calibrationLoadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/openFile.png"))); // NOI18N
         calibrationLoadButton.setToolTipText("Load Calibration");
         calibrationLoadButton.setFocusable(false);
         calibrationLoadButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -601,7 +602,7 @@ public class MainFrame extends javax.swing.JFrame implements
         });
         toolBar.add(calibrationLoadButton);
 
-        calibrationSaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/googlecode/javacv/procamcalib/icons/save_results.png"))); // NOI18N
+        calibrationSaveButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/bytedeco/procamcalib/icons/save_results.png"))); // NOI18N
         calibrationSaveButton.setToolTipText("Save Calibration");
         calibrationSaveButton.setFocusable(false);
         calibrationSaveButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -1112,7 +1113,7 @@ public class MainFrame extends javax.swing.JFrame implements
 
             String text = "";
             BufferedReader r = new BufferedReader(new FileReader(
-                    myDirectory + File.separator + "../README.txt"));
+                    myDirectory + File.separator + "../README.md"));
             String line;
             while ((line = r.readLine()) != null) {
                 text += line + '\n';
@@ -1151,7 +1152,7 @@ public class MainFrame extends javax.swing.JFrame implements
         textPane.setContentType("text/html");
         textPane.setText(
                 "<font face=sans-serif><strong><font size=+2>ProCamCalib</font></strong> version " + version + "<br>" +
-                "Copyright (C) 2009-2012 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
+                "Copyright (C) 2009-2014 Samuel Audet &lt;<a href=\"mailto:saudet@ok.ctrl.titech.ac.jp%28Samuel%20Audet%29\">saudet@ok.ctrl.titech.ac.jp</a>&gt;<br>" +
                 "Web site: <a href=\"http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/\">http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/</a><br>" +
                 "<br>" +
                 "Licensed under the GNU General Public License version 2 (GPLv2).<br>" +
@@ -1252,6 +1253,12 @@ public class MainFrame extends javax.swing.JFrame implements
     * @param args the command line arguments
     */
     public static void main(final String args[]) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // this is just a workaround for GTK and OpenCV, should be safe to ignore otherwise
+        }
+
         // try to init all frame grabbers here, because bad things
         // happen if loading errors occur while we're in the GUI thread...
         FrameGrabber.init();
