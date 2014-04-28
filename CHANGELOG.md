@@ -1,5 +1,7 @@
 
+### April 28, 2014 version 0.8
  * Move from Google Code to GitHub as main source code repository
+ * Upgrade support to OpenCV 2.4.9 and FFmpeg 2.2.x
  * Upgrade to NetBeans 8.0 and work around conflict between `opencv_highgui` and `com.sun.java.swing.plaf.gtk.GTKLookAndFeel`
  * Rename the `com.googlecode.javacv.procamcalib` package to `org.bytedeco.procamcalib`
  * Removed old NetBeans project files that cause a conflict when trying to open as a Maven project (issue javacv:210)
