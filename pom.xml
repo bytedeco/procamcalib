@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>0.8</version>
+  <version>0.9</version>
   <packaging>jar</packaging>
 
   <name>ProCamCalib</name>
@@ -48,95 +48,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.build.timestamp.format>yyyyMMddhhmm</maven.build.timestamp.format>
-    <platform>${os.name}-${os.arch}</platform>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>javacpp</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>opencv</artifactId>
-      <version>2.4.9-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>ffmpeg</artifactId>
-      <version>2.2.1-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>flycapture</artifactId>
-      <version>1.7.17-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>libdc1394</artifactId>
-      <version>2.2.2-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>libfreenect</artifactId>
-      <version>0.4-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>videoinput</artifactId>
-      <version>0.200-${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>artoolkitplus</artifactId>
-      <version>2.3.0-${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>opencv</artifactId>
-      <version>2.4.9-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>ffmpeg</artifactId>
-      <version>2.2.1-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>flycapture</artifactId>
-      <version>1.7.17-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>libdc1394</artifactId>
-      <version>2.2.2-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>libfreenect</artifactId>
-      <version>0.4-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>videoinput</artifactId>
-      <version>0.200-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco.javacpp-presets</groupId>
-      <artifactId>artoolkitplus</artifactId>
-      <version>2.3.0-${project.version}</version>
-      <classifier>${platform}</classifier>
-    </dependency>
-
     <dependency>
       <groupId>org.bytedeco</groupId>
       <artifactId>javacv</artifactId>
@@ -157,6 +71,12 @@
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core</artifactId>
       <version>RELEASE80</version>
+      <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
@@ -167,21 +87,45 @@
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-actions</artifactId>
       <version>RELEASE80</version>
+      <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-awt</artifactId>
       <version>RELEASE80</version>
+      <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-dialogs</artifactId>
       <version>RELEASE80</version>
+      <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-explorer</artifactId>
       <version>RELEASE80</version>
+      <exclusions>
+        <exclusion>
+            <groupId>*</groupId>
+            <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
@@ -240,7 +184,6 @@
             <configuration>
               <outputDirectory>${project.build.directory}</outputDirectory>
               <stripVersion>true</stripVersion>
-              <excludeTransitive>true</excludeTransitive>
             </configuration>
           </execution>
         </executions>
@@ -376,89 +319,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-
-    <!-- If someone knows a better way to do this, please do let me know! -->
-    <profile>
-      <id>linux</id>
-      <activation>
-        <os><name>linux</name></os>
-      </activation>
-      <properties>
-        <os.name>linux</os.name>
-      </properties>
-    </profile>
-    <profile>
-      <id>macosx</id>
-      <activation>
-        <os><name>mac os x</name></os>
-      </activation>
-      <properties>
-        <os.name>macosx</os.name>
-      </properties>
-    </profile>
-    <profile>
-      <id>windows</id>
-      <activation>
-        <os><family>windows</family></os>
-      </activation>
-      <properties>
-        <os.name>windows</os.name>
-      </properties>
-    </profile>
-    <profile>
-      <id>i386</id>
-      <activation>
-        <os><arch>i386</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86</os.arch>
-      </properties>
-    </profile>
-    <profile>
-      <id>i486</id>
-      <activation>
-        <os><arch>i486</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86</os.arch>
-      </properties>
-    </profile>
-    <profile>
-      <id>i586</id>
-      <activation>
-        <os><arch>i586</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86</os.arch>
-      </properties>
-    </profile>
-    <profile>
-      <id>i686</id>
-      <activation>
-        <os><arch>i686</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86</os.arch>
-      </properties>
-    </profile>
-    <profile>
-      <id>amd64</id>
-      <activation>
-        <os><arch>amd64</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86_64</os.arch>
-      </properties>
-    </profile>
-    <profile>
-      <id>x86-64</id>
-      <activation>
-        <os><arch>x86-64</arch></os>
-      </activation>
-      <properties>
-        <os.arch>x86_64</os.arch>
-      </properties>
     </profile>
   </profiles>
 

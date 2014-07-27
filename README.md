@@ -12,10 +12,10 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 Downloads
 ---------
- * ProCamCalib 0.8 binary package  [procamcalib-0.8-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/0.8/procamcalib-0.8-bin.zip) (93 MB)
- * ProCamCalib 0.8 source package  [procamcalib-0.8-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/0.8/procamcalib-0.8-src.zip) (49 KB)
+ * ProCamCalib 0.9 binary archive  [procamcalib-0.9-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/0.9/procamcalib-0.9-bin.zip) (98 MB)
+ * ProCamCalib 0.9 source archive  [procamcalib-0.9-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/0.9/procamcalib-0.9-src.zip) (49 KB)
 
-The binary package contains builds for Linux, Mac OS X, and Windows.
+The binary archive contains builds for Linux, Mac OS X, and Windows.
 
 
 Required Software
@@ -76,7 +76,7 @@ I make all the source code available on my site at http://www.ok.ctrl.titech.ac.
  * JavaCPP https://github.com/bytedeco/javacpp
  * JavaCV  https://github.com/bytedeco/javacv
  * OpenCV 2.4.9  http://sourceforge.net/projects/opencvlibrary/files/
- * FFmpeg 2.2.x  http://ffmpeg.org/download.html
+ * FFmpeg 2.3.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.0  https://launchpad.net/artoolkitplus
  * NetBeans 8.0  http://netbeans.org/downloads/
  * Maven 2 or 3  http://maven.apache.org/download.html

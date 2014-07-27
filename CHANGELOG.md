@@ -1,4 +1,8 @@
 
+### July 27, 2014 version 0.9
+ * Upgrade support to FFmpeg 2.3.x
+ * Remove `platform` property from `pom.xml`, replaced with the `platform.dependency` one in JavaCPP Presets ([javacv issue #10](https://github.com/bytedeco/javacv/issues/10))
+
 ### April 28, 2014 version 0.8
  * Move from Google Code to GitHub as main source code repository
  * Upgrade support to OpenCV 2.4.9 and FFmpeg 2.2.x
