@@ -1,4 +1,7 @@
 
+### December 23, 2014 version 0.10
+ * Upgrade support to OpenCV 2.4.10, FFmpeg 2.5.x, and FlyCapture 2.7
+
 ### July 27, 2014 version 0.9
  * Upgrade support to FFmpeg 2.3.x
  * Remove `platform` property from `pom.xml`, replaced with the `platform.dependency` one in JavaCPP Presets ([javacv issue #10](https://github.com/bytedeco/javacv/issues/10))
