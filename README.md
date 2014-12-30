@@ -70,11 +70,11 @@ Feel free to contact me if you have any questions or find any problems with the 
 
 Source Code
 -----------
-I make all the source code available on my site at http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/ . You will also need the following to modify and build the application:
+I make all the source code available on GitHub at https://github.com/bytedeco/procamcalib . You will also need the following to modify and build the application:
 
  * A C/C++ compiler
- * JavaCPP https://github.com/bytedeco/javacpp
- * JavaCV  https://github.com/bytedeco/javacv
+ * JavaCPP 0.10 https://github.com/bytedeco/javacpp
+ * JavaCV  0.10 https://github.com/bytedeco/javacv
  * OpenCV 2.4.10  http://sourceforge.net/projects/opencvlibrary/files/
  * FFmpeg 2.5.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
