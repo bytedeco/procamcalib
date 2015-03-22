@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.io.File;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ShortBuffer;
 import java.util.Arrays;
@@ -33,9 +34,11 @@ import org.bytedeco.javacv.CameraDevice;
 import org.bytedeco.javacv.CameraSettings;
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.ColorCalibrator;
+import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameGrabber.ImageMode;
 import org.bytedeco.javacv.GeometricCalibrator;
+import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.MarkedPlane;
 import org.bytedeco.javacv.Marker;
 import org.bytedeco.javacv.MarkerDetector;
@@ -45,6 +48,7 @@ import org.bytedeco.javacv.ProCamGeometricCalibrator;
 import org.bytedeco.javacv.ProjectiveDevice;
 import org.bytedeco.javacv.ProjectorDevice;
 import org.bytedeco.javacv.ProjectorSettings;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 import static org.bytedeco.javacpp.opencv_imgproc.*;
@@ -70,6 +74,8 @@ public class CalibrationWorker extends SwingWorker {
     ProjectorDevice[] projectorDevices = null;
     CanvasFrame[] projectorCanvasFrames = null;
     MarkedPlane[] projectorPlanes = null;
+    OpenCVFrameConverter.ToIplImage[] cameraFrameConverters = null;
+    OpenCVFrameConverter.ToIplImage[] projectorFrameConverters = null;
 
     ProCamGeometricCalibrator[] proCamGeometricCalibrators = null;
     GeometricCalibrator[] geometricCalibrators = null;
@@ -133,6 +139,7 @@ public class CalibrationWorker extends SwingWorker {
         }
         cameraCanvasFrames = new CanvasFrame[cs.length];
         frameGrabbers = new FrameGrabber[cs.length];
+        cameraFrameConverters = new OpenCVFrameConverter.ToIplImage[cs.length];
         for (int i = 0; i < cs.length; i++) {
             if (cameraDevices[i] == null) {
                 cameraDevices[i] = new CameraDevice(cs[i]);
@@ -153,6 +160,7 @@ public class CalibrationWorker extends SwingWorker {
         }
         projectorCanvasFrames = new CanvasFrame[ps.length];
         projectorPlanes = new MarkedPlane[ps.length];
+        projectorFrameConverters = new OpenCVFrameConverter.ToIplImage[ps.length];
         for (int i = 0; i < ps.length; i++) {
             if (projectorDevices[i] == null) {
                 projectorDevices[i] = new ProjectorDevice(ps[i]);
@@ -161,6 +169,7 @@ public class CalibrationWorker extends SwingWorker {
             }
             projectorCanvasFrames[i] = projectorDevices[i].createCanvasFrame();
             projectorCanvasFrames[i].showColor(Color.BLACK);
+            projectorFrameConverters[i] = new OpenCVFrameConverter.ToIplImage();
             Dimension dim = projectorCanvasFrames[i].getSize();
             projectorPlanes[i] = new MarkedPlane(dim.width, dim.height, markers[1], true,
                     cvScalarAll(((ProjectorDevice.CalibrationSettings)ps[0]).getBrightnessForeground()*255),
@@ -175,6 +184,7 @@ public class CalibrationWorker extends SwingWorker {
             // access frame grabbers from _this_ thread *ONLY*...
             for (int i = 0; i < cameraDevices.length; i++) {
                 frameGrabbers[i] = cameraDevices[i].createFrameGrabber();
+                cameraFrameConverters[i] = new OpenCVFrameConverter.ToIplImage();
                 if (projectorDevices.length > 0) {
                     // we only need trigger mode if we have projectors to wait after...
                     frameGrabbers[i].setTriggerMode(true);
@@ -193,7 +203,7 @@ public class CalibrationWorker extends SwingWorker {
                 if (frameGrabbers[i].isTriggerMode()) {
                     frameGrabbers[i].trigger();
                 }
-                final IplImage image = frameGrabbers[i].grab();
+                final IplImage image = cameraFrameConverters[i].convert(frameGrabbers[i].grab());
                 //final IplImage image = IplImage.create(640, 480, IPL_DEPTH_8U, 1);
                 final CanvasFrame c = cameraCanvasFrames[i];
                 final String name = cameraDevices[i].getSettings().getName();
@@ -307,18 +317,20 @@ public class CalibrationWorker extends SwingWorker {
         while (!done && !isCancelled()) {
             // display projector pattern
             if (currentProjector < projectorCanvasFrames.length) {
-                projectorCanvasFrames[currentProjector].showImage(
-                        proCamGeometricCalibrators[currentProjector].getProjectorImage());
+                projectorCanvasFrames[currentProjector].showImage(projectorFrameConverters[currentProjector].convert(
+                        proCamGeometricCalibrators[currentProjector].getProjectorImage()));
                 projectorCanvasFrames[currentProjector].waitLatency();
             }
 
             // capture images from cameras
             frameGrabberArray.trigger();
-            final IplImage[] grabbedImages = frameGrabberArray.grab();
-            assert (grabbedImages.length == cameraDevices.length);
+            final Frame[] grabbedFrames = frameGrabberArray.grab();
+            assert (grabbedFrames.length == cameraDevices.length);
             final int curProj = currentProjector;
 
+            final IplImage[] grabbedImages = new IplImage[grabbedFrames.length];
             for (int i = 0; i < grabbedImages.length; i++) {
+                grabbedImages[i] = cameraFrameConverters[i].convert(grabbedFrames[i]);
                 if (grabbedImages[i] == null) {
                     throw new Exception("Image grabbed from " + cameraDevices[i].getSettings().getName() + " is null, unexcepted end of stream?");
                 }
@@ -331,7 +343,7 @@ public class CalibrationWorker extends SwingWorker {
                 // gamma "uncorrection", linearization
                 double gamma = frameGrabberArray.getFrameGrabbers()[i].getGamma();
                 if (gamma != 1.0) {
-                    grabbedImages[i].applyGamma(gamma);
+                    Java2DFrameConverter.applyGamma(grabbedFrames[i], gamma);
                 }
 
                 // convert camera image to color so we can draw in color
@@ -364,7 +376,7 @@ public class CalibrationWorker extends SwingWorker {
                 }
                 // show camera images with detected markers drawn
                 if (cameraCanvasFrames[i] != null) {
-                    cameraCanvasFrames[i].showImage(colorImages[i]);
+                    cameraCanvasFrames[i].showImage(cameraFrameConverters[i].convert(colorImages[i]));
                     //cameraCanvasFrames[i].showImage(geometricCalibrators[i].getMarkerDetector().getBinarized());
                 }
             }}});
@@ -467,11 +479,13 @@ public class CalibrationWorker extends SwingWorker {
 
             // capture images from cameras
             frameGrabberArray.trigger();
-            final IplImage[] grabbedImages = frameGrabberArray.grab();
+            final Frame[] grabbedFrames = frameGrabberArray.grab();
             final int curProj = currentProjector;
-            assert (grabbedImages.length == cameraDevices.length);
+            assert (grabbedFrames.length == cameraDevices.length);
 
+            final IplImage[] grabbedImages = new IplImage[grabbedFrames.length];
             for (int i = 0; i < grabbedImages.length; i++) {
+                grabbedImages[i] = cameraFrameConverters[i].convert(grabbedFrames[i]);
                 if (grabbedImages[i] == null) {
                     throw new Exception("Image grabbed from " + cameraDevices[i].getSettings().getName() + " is null, unexcepted end of stream?");
                 }
@@ -504,7 +518,7 @@ public class CalibrationWorker extends SwingWorker {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
                         cvNot(mask, mask);
                         cvSet(undist, cvScalarAll(undist.highValue()), mask);
-                        cameraCanvasFrames[i].showImage(undist);
+                        cameraCanvasFrames[i].showImage(cameraFrameConverters[i].convert(undist));
                     }
 
                     // add the extracted color
@@ -526,7 +540,7 @@ public class CalibrationWorker extends SwingWorker {
                 for (int i = 0; i < cameraCanvasFrames.length; i++) {
                     if (cameraCanvasFrames[i] != null) {
                         IplImage undist = proCamColorCalibrators[i][currentProjector].getUndistortedCameraImage();
-                        cameraCanvasFrames[i].showImage(undist);
+                        cameraCanvasFrames[i].showImage(cameraFrameConverters[i].convert(undist));
                     }
                 }
             }

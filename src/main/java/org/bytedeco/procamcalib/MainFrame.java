@@ -73,13 +73,16 @@ import org.bytedeco.javacpp.Pointer;
 import org.bytedeco.javacv.CameraDevice;
 import org.bytedeco.javacv.CameraSettings;
 import org.bytedeco.javacv.CanvasFrame;
+import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.FrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.JavaCvErrorCallback;
 import org.bytedeco.javacv.MarkedPlane;
 import org.bytedeco.javacv.Marker;
 import org.bytedeco.javacv.MarkerDetector;
 import org.bytedeco.javacv.ProjectorDevice;
 import org.bytedeco.javacv.ProjectorSettings;
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.netbeans.beaninfo.editors.StringArrayEditor;
 import org.openide.explorer.ExplorerManager;
 import org.openide.explorer.ExplorerUtils;
@@ -302,9 +305,12 @@ public class MainFrame extends javax.swing.JFrame implements
         int iconHeight = Toolkit.getDefaultToolkit().getScreenSize().height/10;
         IplImage smallImage = IplImage.create(image.width()*iconHeight/image.height(), iconHeight, IPL_DEPTH_8U, 1);
         cvResize(image, smallImage, CV_INTER_AREA);
+        OpenCVFrameConverter.ToIplImage converter1 = new OpenCVFrameConverter.ToIplImage();
+        Java2DFrameConverter converter2 = new Java2DFrameConverter();
+        Frame smallFrame = converter1.convert(smallImage);
         boardPatternLabel.setText("Board (" + boardPlane.getWidth() + " x " + boardPlane.getHeight() + ")");
-        boardPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage(
-                smallImage.getBufferedImageType() == BufferedImage.TYPE_CUSTOM ? 1.0 :
+        boardPatternLabel.setIcon(new ImageIcon(converter2.getBufferedImage(smallFrame,
+                converter2.getBufferedImageType(smallFrame) == BufferedImage.TYPE_CUSTOM ? 1.0 :
                 1.0/CanvasFrame.getGamma(boardPatternLabel.getGraphicsConfiguration().getDevice()))));
         projectorPatternLabel.setText("No Projector");
         projectorPatternLabel.setIcon(null);
@@ -319,9 +325,12 @@ public class MainFrame extends javax.swing.JFrame implements
                 image = proj.getImage();
                 smallImage = IplImage.create(image.width()*iconHeight/image.height(), iconHeight, IPL_DEPTH_8U, 1);
                 cvResize(image, smallImage, CV_INTER_AREA);
+                converter1 = new OpenCVFrameConverter.ToIplImage();
+                converter2 = new Java2DFrameConverter();
+                smallFrame = converter1.convert(smallImage);
                 projectorPatternLabel.setText(ps[i].getName() + " (" + proj.getWidth() + " x " + proj.getHeight() + ")");
-                projectorPatternLabel.setIcon(new ImageIcon(smallImage.getBufferedImage(
-                        smallImage.getBufferedImageType() == BufferedImage.TYPE_CUSTOM ? 1.0 :
+                projectorPatternLabel.setIcon(new ImageIcon(converter2.getBufferedImage(smallFrame,
+                        converter2.getBufferedImageType(smallFrame) == BufferedImage.TYPE_CUSTOM ? 1.0 :
                         1.0/CanvasFrame.getGamma(projectorPatternLabel.getGraphicsConfiguration().getDevice()))));
                 projectorPatternLabel.setEnabled(true);
                 break;
