@@ -1,4 +1,6 @@
 
+ * Upgrade all Maven dependencies and plugins to latest versions, thus bumping minimum requirements to Java SE 7 and Maven 3.0
+
 ### July 11, 2015 version 1.0
  * Upgrade support to OpenCV 3.0.0 and FFmpeg 2.7.x
 
