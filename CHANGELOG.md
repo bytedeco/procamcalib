@@ -1,4 +1,6 @@
 
+### October 25, 2015 version 1.1
+ * Upgrade support to FFmpeg 2.8.x
  * Upgrade all Maven dependencies and plugins to latest versions, thus bumping minimum requirements to Java SE 7 and Maven 3.0
 
 ### July 11, 2015 version 1.0
