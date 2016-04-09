@@ -45,13 +45,13 @@ Under Linux, Mac OS X, and other Unix variants, execute either `procamcalib-nati
 
 After launch, the user interface that appears allows the user to change the number of cameras and projectors to calibrate. There are also a lot of settings, although the defaults should be good enough for the usual cases. I do not detail them here, but most of them should be clear to people familiar with my Procams 2009 paper based on previous work by Fiala, Zhang, and many others as part of OpenCV. Here are the relevant references:
 
-Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. The 22nd IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2009) - Workshops (Procams 2009), pages 47--54. IEEE Computer Society, June 2009. http://www.ok.ctrl.titech.ac.jp/~saudet/publications/procams2009.pdf
+[Samuel Audet and Masatoshi Okutomi. A User-Friendly Method to Geometrically Calibrate Projector-Camera Systems. The 22nd IEEE Conference on Computer Vision and Pattern Recognition (CVPR 2009) - Workshops (Procams 2009), pages 47--54. IEEE Computer Society, June 2009.](http://www.ok.ctrl.titech.ac.jp/res/PCS/publications/procams2009.pdf)
 
-Gary Bradski and Adrian Kaehler. Learning OpenCV: Computer Vision with the OpenCV Library. O'Reilly, 2008. http://oreilly.com/catalog/9780596516130/
+[Gary Bradski and Adrian Kaehler. Learning OpenCV: Computer Vision with the OpenCV Library. O'Reilly, 2008.](http://oreilly.com/catalog/9780596516130/)
 
-Mark Fiala and Chang Shu. Self-identifying patterns for plane-based camera calibration. Machine Vision and Applications, 19(4):209-216, July 2008. http://nparc.cisti-icist.nrc-cnrc.gc.ca/npsi/ctrl?action=rtdoc&an=8913774&article=0
+[Mark Fiala and Chang Shu. Self-identifying patterns for plane-based camera calibration. Machine Vision and Applications, 19(4):209-216, July 2008.](http://nparc.cisti-icist.nrc-cnrc.gc.ca/npsi/ctrl?action=rtdoc&an=8913774&article=0)
 
-Zhengyoug Zhang. A Flexible New Technique for Camera Calibration. IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(11):1330-1334, 2000. http://research.microsoft.com/en-us/um/people/zhang/Papers/TR98-71.pdf
+[Zhengyoug Zhang. A Flexible New Technique for Camera Calibration. IEEE Transactions on Pattern Analysis and Machine Intelligence, 22(11):1330-1334, 2000.](http://research.microsoft.com/en-us/um/people/zhang/Papers/TR98-71.pdf)
 
 
 Once you have modified all the desired settings, since the application may crash during the operations described below, please save them in an XML file via the "Settings" menu.
@@ -86,8 +86,6 @@ Please keep me informed of any updates or fixes you make to the code so that I m
 
 
 ----
-Copyright (C) 2009-2015 Samuel Audet [saudet `at` ok.ctrl.titech.ac.jp](mailto:saudet at ok.ctrl.titech.ac.jp)  
-Web site: http://www.ok.ctrl.titech.ac.jp/~saudet/procamcalib/
-
-Licensed under the GNU General Public License version 2 (GPLv2).  
-Please refer to LICENSE.txt or http://www.gnu.org/licenses/ for details.
+Project lead: Samuel Audet [samuel.audet `at` gmail.com](mailto:samuel.audet at gmail.com)  
+Developer site: https://github.com/bytedeco/procamcalib  
+Discussion group: http://groups.google.com/group/javacv
