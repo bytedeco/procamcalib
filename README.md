@@ -12,8 +12,8 @@ Please cite my Procams 2009 paper (reference below) if you find this tool useful
 
 Downloads
 ---------
- * ProCamCalib 1.1 binary archive  [procamcalib-1.1-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.1/procamcalib-1.1-bin.zip) (102 MB)
- * ProCamCalib 1.1 source archive  [procamcalib-1.1-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.1/procamcalib-1.1-src.zip) (50 KB)
+ * ProCamCalib 1.2 binary archive  [procamcalib-1.2-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.2/procamcalib-1.2-bin.zip) (129 MB)
+ * ProCamCalib 1.2 source archive  [procamcalib-1.2-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.2/procamcalib-1.2-src.zip) (50 KB)
 
 The binary archive contains builds for Linux, Mac OS X, and Windows.
 
@@ -34,7 +34,7 @@ And be aware that ProCamCalib runs _a lot_ faster under the "server" JVM than th
 Additionally, for IIDC/DCAM cameras, Microsoft's Kinect stereo camera, or the PS3 Eye:
 
  * libdc1394 2.1.x or 2.2.x  http://sourceforge.net/projects/libdc1394/files/
- * FlyCapture 2.7.x or 2.8.x  http://www.ptgrey.com/flycapture-sdk
+ * FlyCapture 2.9.x  http://www.ptgrey.com/flycapture-sdk
  * libfreenect 0.5.x  https://github.com/OpenKinect/libfreenect
  * CL Eye Platform SDK  http://codelaboratories.com/downloads/
 
@@ -72,10 +72,10 @@ Source Code
 I make all the source code available on GitHub at https://github.com/bytedeco/procamcalib . You will also need the following to modify and build the application:
 
  * A C/C++ compiler
- * JavaCPP 1.1  https://github.com/bytedeco/javacpp
- * JavaCV  1.1  https://github.com/bytedeco/javacv
- * OpenCV 3.0.0  http://sourceforge.net/projects/opencvlibrary/files/
- * FFmpeg 2.8.x  http://ffmpeg.org/download.html
+ * JavaCPP 1.2  https://github.com/bytedeco/javacpp
+ * JavaCV  1.2  https://github.com/bytedeco/javacv
+ * OpenCV 3.1.0  http://sourceforge.net/projects/opencvlibrary/files/
+ * FFmpeg 3.0.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
  * NetBeans 8.0  http://netbeans.org/downloads/
  * Maven 3.x  http://maven.apache.org/download.html
