@@ -349,7 +349,6 @@ public class MainFrame extends javax.swing.JFrame implements
         editors.put("timeout", null);
         editors.put("deviceFilename", null);
         editors.put("useOpenGL", null);
-//        editors.put("nominalDistance", null);
 
         if (cameraSettings == null) {
             cameraSettings = new CameraSettings();
@@ -901,7 +900,6 @@ public class MainFrame extends javax.swing.JFrame implements
             super.done();
 
             settingsMenu.setEnabled(true);
-//            calibrationMenu.setEnabled(true);
             calibrationStartMenuItem.setEnabled(true);
             calibrationStopMenuItem.setEnabled(false);
             calibrationExamineMenuItem.setEnabled(true);
@@ -935,7 +933,6 @@ public class MainFrame extends javax.swing.JFrame implements
             calibrationWorker = new MyCalibrationWorker(calibrationWorker);
 
             settingsMenu.setEnabled(false);
-//            calibrationMenu.setEnabled(false);
             calibrationStartMenuItem.setEnabled(false);
             calibrationStopMenuItem.setEnabled(true);
             calibrationExamineMenuItem.setEnabled(false);
@@ -1300,7 +1297,6 @@ public class MainFrame extends javax.swing.JFrame implements
                     System.arraycopy(searchPath, 0, newSearchPath, 1, searchPath.length);
                     PropertyEditorManager.setEditorSearchPath(newSearchPath);
                     PropertyEditorManager.registerEditor(String[].class, StringArrayEditor.class);
-//                    PropertyEditorManager.registerEditor(double[].class, DoubleArrayEditor.class);
 
                     //Make sure we have nice window decorations.
                     JFrame.setDefaultLookAndFeelDecorated(true);

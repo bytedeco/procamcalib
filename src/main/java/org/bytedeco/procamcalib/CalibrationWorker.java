@@ -204,7 +204,6 @@ public class CalibrationWorker extends SwingWorker {
                     frameGrabbers[i].trigger();
                 }
                 final IplImage image = cameraFrameConverters[i].convert(frameGrabbers[i].grab());
-                //final IplImage image = IplImage.create(640, 480, IPL_DEPTH_8U, 1);
                 final CanvasFrame c = cameraCanvasFrames[i];
                 final String name = cameraDevices[i].getSettings().getName();
                 final double gamma = frameGrabbers[i].getGamma();
@@ -336,7 +335,6 @@ public class CalibrationWorker extends SwingWorker {
                 }
             }
 
-//            for (int i = 0; i < grabbedImages.length && !isCancelled(); i++) {
             Parallel.loop(0, grabbedImages.length, new Parallel.Looper() {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
@@ -377,7 +375,6 @@ public class CalibrationWorker extends SwingWorker {
                 // show camera images with detected markers drawn
                 if (cameraCanvasFrames[i] != null) {
                     cameraCanvasFrames[i].showImage(cameraFrameConverters[i].convert(colorImages[i]));
-                    //cameraCanvasFrames[i].showImage(geometricCalibrators[i].getMarkerDetector().getBinarized());
                 }
             }}});
 
@@ -472,7 +469,6 @@ public class CalibrationWorker extends SwingWorker {
             if (currentProjector < projectorCanvasFrames.length) {
                 // projector color in here is gamma corrected
                 Color c = proCamColorCalibrators[0][currentProjector].getProjectorColor();
-                //System.out.println(c);
                 projectorCanvasFrames[currentProjector].showColor(c);
                 projectorCanvasFrames[currentProjector].waitLatency();
             }
@@ -491,7 +487,6 @@ public class CalibrationWorker extends SwingWorker {
                 }
             }
 
-            //for (int i = 0; i < grabbedImages.length; i++) {
             Parallel.loop(0, grabbedImages.length, new Parallel.Looper() {
             public void loop(int from, int to, int looperID) {
             for (int i = from; i < to && !isCancelled(); i++) {
@@ -559,8 +554,6 @@ public class CalibrationWorker extends SwingWorker {
                     referenceColors[k++] = new Color((float)Math.pow(cc[0], gamma),
                             (float)Math.pow(cc[1], gamma), (float)Math.pow(cc[2], gamma));
                 }
-                //System.arraycopy(proCamColorCalibrators[0][j].getCameraColors(), 0,
-                //        referenceColors, totalColorCount*j, totalColorCount);
                 proCamColorCalibrators[0][j].calibrate();
             }
             // calibrate all the other cameras using reference colors from first camera
