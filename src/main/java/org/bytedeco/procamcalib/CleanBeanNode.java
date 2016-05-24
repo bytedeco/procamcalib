@@ -35,6 +35,9 @@ import org.openide.nodes.PropertySupport;
  * @author Samuel Audet
  */
 public class CleanBeanNode<T> extends BeanNode<T> {
+
+    boolean renameable = true;
+
     public CleanBeanNode(T o,
             final HashMap<String, Class<? extends PropertyEditor>> editors,
             String displayName) throws IntrospectionException {
@@ -71,8 +74,6 @@ public class CleanBeanNode<T> extends BeanNode<T> {
             renameable = false;
         }
     }
-
-    boolean renameable = true;
 
     @Override public boolean canCopy() {
         return false;

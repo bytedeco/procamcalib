@@ -119,6 +119,64 @@ import static org.bytedeco.javacpp.opencv_imgproc.*;
 public class MainFrame extends javax.swing.JFrame implements
         ExplorerManager.Provider, Lookup.Provider, PropertyChangeListener {
 
+    Marker[][] markers = null;
+    MarkedPlane boardPlane = null;
+    CameraSettings cameraSettings = null;
+    ProjectorSettings projectorSettings = null;
+    Marker.ArraySettings markerSettings = null;
+    MarkerDetector.Settings markerDetectorSettings = null;
+    CalibrationWorker.GeometricSettings geometricCalibratorSettings = null;
+    CalibrationWorker.ColorSettings colorCalibratorSettings = null;
+    final File DEFAULT_SETTINGS_FILE = new File("settings.pcc");
+    final File DEFAULT_CALIBRATION_FILE = new File("calibration.yaml");
+    File settingsFile = null, calibrationFile = null;
+
+    private ExplorerManager manager;
+    private Lookup lookup;
+    boolean ignoreNextUpdate = false;
+    MyCalibrationWorker calibrationWorker = null;
+
+    static File myDirectory;
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
+    private org.openide.explorer.view.BeanTreeView beanTreeView;
+    private javax.swing.JLabel boardPatternLabel;
+    private javax.swing.JButton calibrationExamineButton;
+    private javax.swing.JMenuItem calibrationExamineMenuItem;
+    private javax.swing.JButton calibrationLoadButton;
+    private javax.swing.JMenuItem calibrationLoadMenuItem;
+    private javax.swing.JMenu calibrationMenu;
+    private javax.swing.JMenuItem calibrationSaveAsMenuItem;
+    private javax.swing.JButton calibrationSaveButton;
+    private javax.swing.JMenuItem calibrationSaveMenuItem;
+    private javax.swing.JButton calibrationStartButton;
+    private javax.swing.JMenuItem calibrationStartMenuItem;
+    private javax.swing.JButton calibrationStopButton;
+    private javax.swing.JMenuItem calibrationStopMenuItem;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JPanel markerPatternsPanel;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JSeparator menuSeparator1;
+    private javax.swing.JSeparator menuSeparator2;
+    private javax.swing.JLabel projectorPatternLabel;
+    private org.openide.explorer.propertysheet.PropertySheetView propertySheetView;
+    private javax.swing.JMenuItem readmeMenuItem;
+    private javax.swing.JButton saveAsBoardPatternButton;
+    private javax.swing.JButton settingsLoadButton;
+    private javax.swing.JButton settingsLoadDefaultsButton;
+    private javax.swing.JMenuItem settingsLoadDefaultsMenuItem;
+    private javax.swing.JMenuItem settingsLoadMenuItem;
+    private javax.swing.JMenu settingsMenu;
+    private javax.swing.JMenuItem settingsSaveAsMenuItem;
+    private javax.swing.JButton settingsSaveButton;
+    private javax.swing.JMenuItem settingsSaveMenuItem;
+    private javax.swing.JSplitPane splitPane;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JToolBar toolBar;
+    private javax.swing.JToolBar.Separator toolBarSeparator1;
+    // End of variables declaration//GEN-END:variables
+
     /** Creates new form MainFrame */
     public MainFrame(String[] args) throws Exception {
         // same as before...
@@ -207,21 +265,6 @@ public class MainFrame extends javax.swing.JFrame implements
         beanTreeView.requestFocusInWindow();
     }
 
-    Marker[][] markers = null;
-    MarkedPlane boardPlane = null;
-    CameraSettings cameraSettings = null;
-    ProjectorSettings projectorSettings = null;
-    Marker.ArraySettings markerSettings = null;
-    MarkerDetector.Settings markerDetectorSettings = null;
-    CalibrationWorker.GeometricSettings geometricCalibratorSettings = null;
-    CalibrationWorker.ColorSettings colorCalibratorSettings = null;
-    final File DEFAULT_SETTINGS_FILE = new File("settings.pcc");
-    final File DEFAULT_CALIBRATION_FILE = new File("calibration.yaml");
-    File settingsFile = null, calibrationFile = null;
-
-    private ExplorerManager manager;
-    private Lookup lookup;
-
     // ...method as before and getLookup
     public ExplorerManager getExplorerManager() {
         return manager;
@@ -262,7 +305,6 @@ public class MainFrame extends javax.swing.JFrame implements
         }
     }
 
-    boolean ignoreNextUpdate = false;
     void updatePatterns(PropertyChangeEvent evt) {
         if (ignoreNextUpdate) {
             ignoreNextUpdate = false;
@@ -928,7 +970,6 @@ public class MainFrame extends javax.swing.JFrame implements
             }
         }
     }
-    MyCalibrationWorker calibrationWorker = null;
 
     private void calibrationStartMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calibrationStartMenuItemActionPerformed
         if (calibrationWorker == null || calibrationWorker.getState() != StateValue.STARTED) {
@@ -1256,8 +1297,6 @@ public class MainFrame extends javax.swing.JFrame implements
         }
     }//GEN-LAST:event_saveAsBoardPatternButtonActionPerformed
 
-    static File myDirectory;
-
     /**
     * @param args the command line arguments
     */
@@ -1316,44 +1355,4 @@ public class MainFrame extends javax.swing.JFrame implements
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private org.openide.explorer.view.BeanTreeView beanTreeView;
-    private javax.swing.JLabel boardPatternLabel;
-    private javax.swing.JButton calibrationExamineButton;
-    private javax.swing.JMenuItem calibrationExamineMenuItem;
-    private javax.swing.JButton calibrationLoadButton;
-    private javax.swing.JMenuItem calibrationLoadMenuItem;
-    private javax.swing.JMenu calibrationMenu;
-    private javax.swing.JMenuItem calibrationSaveAsMenuItem;
-    private javax.swing.JButton calibrationSaveButton;
-    private javax.swing.JMenuItem calibrationSaveMenuItem;
-    private javax.swing.JButton calibrationStartButton;
-    private javax.swing.JMenuItem calibrationStartMenuItem;
-    private javax.swing.JButton calibrationStopButton;
-    private javax.swing.JMenuItem calibrationStopMenuItem;
-    private javax.swing.JMenu helpMenu;
-    private javax.swing.JPanel markerPatternsPanel;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JSeparator menuSeparator1;
-    private javax.swing.JSeparator menuSeparator2;
-    private javax.swing.JLabel projectorPatternLabel;
-    private org.openide.explorer.propertysheet.PropertySheetView propertySheetView;
-    private javax.swing.JMenuItem readmeMenuItem;
-    private javax.swing.JButton saveAsBoardPatternButton;
-    private javax.swing.JButton settingsLoadButton;
-    private javax.swing.JButton settingsLoadDefaultsButton;
-    private javax.swing.JMenuItem settingsLoadDefaultsMenuItem;
-    private javax.swing.JMenuItem settingsLoadMenuItem;
-    private javax.swing.JMenu settingsMenu;
-    private javax.swing.JMenuItem settingsSaveAsMenuItem;
-    private javax.swing.JButton settingsSaveButton;
-    private javax.swing.JMenuItem settingsSaveMenuItem;
-    private javax.swing.JSplitPane splitPane;
-    private javax.swing.JLabel statusLabel;
-    private javax.swing.JToolBar toolBar;
-    private javax.swing.JToolBar.Separator toolBarSeparator1;
-    // End of variables declaration//GEN-END:variables
-
 }
