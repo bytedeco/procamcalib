@@ -119,6 +119,12 @@ import static org.bytedeco.javacpp.opencv_imgproc.*;
 public class MainFrame extends javax.swing.JFrame implements
         ExplorerManager.Provider, Lookup.Provider, PropertyChangeListener {
 
+    public static final String PRO_CAM_CALIB = "ProCamCalib";
+    public static final String SAVE_AS = "Save As...";
+    public static final String CONFIRM_OVERWRITE = "Confirm Overwrite";
+    public static final String OVERWRITE_EXISTING_FILE = "Overwrite existing file \"";
+    public static final String NO_CALIBRATION_DATA = "No calibration data";
+
     /** Creates new form MainFrame */
     public MainFrame(String[] args) throws Exception {
         // same as before...
@@ -430,7 +436,7 @@ public class MainFrame extends javax.swing.JFrame implements
 
         settingsFile = file;
         if (settingsFile == null) {
-            setTitle("ProCamCalib");
+            setTitle(PRO_CAM_CALIB);
         } else {
             setTitle(settingsFile.getName() + " - ProCamCalib");
         }
@@ -446,7 +452,7 @@ public class MainFrame extends javax.swing.JFrame implements
     void saveSettings(File file) throws IOException {
         settingsFile = file;
         if (settingsFile == null) {
-            setTitle("ProCamCalib");
+            setTitle(PRO_CAM_CALIB);
         } else {
             setTitle(settingsFile.getName() + " - ProCamCalib");
         }
@@ -512,7 +518,7 @@ public class MainFrame extends javax.swing.JFrame implements
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("ProCamCalib");
+        setTitle(PRO_CAM_CALIB);
 
         splitPane.setResizeWeight(0.5);
 
@@ -645,7 +651,7 @@ public class MainFrame extends javax.swing.JFrame implements
         markerPatternsPanel.add(projectorPatternLabel, gridBagConstraints);
 
         saveAsBoardPatternButton.setMnemonic('S');
-        saveAsBoardPatternButton.setText("Save As...");
+        saveAsBoardPatternButton.setText(SAVE_AS);
         saveAsBoardPatternButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveAsBoardPatternButtonActionPerformed(evt);
@@ -692,7 +698,7 @@ public class MainFrame extends javax.swing.JFrame implements
         settingsMenu.add(settingsSaveMenuItem);
 
         settingsSaveAsMenuItem.setMnemonic('A');
-        settingsSaveAsMenuItem.setText("Save As...");
+        settingsSaveAsMenuItem.setText(SAVE_AS);
         settingsSaveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 settingsSaveAsMenuItemActionPerformed(evt);
@@ -753,7 +759,7 @@ public class MainFrame extends javax.swing.JFrame implements
         calibrationMenu.add(calibrationSaveMenuItem);
 
         calibrationSaveAsMenuItem.setMnemonic('A');
-        calibrationSaveAsMenuItem.setText("Save As...");
+        calibrationSaveAsMenuItem.setText(SAVE_AS);
         calibrationSaveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calibrationSaveAsMenuItemActionPerformed(evt);
@@ -856,7 +862,7 @@ public class MainFrame extends javax.swing.JFrame implements
         } else {
             if (settingsFile.exists()) {
                 int response = JOptionPane.showConfirmDialog(this,
-                        "Overwrite existing file \"" + settingsFile + "\"?", "Confirm Overwrite",
+                        OVERWRITE_EXISTING_FILE + settingsFile + "\"?", CONFIRM_OVERWRITE,
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.CANCEL_OPTION) {
                     settingsSaveAsMenuItemActionPerformed(evt);
@@ -996,7 +1002,7 @@ public class MainFrame extends javax.swing.JFrame implements
         if (calibrationWorker == null) {
             JOptionPane.showMessageDialog(this,
                     "There is no calibration data to examine.",
-                    "No calibration data",
+                    NO_CALIBRATION_DATA,
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -1068,7 +1074,7 @@ public class MainFrame extends javax.swing.JFrame implements
         if (calibrationWorker == null) {
             JOptionPane.showMessageDialog(this,
                     "There is no calibration data to save.",
-                    "No calibration data",
+                    NO_CALIBRATION_DATA,
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -1078,7 +1084,7 @@ public class MainFrame extends javax.swing.JFrame implements
         } else {
             if (calibrationFile.exists()) {
                 int response = JOptionPane.showConfirmDialog(this,
-                        "Overwrite existing file \"" + calibrationFile + "\"?", "Confirm Overwrite",
+                        OVERWRITE_EXISTING_FILE + calibrationFile + "\"?", CONFIRM_OVERWRITE,
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.CANCEL_OPTION) {
                     calibrationSaveAsMenuItemActionPerformed(evt);
@@ -1095,7 +1101,7 @@ public class MainFrame extends javax.swing.JFrame implements
         if (calibrationWorker == null) {
             JOptionPane.showMessageDialog(this,
                     "There is no calibration data to save.",
-                    "No calibration data",
+                    NO_CALIBRATION_DATA,
                     JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -1242,7 +1248,7 @@ public class MainFrame extends javax.swing.JFrame implements
             File file = fc.getSelectedFile();
             if (file.exists()) {
                 int response = JOptionPane.showConfirmDialog(this,
-                        "Overwrite existing file \"" + file + "\"?", "Confirm Overwrite",
+                        OVERWRITE_EXISTING_FILE + file + "\"?", CONFIRM_OVERWRITE,
                         JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (response == JOptionPane.CANCEL_OPTION) {
                     return;
