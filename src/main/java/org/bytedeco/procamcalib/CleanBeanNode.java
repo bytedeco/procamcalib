@@ -57,11 +57,11 @@ public class CleanBeanNode<T> extends BeanNode<T> {
                     ((PropertySupport.Reflection<?>)p).setPropertyEditorClass(c);
                 }
             }
-            if (p.getName().equals("beanContext") || p.getName().equals("beanContextChildPeer") ||
-                    p.getName().equals("beanContextPeer") || p.getName().equals("class") ||
-                    p.getName().equals("delegated") || p.getName().equals("designTime") ||
-                    p.getName().equals("empty") || p.getName().equals("locale") ||
-                    p.getName().equals("serializing")) {
+            if ("beanContext".equals(p.getName()) || "beanContextChildPeer".equals(p.getName()) ||
+                    "beanContextPeer".equals(p.getName()) || "class".equals(p.getName()) ||
+                    "delegated".equals(p.getName()) || "designTime".equals(p.getName()) ||
+                    "empty".equals(p.getName()) || "locale".equals(p.getName()) ||
+                    "serializing".equals(p.getName())) {
                 p.setHidden(true);
             }
         }

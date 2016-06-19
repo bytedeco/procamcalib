@@ -250,7 +250,7 @@ public class MainFrame extends javax.swing.JFrame implements
         updatePatterns(evt);
 
         if (evt.getSource() == cameraSettings &&
-                evt.getPropertyName().equals("frameGrabber")) {
+                "frameGrabber".equals(evt.getPropertyName())) {
             CameraDevice.Settings[] cs = cameraSettings.toArray();
             for (CameraDevice.Settings s : cs) {
                 s.setFrameGrabber(cameraSettings.getFrameGrabber());
@@ -278,7 +278,7 @@ public class MainFrame extends javax.swing.JFrame implements
         ProjectorDevice.Settings[] ps = projectorSettings.toArray();
         if (evt != null) {
             Object o = evt.getSource();
-            if (o == projectorSettings && evt.getPropertyName().equals("quantity") &&
+            if (o == projectorSettings && "quantity".equals(evt.getPropertyName()) &&
                     (Integer)evt.getOldValue() > 0 && (Integer)evt.getNewValue() == 0) {
                 colorCalibratorSettings.setEnabled(false);
                 markerSettings.setCheckered(false);
@@ -293,7 +293,7 @@ public class MainFrame extends javax.swing.JFrame implements
                     "Projector calibration requires checkered patterns.",
                     "Cannot unset \"checkered\" property",
                     JOptionPane.WARNING_MESSAGE);
-            if (evt == null || evt.getPropertyName().equals("checkered")) {
+            if (evt == null || "checkered".equals(evt.getPropertyName())) {
                 ignoreNextUpdate = true;
             }
             markerSettings.setCheckered(true);
@@ -1195,8 +1195,7 @@ public class MainFrame extends javax.swing.JFrame implements
         JDialog dialog = new JOptionPane(textPane, JOptionPane.PLAIN_MESSAGE).
                 createDialog(this, "About");
 
-        if (UIManager.getLookAndFeel().getClass().getName()
-                .equals("com.sun.java.swing.plaf.gtk.GTKLookAndFeel")) {
+        if ("com.sun.java.swing.plaf.gtk.GTKLookAndFeel".equals(UIManager.getLookAndFeel().getClass().getName())) {
             // under GTK, frameBackground is white, but rootPane color is OK...
             // but under Windows, the rootPane's color is funny...
             Color c = dialog.getRootPane().getBackground();
@@ -1289,7 +1288,7 @@ public class MainFrame extends javax.swing.JFrame implements
                     String lafClassName = UIManager.getSystemLookAndFeelClassName();
                     ArrayList<String> otherArgs = new ArrayList<String>();
                     for (int i = 0; i < args.length; i++) {
-                        if (args[i].equals("--laf") && i+1 < args.length) {
+                        if ("--laf".equals(args[i]) && i+1 < args.length) {
                             lafClassName = args[i+1];
                             i++;
                         } else {
