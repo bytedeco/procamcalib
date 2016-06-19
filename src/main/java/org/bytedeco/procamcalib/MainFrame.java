@@ -124,7 +124,59 @@ public class MainFrame extends javax.swing.JFrame implements
     public static final String CONFIRM_OVERWRITE = "Confirm Overwrite";
     public static final String OVERWRITE_EXISTING_FILE = "Overwrite existing file \"";
     public static final String NO_CALIBRATION_DATA = "No calibration data";
-
+    static File myDirectory;
+    final File DEFAULT_SETTINGS_FILE = new File("settings.pcc");
+    final File DEFAULT_CALIBRATION_FILE = new File("calibration.yaml");
+    Marker[][] markers = null;
+    MarkedPlane boardPlane = null;
+    CameraSettings cameraSettings = null;
+    ProjectorSettings projectorSettings = null;
+    Marker.ArraySettings markerSettings = null;
+    MarkerDetector.Settings markerDetectorSettings = null;
+    CalibrationWorker.GeometricSettings geometricCalibratorSettings = null;
+    CalibrationWorker.ColorSettings colorCalibratorSettings = null;
+    File settingsFile = null, calibrationFile = null;
+    boolean ignoreNextUpdate = false;
+    MyCalibrationWorker calibrationWorker = null;
+    private ExplorerManager manager;
+    private Lookup lookup;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
+    private org.openide.explorer.view.BeanTreeView beanTreeView;
+    private javax.swing.JLabel boardPatternLabel;
+    private javax.swing.JButton calibrationExamineButton;
+    private javax.swing.JMenuItem calibrationExamineMenuItem;
+    private javax.swing.JButton calibrationLoadButton;
+    private javax.swing.JMenuItem calibrationLoadMenuItem;
+    private javax.swing.JMenu calibrationMenu;
+    private javax.swing.JMenuItem calibrationSaveAsMenuItem;
+    private javax.swing.JButton calibrationSaveButton;
+    private javax.swing.JMenuItem calibrationSaveMenuItem;
+    private javax.swing.JButton calibrationStartButton;
+    private javax.swing.JMenuItem calibrationStartMenuItem;
+    private javax.swing.JButton calibrationStopButton;
+    private javax.swing.JMenuItem calibrationStopMenuItem;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JPanel markerPatternsPanel;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JSeparator menuSeparator1;
+    private javax.swing.JSeparator menuSeparator2;
+    private javax.swing.JLabel projectorPatternLabel;
+    private org.openide.explorer.propertysheet.PropertySheetView propertySheetView;
+    private javax.swing.JMenuItem readmeMenuItem;
+    private javax.swing.JButton saveAsBoardPatternButton;
+    private javax.swing.JButton settingsLoadButton;
+    private javax.swing.JButton settingsLoadDefaultsButton;
+    private javax.swing.JMenuItem settingsLoadDefaultsMenuItem;
+    private javax.swing.JMenuItem settingsLoadMenuItem;
+    private javax.swing.JMenu settingsMenu;
+    private javax.swing.JMenuItem settingsSaveAsMenuItem;
+    private javax.swing.JButton settingsSaveButton;
+    private javax.swing.JMenuItem settingsSaveMenuItem;
+    private javax.swing.JSplitPane splitPane;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JToolBar toolBar;
+    private javax.swing.JToolBar.Separator toolBarSeparator1;
     /** Creates new form MainFrame */
     public MainFrame(String[] args) throws Exception {
         // same as before...
@@ -213,34 +265,81 @@ public class MainFrame extends javax.swing.JFrame implements
         beanTreeView.requestFocusInWindow();
     }
 
-    Marker[][] markers = null;
-    MarkedPlane boardPlane = null;
-    CameraSettings cameraSettings = null;
-    ProjectorSettings projectorSettings = null;
-    Marker.ArraySettings markerSettings = null;
-    MarkerDetector.Settings markerDetectorSettings = null;
-    CalibrationWorker.GeometricSettings geometricCalibratorSettings = null;
-    CalibrationWorker.ColorSettings colorCalibratorSettings = null;
-    final File DEFAULT_SETTINGS_FILE = new File("settings.pcc");
-    final File DEFAULT_CALIBRATION_FILE = new File("calibration.yaml");
-    File settingsFile = null, calibrationFile = null;
+    /**
+    * @param args the command line arguments
+    */
+    public static void main(final String args[]) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // this is just a workaround for GTK and OpenCV, should be safe to ignore otherwise
+        }
 
-    private ExplorerManager manager;
-    private Lookup lookup;
+        // try to init all frame grabbers here, because bad things
+        // happen if loading errors occur while we're in the GUI thread...
+        FrameGrabber.init();
+
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    myDirectory = new File(MainFrame.class.getProtectionDomain().
+                            getCodeSource().getLocation().toURI());
+                    if (!myDirectory.isDirectory()) {
+                        myDirectory = myDirectory.getParentFile();
+                    }
+                    String lafClassName = UIManager.getSystemLookAndFeelClassName();
+                    ArrayList<String> otherArgs = new ArrayList<String>();
+                    for (int i = 0; i < args.length; i++) {
+                        if (args[i].equals("--laf") && i+1 < args.length) {
+                            lafClassName = args[i+1];
+                            i++;
+                        } else {
+                            otherArgs.add(args[i]);
+                        }
+                    }
+                    // "Ocean Look" would be javax.swing.plaf.metal.MetalLookAndFeel
+                    org.netbeans.swing.plaf.Startup.run(Class.forName(lafClassName), 0, null);
+
+                    // Add property editors from NetBeans
+                    String[] searchPath = PropertyEditorManager.getEditorSearchPath();
+                    String[] newSearchPath = new String[searchPath.length+1];
+                    newSearchPath[0] = "org.netbeans.beaninfo.editors";
+                    System.arraycopy(searchPath, 0, newSearchPath, 1, searchPath.length);
+                    PropertyEditorManager.setEditorSearchPath(newSearchPath);
+                    PropertyEditorManager.registerEditor(String[].class, StringArrayEditor.class);
+//                    PropertyEditorManager.registerEditor(double[].class, DoubleArrayEditor.class);
+
+                    //Make sure we have nice window decorations.
+                    JFrame.setDefaultLookAndFeelDecorated(true);
+                    JDialog.setDefaultLookAndFeelDecorated(true);
+
+                    MainFrame w = new MainFrame(otherArgs.toArray(new String[0]));
+                    w.setLocationByPlatform(true);
+                    w.setVisible(true);
+                } catch (Exception ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE,
+                            "Could not start ProCamCalib", ex);
+                }
+            }
+        });
+    }
 
     // ...method as before and getLookup
     public ExplorerManager getExplorerManager() {
         return manager;
     }
+
     public Lookup getLookup() {
         return lookup;
     }
+
     // ...methods as before, but replace componentActivated and
     // componentDeactivated with e.g.:
     @Override public void addNotify() {
         super.addNotify();
         ExplorerUtils.activateActions(manager, true);
     }
+
     @Override public void removeNotify() {
         ExplorerUtils.activateActions(manager, false);
         super.removeNotify();
@@ -268,7 +367,6 @@ public class MainFrame extends javax.swing.JFrame implements
         }
     }
 
-    boolean ignoreNextUpdate = false;
     void updatePatterns(PropertyChangeEvent evt) {
         if (ignoreNextUpdate) {
             ignoreNextUpdate = false;
@@ -401,7 +499,7 @@ public class MainFrame extends javax.swing.JFrame implements
                 (colorCalibratorSettings, null, "ColorCalibrator");
 
         Children children = new Children.Array();
-        children.add(new Node[] { cameraNode, projectorNode, markerNode, detectorNode, 
+        children.add(new Node[] { cameraNode, projectorNode, markerNode, detectorNode,
                 geometricCalibratorNode, colorCalibratorNode });
 
         Node root = new AbstractNode(children);
@@ -894,48 +992,6 @@ public class MainFrame extends javax.swing.JFrame implements
 
     }//GEN-LAST:event_settingsSaveAsMenuItemActionPerformed
 
-    class MyCalibrationWorker extends CalibrationWorker {
-        public MyCalibrationWorker(MyCalibrationWorker brother) {
-            super();
-            if (brother != null) {
-                this.cameraDevices = brother.cameraDevices;
-                this.projectorDevices = brother.projectorDevices;
-            }
-        }
-
-        @Override protected void done() {
-            super.done();
-
-            settingsMenu.setEnabled(true);
-//            calibrationMenu.setEnabled(true);
-            calibrationStartMenuItem.setEnabled(true);
-            calibrationStopMenuItem.setEnabled(false);
-            calibrationExamineMenuItem.setEnabled(true);
-            calibrationLoadMenuItem.setEnabled(true);
-            calibrationSaveMenuItem.setEnabled(true);
-            calibrationSaveAsMenuItem.setEnabled(true);
-            settingsLoadDefaultsButton.setEnabled(true);
-            settingsLoadButton.setEnabled(true);
-            settingsSaveButton.setEnabled(true);
-            calibrationExamineButton.setEnabled(true);
-            calibrationStartButton.setEnabled(true);
-            calibrationStopButton.setEnabled(false);
-            calibrationLoadButton.setEnabled(true);
-            calibrationSaveButton.setEnabled(true);
-            beanTreeView.setEnabled(true);
-            propertySheetView.setEnabled(true);
-            saveAsBoardPatternButton.setEnabled(true);
-
-            if (isCancelled()) {
-                statusLabel.setText("Calibration cancelled.");
-                calibrationWorker = null;
-            } else {
-                statusLabel.setText("Calibration done!");
-            }
-        }
-    }
-    MyCalibrationWorker calibrationWorker = null;
-
     private void calibrationStartMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calibrationStartMenuItemActionPerformed
         if (calibrationWorker == null || calibrationWorker.getState() != StateValue.STARTED) {
             calibrationWorker = new MyCalibrationWorker(calibrationWorker);
@@ -1262,104 +1318,46 @@ public class MainFrame extends javax.swing.JFrame implements
         }
     }//GEN-LAST:event_saveAsBoardPatternButtonActionPerformed
 
-    static File myDirectory;
-
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(final String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            // this is just a workaround for GTK and OpenCV, should be safe to ignore otherwise
+    class MyCalibrationWorker extends CalibrationWorker {
+        public MyCalibrationWorker(MyCalibrationWorker brother) {
+            super();
+            if (brother != null) {
+                this.cameraDevices = brother.cameraDevices;
+                this.projectorDevices = brother.projectorDevices;
+            }
         }
 
-        // try to init all frame grabbers here, because bad things
-        // happen if loading errors occur while we're in the GUI thread...
-        FrameGrabber.init();
+        @Override protected void done() {
+            super.done();
 
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    myDirectory = new File(MainFrame.class.getProtectionDomain().
-                            getCodeSource().getLocation().toURI());
-                    if (!myDirectory.isDirectory()) {
-                        myDirectory = myDirectory.getParentFile();
-                    }
-                    String lafClassName = UIManager.getSystemLookAndFeelClassName();
-                    ArrayList<String> otherArgs = new ArrayList<String>();
-                    for (int i = 0; i < args.length; i++) {
-                        if (args[i].equals("--laf") && i+1 < args.length) {
-                            lafClassName = args[i+1];
-                            i++;
-                        } else {
-                            otherArgs.add(args[i]);
-                        }
-                    }
-                    // "Ocean Look" would be javax.swing.plaf.metal.MetalLookAndFeel
-                    org.netbeans.swing.plaf.Startup.run(Class.forName(lafClassName), 0, null);
+            settingsMenu.setEnabled(true);
+//            calibrationMenu.setEnabled(true);
+            calibrationStartMenuItem.setEnabled(true);
+            calibrationStopMenuItem.setEnabled(false);
+            calibrationExamineMenuItem.setEnabled(true);
+            calibrationLoadMenuItem.setEnabled(true);
+            calibrationSaveMenuItem.setEnabled(true);
+            calibrationSaveAsMenuItem.setEnabled(true);
+            settingsLoadDefaultsButton.setEnabled(true);
+            settingsLoadButton.setEnabled(true);
+            settingsSaveButton.setEnabled(true);
+            calibrationExamineButton.setEnabled(true);
+            calibrationStartButton.setEnabled(true);
+            calibrationStopButton.setEnabled(false);
+            calibrationLoadButton.setEnabled(true);
+            calibrationSaveButton.setEnabled(true);
+            beanTreeView.setEnabled(true);
+            propertySheetView.setEnabled(true);
+            saveAsBoardPatternButton.setEnabled(true);
 
-                    // Add property editors from NetBeans
-                    String[] searchPath = PropertyEditorManager.getEditorSearchPath();
-                    String[] newSearchPath = new String[searchPath.length+1];
-                    newSearchPath[0] = "org.netbeans.beaninfo.editors";
-                    System.arraycopy(searchPath, 0, newSearchPath, 1, searchPath.length);
-                    PropertyEditorManager.setEditorSearchPath(newSearchPath);
-                    PropertyEditorManager.registerEditor(String[].class, StringArrayEditor.class);
-//                    PropertyEditorManager.registerEditor(double[].class, DoubleArrayEditor.class);
-
-                    //Make sure we have nice window decorations.
-                    JFrame.setDefaultLookAndFeelDecorated(true);
-                    JDialog.setDefaultLookAndFeelDecorated(true);
-
-                    MainFrame w = new MainFrame(otherArgs.toArray(new String[0]));
-                    w.setLocationByPlatform(true);
-                    w.setVisible(true);
-                } catch (Exception ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE,
-                            "Could not start ProCamCalib", ex);
-                }
+            if (isCancelled()) {
+                statusLabel.setText("Calibration cancelled.");
+                calibrationWorker = null;
+            } else {
+                statusLabel.setText("Calibration done!");
             }
-        });
+        }
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
-    private org.openide.explorer.view.BeanTreeView beanTreeView;
-    private javax.swing.JLabel boardPatternLabel;
-    private javax.swing.JButton calibrationExamineButton;
-    private javax.swing.JMenuItem calibrationExamineMenuItem;
-    private javax.swing.JButton calibrationLoadButton;
-    private javax.swing.JMenuItem calibrationLoadMenuItem;
-    private javax.swing.JMenu calibrationMenu;
-    private javax.swing.JMenuItem calibrationSaveAsMenuItem;
-    private javax.swing.JButton calibrationSaveButton;
-    private javax.swing.JMenuItem calibrationSaveMenuItem;
-    private javax.swing.JButton calibrationStartButton;
-    private javax.swing.JMenuItem calibrationStartMenuItem;
-    private javax.swing.JButton calibrationStopButton;
-    private javax.swing.JMenuItem calibrationStopMenuItem;
-    private javax.swing.JMenu helpMenu;
-    private javax.swing.JPanel markerPatternsPanel;
-    private javax.swing.JMenuBar menuBar;
-    private javax.swing.JSeparator menuSeparator1;
-    private javax.swing.JSeparator menuSeparator2;
-    private javax.swing.JLabel projectorPatternLabel;
-    private org.openide.explorer.propertysheet.PropertySheetView propertySheetView;
-    private javax.swing.JMenuItem readmeMenuItem;
-    private javax.swing.JButton saveAsBoardPatternButton;
-    private javax.swing.JButton settingsLoadButton;
-    private javax.swing.JButton settingsLoadDefaultsButton;
-    private javax.swing.JMenuItem settingsLoadDefaultsMenuItem;
-    private javax.swing.JMenuItem settingsLoadMenuItem;
-    private javax.swing.JMenu settingsMenu;
-    private javax.swing.JMenuItem settingsSaveAsMenuItem;
-    private javax.swing.JButton settingsSaveButton;
-    private javax.swing.JMenuItem settingsSaveMenuItem;
-    private javax.swing.JSplitPane splitPane;
-    private javax.swing.JLabel statusLabel;
-    private javax.swing.JToolBar toolBar;
-    private javax.swing.JToolBar.Separator toolBarSeparator1;
     // End of variables declaration//GEN-END:variables
 
 }
