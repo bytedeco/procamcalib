@@ -262,7 +262,30 @@
               <goal>jar</goal>
             </goals>
             <configuration>
-              <detectLinks>true</detectLinks>
+              <links>
+                <link>http://bytedeco.org/javacpp/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/opencv/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/ffmpeg/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/flycapture/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/libdc1394/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/libfreenect/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/videoinput/apidocs/</link>
+                <link>http://bytedeco.org/javacpp-presets/artoolkitplus/apidocs/</link>
+                <link>http://bytedeco.org/javacv/apidocs/</link>
+                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-bootstrap/</link>
+                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-core-startup/</link>
+                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-core/</link>
+                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-swing-plaf/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-actions/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-awt/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-dialogs/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-explorer/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-filesystems/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-modules/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-nodes/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-util/</link>
+                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-util-lookup/</link>
+              </links>
             </configuration>
           </execution>
         </executions>

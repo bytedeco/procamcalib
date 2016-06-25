@@ -1,4 +1,6 @@
 
+ * Fix Javadoc links for externally referenced classes
+
 ### May 15, 2016 version 1.2
  * Upgrade support to OpenCV 3.1.0 and FFmpeg 3.0.x
  * Lower Maven prerequisite in the `pom.xml` file to 3.0 ([issue bytedeco/javacpp#93](https://github.com/bytedeco/javacpp/issues/93))
