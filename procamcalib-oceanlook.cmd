@@ -8,9 +8,12 @@ rem Under Windows, Java uses DirectX by default, but your video driver
 rem might work better with OpenGL than DirectX. Try to use this option...
 rem set OPTIONS=-Dsun.java2d.opengl=True
 
+rem Work around stability issues on some systems, but this causes memory leaks...
+set OPTIONS=-Dorg.bytedeco.javacpp.nopointergc=true
+
 set JAVA=%SystemRoot%\system32\java
 if exist %JAVA%.exe goto CHECKSERVER
-set JAVA=%SystemRoot%\SysWOW64\java
+set JAVA=java
 
 :CHECKSERVER
 %JAVA% -server -version

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>1.2</version>
+  <version>1.3</version>
 
   <name>ProCamCalib</name>
   <description>A User-Friendly Method to Calibrate Cameras and Projector-Camera Systems</description>
@@ -56,7 +56,7 @@
   <dependencies>
     <dependency>
       <groupId>org.bytedeco</groupId>
-      <artifactId>javacv</artifactId>
+      <artifactId>javacv-platform</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -193,7 +193,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.6</version>
+        <version>3.0.2</version>
         <configuration>
           <archive>
             <manifest>
@@ -202,7 +202,7 @@
             </manifest>
             <manifestEntries>
               <!-- <addClasspath/> is broken: http://jira.codehaus.org/browse/MJAR-61 -->
-              <Class-Path>javacpp.jar javacv.jar org-netbeans-bootstrap.jar org-netbeans-core-startup.jar org-netbeans-core.jar org-netbeans-swing-plaf.jar org-openide-actions.jar org-openide-awt.jar org-openide-dialogs.jar org-openide-explorer.jar org-openide-filesystems.jar org-openide-modules.jar org-openide-nodes.jar org-openide-util.jar org-openide-util-lookup.jar</Class-Path>
+              <Class-Path>javacpp.jar javacv-platform.jar org-netbeans-bootstrap.jar org-netbeans-core-startup.jar org-netbeans-core.jar org-netbeans-swing-plaf.jar org-openide-actions.jar org-openide-awt.jar org-openide-dialogs.jar org-openide-explorer.jar org-openide-filesystems.jar org-openide-modules.jar org-openide-nodes.jar org-openide-util.jar org-openide-util-lookup.jar</Class-Path>
               <Name>org/bytedeco/procamcalib/</Name>
               <Implementation-Title>${project.name}</Implementation-Title>
               <Implementation-Vendor>Samuel Audet</Implementation-Vendor>
@@ -223,7 +223,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>2.5.5</version>
+        <version>3.0.0</version>
         <configuration>
           <descriptors>
             <descriptor>src/main/assembly/bin.xml</descriptor>
@@ -241,7 +241,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-source-plugin</artifactId>
-        <version>2.4</version>
+        <version>3.0.1</version>
         <executions>
           <execution>
             <id>attach-source</id>
@@ -253,7 +253,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.3</version>
+        <version>2.10.4</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>

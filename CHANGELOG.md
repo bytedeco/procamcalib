@@ -1,4 +1,8 @@
 
+### December 7, 2016 version 1.3
+ * Work around stability issues on some systems ([issue #4](https://github.com/bytedeco/procamcalib/issues/4))
+ * Add support for the `linux-armhf` and `linux-ppc64le` platforms, libdc1394 on Windows, and librealsense on Linux x86
+ * Upgrade support to FFmpeg 3.2.x
  * Fix Javadoc links for externally referenced classes
 
 ### May 15, 2016 version 1.2
