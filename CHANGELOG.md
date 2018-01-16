@@ -1,4 +1,7 @@
 
+### January 16, 2018 version 1.4
+ * Upgrade support to OpenCV 3.4.0 and FFmpeg 3.4.x
+
 ### December 7, 2016 version 1.3
  * Work around stability issues on some systems ([issue #4](https://github.com/bytedeco/procamcalib/issues/4))
  * Add support for the `linux-armhf` and `linux-ppc64le` platforms, libdc1394 on Windows, and librealsense on Linux x86
