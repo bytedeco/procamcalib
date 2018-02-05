@@ -81,7 +81,7 @@ public class CleanBeanNode<T> extends BeanNode<T> {
         return renameable;
     }
     @Override public Action[] getActions(boolean context) {
-        return null;
+        return new Action[] {};
     }
 
 }
