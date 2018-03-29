@@ -9,11 +9,13 @@ Additionally, given that camera-only systems are a subset of projector-camera sy
 
 Please cite my Procams 2009 paper (reference below) if you find this tool useful for your own research projects. Thank you.
 
+More information at http://www.ok.sc.e.titech.ac.jp/res/PCS/research/procamcalib/
+
 
 Downloads
 ---------
- * ProCamCalib 1.4 binary archive  [procamcalib-1.4-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4/procamcalib-1.4-bin.zip) (199 MB)
- * ProCamCalib 1.4 source archive  [procamcalib-1.4-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4/procamcalib-1.4-src.zip) (51 KB)
+ * ProCamCalib 1.4.1 binary archive  [procamcalib-1.4.1-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.1/procamcalib-1.4.1-bin.zip) (223 MB)
+ * ProCamCalib 1.4.1 source archive  [procamcalib-1.4.1-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.1/procamcalib-1.4.1-src.zip) (51 KB)
 
 The binary archive contains builds for Linux, Mac OS X, and Windows.
 
@@ -26,7 +28,7 @@ Please install the following before running ProCamCalib:
 
  * An implementation of Java SE 7 or newer:
    * OpenJDK  http://openjdk.java.net/install/  or
-   * Sun JDK  http://www.oracle.com/technetwork/java/javase/downloads/  or
+   * Oracle JDK  http://www.oracle.com/technetwork/java/javase/downloads/  or
    * IBM JDK  http://www.ibm.com/developerworks/java/jdk/
 
 And be aware that ProCamCalib runs _a lot_ faster under the "server" JVM than the "client" JVM, but because of its bigger size, not all distributions of Java come with the server one.
@@ -59,7 +61,7 @@ Once you have modified all the desired settings, since the application may crash
 
 Before going any further, you will need to print out the board pattern. Export the image file by clicking on the "Save As..." button at the bottom of the main window, and print out the resulting file (written in PNG, BMP, PGM, or any other format supported by OpenCV, depending on the extension you provided to the filename).
 
-After pasting the pattern on a flat calibration board, and making sure that the "screenNumber" settings correspond to the one of your projectors, you may start the calibration process via the "Calibration" menu. However, before starting, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the demo video to understand further how to perform calibration. Also, please note that ProCamCalib may fail to detect markers properly if they are not clear or big enough. Please adjust properly the focus, exposure, resolution, etc. of your projectors and cameras.
+After pasting the pattern on a flat calibration board, and making sure that the "screenNumber" settings correspond to the one of your projectors, you may start the calibration process via the "Calibration" menu. However, before starting, I recommend, if possible, to set your cameras in a mode with more than 8 bits per pixel (e.g.: 10 or 16 bits). The added dynamic range may make the calibration process easier and more accurate. The algorithm calibrates all cameras simultaneously, while calibrating projectors only one at a time, for obvious reasons. When you want ProCamCalib to take an image for calibration, keep the board as steady as possible for a few seconds until you see the camera image "flash". Please refer to my Procams 2009 paper and the [demo video](http://www.ok.sc.e.titech.ac.jp/res/PCS/research/procamcalib/) to understand further how to perform calibration. Also, please note that ProCamCalib may fail to detect markers properly if they are not clear or big enough. Please adjust properly the focus, exposure, resolution, etc. of your projectors and cameras.
 
 Be aware that color calibration is enabled by default. After geometric calibration has completed, color calibration will start and display automatically an array of colors. If you do not need color calibration, make sure you disable it in the settings before starting calibration.
 
@@ -73,9 +75,9 @@ Source Code
 I make all the source code available on GitHub at https://github.com/bytedeco/procamcalib . You will also need the following to modify and build the application:
 
  * A C/C++ compiler
- * JavaCPP 1.4  https://github.com/bytedeco/javacpp
- * JavaCV  1.4  https://github.com/bytedeco/javacv
- * OpenCV 3.4.0  http://sourceforge.net/projects/opencvlibrary/files/
+ * JavaCPP 1.4.1  https://github.com/bytedeco/javacpp
+ * JavaCV  1.4.1  https://github.com/bytedeco/javacv
+ * OpenCV 3.4.1  http://sourceforge.net/projects/opencvlibrary/files/
  * FFmpeg 3.4.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
  * NetBeans 8.0  http://netbeans.org/downloads/

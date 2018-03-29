@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>1.4</version>
+  <version>1.4.1</version>
 
   <name>ProCamCalib</name>
   <description>A User-Friendly Method to Calibrate Cameras and Projector-Camera Systems</description>
@@ -343,6 +343,7 @@
               </execution>
             </executions>
             <configuration>
+              <passphrase>${env.GPG_PASSPHRASE}</passphrase>
               <useAgent>false</useAgent>
             </configuration>
           </plugin>

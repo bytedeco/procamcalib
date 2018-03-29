@@ -36,6 +36,7 @@
       <excludes>
         <exclude>flandmark*.jar</exclude>
         <exclude>*-android-*.jar</exclude>
+        <exclude>*-ios-*.jar</exclude>
         <exclude>*-javadoc.jar</exclude>
         <exclude>*-sources.jar</exclude>
       </excludes>
