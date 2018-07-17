@@ -1,4 +1,7 @@
 
+### July 17, 2018 version 1.4.2
+ * Upgrade support to OpenCV 3.4.2 and FFmpeg 4.0.x
+
 ### March 29, 2018 version 1.4.1
  * Fix issues with RealSense cameras ([issue #15](https://github.com/bytedeco/procamcalib/issues/15))
  * Upgrade support to OpenCV 3.4.1
