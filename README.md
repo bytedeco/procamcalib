@@ -14,8 +14,8 @@ More information at http://www.ok.sc.e.titech.ac.jp/res/PCS/research/procamcalib
 
 Downloads
 ---------
- * ProCamCalib 1.4.2 binary archive  [procamcalib-1.4.2-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.2/procamcalib-1.4.2-bin.zip) (258 MB)
- * ProCamCalib 1.4.2 source archive  [procamcalib-1.4.2-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.2/procamcalib-1.4.2-src.zip) (51 KB)
+ * ProCamCalib 1.4.3 binary archive  [procamcalib-1.4.3-bin.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.3/procamcalib-1.4.3-bin.zip) (263 MB)
+ * ProCamCalib 1.4.3 source archive  [procamcalib-1.4.3-src.zip](http://search.maven.org/remotecontent?filepath=org/bytedeco/procamcalib/1.4.3/procamcalib-1.4.3-src.zip) (51 KB)
 
 The binary archive contains builds for Linux, Mac OS X, and Windows.
 
@@ -75,9 +75,9 @@ Source Code
 I make all the source code available on GitHub at https://github.com/bytedeco/procamcalib . You will also need the following to modify and build the application:
 
  * A C/C++ compiler
- * JavaCPP 1.4.2  https://github.com/bytedeco/javacpp
- * JavaCV  1.4.2  https://github.com/bytedeco/javacv
- * OpenCV 3.4.2  http://sourceforge.net/projects/opencvlibrary/files/
+ * JavaCPP 1.4.3  https://github.com/bytedeco/javacpp
+ * JavaCV  1.4.3  https://github.com/bytedeco/javacv
+ * OpenCV 3.4.3  http://sourceforge.net/projects/opencvlibrary/files/
  * FFmpeg 4.0.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
  * NetBeans 8.0  http://netbeans.org/downloads/

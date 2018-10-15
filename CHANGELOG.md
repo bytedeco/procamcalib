@@ -1,4 +1,7 @@
 
+### October 15, 2018 version 1.4.3
+ * Upgrade support to OpenCV 3.4.3
+
 ### July 17, 2018 version 1.4.2
  * Upgrade support to OpenCV 3.4.2 and FFmpeg 4.0.x
 
