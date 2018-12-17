@@ -1,4 +1,7 @@
 
+ * Remove no longer necessary workaround that would produce memory leaks
+ * Upgrade support to OpenCV 4.0.0 and FFmpeg 4.1.x
+
 ### October 15, 2018 version 1.4.3
  * Upgrade support to OpenCV 3.4.3
 

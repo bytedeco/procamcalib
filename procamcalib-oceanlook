@@ -12,9 +12,6 @@ OPTIONS=-Dapple.awt.fullscreencapturealldisplays=false
 # by default, but you can try to enable it here to get lower latency.
 #OPTIONS="-Dapple.awt.fullscreencapturealldisplays=false -Dsun.java2d.opengl=True"
 
-# Work around stability issues on some systems, but this causes memory leaks...
-OPTIONS="$OPTIONS -Dorg.bytedeco.javacpp.nopointergc=true"
-
 java -d64 -server -version
 if [ $? -eq 0 ]
 then
