@@ -77,7 +77,7 @@ I make all the source code available on GitHub at https://github.com/bytedeco/pr
  * A C/C++ compiler
  * JavaCPP 1.4.4-SNAPSHOT  https://github.com/bytedeco/javacpp
  * JavaCV  1.4.4-SNAPSHOT  https://github.com/bytedeco/javacv
- * OpenCV 4.0.0  http://sourceforge.net/projects/opencvlibrary/files/
+ * OpenCV 4.0.x  http://sourceforge.net/projects/opencvlibrary/files/
  * FFmpeg 4.1.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
  * NetBeans 8.0  http://netbeans.org/downloads/
