@@ -1,4 +1,5 @@
 
+### January 11, 2019 version 1.4.4
  * Remove no longer necessary workaround that would produce memory leaks
  * Upgrade support to OpenCV 4.0.x and FFmpeg 4.1.x
 
