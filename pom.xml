@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>1.4.4</version>
+  <version>1.5</version>
 
   <name>ProCamCalib</name>
   <description>A User-Friendly Method to Calibrate Cameras and Projector-Camera Systems</description>
@@ -30,10 +30,6 @@
     <connection>scm:git:git://github.com/bytedeco/procamcalib.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/bytedeco/procamcalib.git</developerConnection>
   </scm>
-
-  <prerequisites>
-    <maven>3.0</maven>
-  </prerequisites>
 
   <distributionManagement>
     <snapshotRepository>
@@ -170,7 +166,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
@@ -225,6 +221,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.1.0</version>
         <configuration>
+          <attach>false</attach>
           <descriptors>
             <descriptor>src/main/assembly/bin.xml</descriptor>
             <descriptor>src/main/assembly/src.xml</descriptor>
