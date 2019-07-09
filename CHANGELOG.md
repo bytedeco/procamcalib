@@ -1,4 +1,8 @@
 
+### July 9, 2019 version 1.5.1
+ * Upgrade support to OpenCV 4.1.x
+ * Upgrade to NetBeans 11.0 with support for recent versions of Java SE ([issue #16](https://github.com/bytedeco/procamcalib/issues/16))
+
 ### April 11, 2019 version 1.5
  * Adjust code to support latest changes in JavaCV
 

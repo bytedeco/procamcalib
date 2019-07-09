@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>1.5</version>
+  <version>1.5.1</version>
 
   <name>ProCamCalib</name>
   <description>A User-Friendly Method to Calibrate Cameras and Projector-Camera Systems</description>
@@ -59,107 +59,69 @@
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-bootstrap</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core-startup</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core</artifactId>
-      <version>RELEASE802</version>
-      <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-netbeans-swing-plaf</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-actions</artifactId>
-      <version>RELEASE802</version>
-      <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-awt</artifactId>
-      <version>RELEASE802</version>
-      <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-dialogs</artifactId>
-      <version>RELEASE802</version>
-      <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-explorer</artifactId>
-      <version>RELEASE802</version>
-      <exclusions>
-        <exclusion>
-            <groupId>*</groupId>
-            <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-filesystems</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-modules</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-nodes</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util-lookup</artifactId>
-      <version>RELEASE802</version>
+      <version>RELEASE110</version>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>netbeans</id>
-      <name>NetBeans</name>
-      <url>http://bits.netbeans.org/maven2/</url>
-    </repository>
-  </repositories>
 
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -198,7 +160,7 @@
             </manifest>
             <manifestEntries>
               <!-- <addClasspath/> is broken: http://jira.codehaus.org/browse/MJAR-61 -->
-              <Class-Path>javacpp.jar javacv-platform.jar org-netbeans-bootstrap.jar org-netbeans-core-startup.jar org-netbeans-core.jar org-netbeans-swing-plaf.jar org-openide-actions.jar org-openide-awt.jar org-openide-dialogs.jar org-openide-explorer.jar org-openide-filesystems.jar org-openide-modules.jar org-openide-nodes.jar org-openide-util.jar org-openide-util-lookup.jar</Class-Path>
+              <Class-Path>javacpp.jar javacv-platform.jar org-netbeans-api-annotations-common.jar org-netbeans-api-intent.jar org-netbeans-api-io.jar org-netbeans-api-progress.jar org-netbeans-api-progress-nb.jar org-netbeans-api-scripting.jar org-netbeans-api-templates.jar org-netbeans-bootstrap.jar org-netbeans-core.jar org-netbeans-core-startup-base.jar org-netbeans-core-startup.jar org-netbeans-libs-asm.jar org-netbeans-modules-editor-mimelookup.jar org-netbeans-modules-keyring.jar org-netbeans-modules-queries.jar org-netbeans-modules-sampler.jar org-netbeans-swing-outline.jar org-netbeans-swing-plaf.jar org-netbeans-swing-tabcontrol.jar org-openide-actions.jar org-openide-awt.jar org-openide-dialogs.jar org-openide-explorer.jar org-openide-filesystems.jar org-openide-filesystems-nb.jar org-openide-io.jar org-openide-loaders.jar org-openide-modules.jar org-openide-nodes.jar org-openide-text.jar org-openide-util.jar org-openide-util-lookup.jar org-openide-util-ui.jar org-openide-windows.jar</Class-Path>
               <Name>org/bytedeco/procamcalib/</Name>
               <Implementation-Title>${project.name}</Implementation-Title>
               <Implementation-Vendor>Samuel Audet</Implementation-Vendor>
@@ -268,19 +230,19 @@
                 <link>http://bytedeco.org/javacpp-presets/videoinput/apidocs</link>
                 <link>http://bytedeco.org/javacpp-presets/artoolkitplus/apidocs</link>
                 <link>http://bytedeco.org/javacv/apidocs</link>
-                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-bootstrap</link>
-                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-core-startup</link>
-                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-core</link>
-                <link>http://bits.netbeans.org/dev/javadoc/org-netbeans-swing-plaf</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-actions</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-awt</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-dialogs</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-explorer</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-filesystems</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-modules</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-nodes</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-util</link>
-                <link>http://bits.netbeans.org/8.0.2/javadoc/org-openide-util-lookup</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-bootstrap/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core-startup/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-netbeans-swing-plaf/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-actions/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-awt/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-dialogs/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-explorer/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-filesystems/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-modules/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-nodes/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util-lookup/RELEASE110</link>
               </links>
             </configuration>
           </execution>
