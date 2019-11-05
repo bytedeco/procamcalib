@@ -1,4 +1,9 @@
 
+### November 5, 2019 version 1.5.2
+ * Upgrade support to FFmpeg 4.2.x
+ * Add `RealSense2FrameGrabber` to capture images with librealsense2
+ * Fix `OpenCVFrameConverter` error in `IPCameraFrameGrabber`
+
 ### July 9, 2019 version 1.5.1
  * Upgrade support to OpenCV 4.1.x
  * Upgrade to NetBeans 11.0 with support for recent versions of Java SE ([issue #16](https://github.com/bytedeco/procamcalib/issues/16))
