@@ -1,4 +1,7 @@
 
+### April 14, 2020 version 1.5.3
+ * Upgrade support to OpenCV 4.3.x
+
 ### November 5, 2019 version 1.5.2
  * Upgrade support to FFmpeg 4.2.x
  * Add `RealSense2FrameGrabber` to capture images with librealsense2
