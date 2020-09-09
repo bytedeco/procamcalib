@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.bytedeco</groupId>
   <artifactId>procamcalib</artifactId>
-  <version>1.5.3</version>
+  <version>1.5.4</version>
 
   <name>ProCamCalib</name>
   <description>A User-Friendly Method to Calibrate Cameras and Projector-Camera Systems</description>

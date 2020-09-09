@@ -1,4 +1,7 @@
 
+### September 9, 2020 version 1.5.4
+ * Upgrade support to OpenCV 4.4.x and FFmpeg 4.3.x
+
 ### April 14, 2020 version 1.5.3
  * Upgrade support to OpenCV 4.3.x
 
