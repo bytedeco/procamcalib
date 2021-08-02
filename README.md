@@ -72,10 +72,10 @@ Source Code
 I make all the source code available on GitHub at https://github.com/bytedeco/procamcalib . You will also need the following to modify and build the application:
 
  * A C/C++ compiler
- * JavaCPP 1.5.5  https://github.com/bytedeco/javacpp
- * JavaCV  1.5.5  https://github.com/bytedeco/javacv
+ * JavaCPP 1.5.6  https://github.com/bytedeco/javacpp
+ * JavaCV  1.5.6  https://github.com/bytedeco/javacv
  * OpenCV 4.5.x  http://sourceforge.net/projects/opencvlibrary/files/
- * FFmpeg 4.3.x  http://ffmpeg.org/download.html
+ * FFmpeg 4.4.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
  * NetBeans 11.0  https://netbeans.apache.org/download/
  * Maven 3.x  http://maven.apache.org/download.html
