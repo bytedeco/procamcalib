@@ -77,7 +77,7 @@ I make all the source code available on GitHub at https://github.com/bytedeco/pr
  * OpenCV 4.5.x  http://sourceforge.net/projects/opencvlibrary/files/
  * FFmpeg 4.4.x  http://ffmpeg.org/download.html
  * ARToolKitPlus 2.3.x  https://launchpad.net/artoolkitplus
- * NetBeans 11.0  https://netbeans.apache.org/download/
+ * NetBeans 12.x  https://netbeans.apache.org/download/
  * Maven 3.x  http://maven.apache.org/download.html
 
 (The icons were shamelessly copied from the source code repository of NetBeans. Also licensed under the GPLv2.)

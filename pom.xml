@@ -59,67 +59,67 @@
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-bootstrap</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core-startup</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.modules</groupId>
       <artifactId>org-netbeans-core</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-netbeans-swing-plaf</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-actions</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-awt</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-dialogs</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-explorer</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-filesystems</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-modules</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-nodes</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
     <dependency>
       <groupId>org.netbeans.api</groupId>
       <artifactId>org-openide-util-lookup</artifactId>
-      <version>RELEASE110</version>
+      <version>RELEASE126</version>
     </dependency>
   </dependencies>
 
@@ -128,7 +128,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>3.8.1</version>
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
@@ -136,7 +136,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <executions>
           <execution>
             <goals>
@@ -151,7 +151,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifest>
@@ -173,14 +173,14 @@
       </plugin>
       <plugin>
         <artifactId>maven-install-plugin</artifactId>
-        <version>2.5.2</version>
+        <version>3.0.0-M1</version>
         <configuration>
           <createChecksum>true</createChecksum>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.0</version>
         <configuration>
           <attach>false</attach>
           <descriptors>
@@ -199,7 +199,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-source-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <id>attach-source</id>
@@ -211,7 +211,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.3.1</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -229,19 +229,19 @@
                 <link>http://bytedeco.org/javacpp-presets/videoinput/apidocs</link>
                 <link>http://bytedeco.org/javacpp-presets/artoolkitplus/apidocs</link>
                 <link>http://bytedeco.org/javacv/apidocs</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-bootstrap/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core-startup/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-netbeans-swing-plaf/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-actions/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-awt/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-dialogs/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-explorer/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-filesystems/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-modules/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-nodes/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util/RELEASE110</link>
-                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util-lookup/RELEASE110</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-bootstrap/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core-startup/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.modules/org-netbeans-core/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-netbeans-swing-plaf/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-actions/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-awt/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-dialogs/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-explorer/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-filesystems/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-modules/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-nodes/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util/RELEASE126</link>
+                <link>https://www.javadoc.io/doc/org.netbeans.api/org-openide-util-lookup/RELEASE126</link>
               </links>
             </configuration>
           </execution>
@@ -263,6 +263,24 @@
 
   <profiles>
     <profile>
+      <id>doclint-java8-disable</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <doclint>none</doclint>
+              <failOnError>false</failOnError>
+              <source>8</source>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
       <id>sign-artifacts</id>
       <activation>
         <property>
@@ -274,7 +292,7 @@
         <plugins>
           <plugin>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
+            <version>3.0.1</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
