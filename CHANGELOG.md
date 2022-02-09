@@ -1,4 +1,7 @@
 
+### February 11, 2022 version 1.5.7
+ * Upgrade support to FFmpeg 5.0.x
+
 ### August 2, 2021 version 1.5.6
  * Upgrade support to FFmpeg 4.4.x
 
