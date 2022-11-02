@@ -1,4 +1,9 @@
 
+### November 2, 2022 version 1.5.8
+ * Add workaround options for JDK 17+ in launch scripts ([issue #28](https://github.com/bytedeco/procamcalib/issues/28))
+ * Upgrade support to OpenCV 4.6.x
+ * Upgrade support to FFmpeg 5.1.x
+
 ### February 11, 2022 version 1.5.7
  * Upgrade support to FFmpeg 5.0.x
 

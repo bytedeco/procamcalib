@@ -12,6 +12,9 @@ OPTIONS=-Dapple.awt.fullscreencapturealldisplays=false
 # by default, but you can try to enable it here to get lower latency.
 #OPTIONS="-Dapple.awt.fullscreencapturealldisplays=false -Dsun.java2d.opengl=True"
 
+# Required options for JDK 17+ since not yet supported by NetBeans
+#OPTIONS="--add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED"
+
 java -d64 -server -version
 if [ $? -eq 0 ]
 then

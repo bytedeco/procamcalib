@@ -8,6 +8,9 @@ rem Under Windows, Java uses DirectX by default, but your video driver
 rem might work better with OpenGL than DirectX. Try to use this option...
 rem set OPTIONS=-Dsun.java2d.opengl=True
 
+rem Required options for JDK 17+ since not yet supported by NetBeans
+rem set "OPTIONS=--add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED"
+
 set JAVA=%SystemRoot%\system32\java
 if exist %JAVA%.exe goto CHECKSERVER
 set JAVA=java
